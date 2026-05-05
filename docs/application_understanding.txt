@@ -1,0 +1,1341 @@
+================================================================================
+TRICOG CARDIOCHECK — APPLICATION UNDERSTANDING DOCUMENT
+================================================================================
+Project       : Tricog CardioCheck QA
+Prepared by   : Wrex (QA Agent)
+Prepared for  : Reeva Kandroo, Tricog Health
+Date          : 2026-05-04
+Version       : 1.0
+Status        : Draft — Pending Development Team Review
+================================================================================
+
+TABLE OF CONTENTS
+-----------------
+1.  OBJECTIVE
+2.  APPLICATION OVERVIEW
+3.  USER ROLES
+4.  USER STORIES (US-001 through US-020)
+5.  NAVIGATION FLOW
+6.  FUNCTIONAL FEATURES
+7.  VALIDATION RULES
+8.  API ENDPOINTS
+9.  INTEGRATION POINTS
+10. ANOMALIES OBSERVED IN APP
+11. QUESTIONS FOR THE DEVELOPMENT TEAM
+12. TEST ENVIRONMENT DETAILS
+13. RISKS & DEPENDENCIES
+
+
+================================================================================
+1. OBJECTIVE
+================================================================================
+
+1.1 Purpose of CardioCheck
+--------------------------
+Tricog CardioCheck is a clinical-grade web application designed to enable
+cardiologists, general practitioners, and medical center staff to capture,
+manage, and interpret electrocardiogram (ECG) data for individual patients.
+The application performs automated risk stratification of ECG readings,
+classifying each result as Low, Moderate, or High risk, and delivers those
+assessments through a structured, audit-ready interface.
+
+CardioCheck sits at the intersection of medical device integration (Omron ECG
+hardware), cloud-hosted algorithmic processing, and a clinician-facing web
+portal — making it a regulated, safety-critical product where functional
+correctness and data integrity are non-negotiable.
+
+1.2 Purpose of This QA Effort
+------------------------------
+This QA effort exists to:
+
+  a) Provide independent verification that every declared feature behaves as
+     specified, from happy-path flows to adversarial edge cases.
+
+  b) Surface defects that could compromise patient safety, data accuracy, or
+     regulatory compliance (specifically HIPAA) before the application reaches
+     production clinical environments.
+
+  c) Establish a repeatable, documented test baseline for future regression
+     cycles as the product evolves.
+
+  d) Identify architectural and UX risks that may not manifest as outright bugs
+     but represent latent quality gaps — session handling vulnerabilities,
+     inadequate error messaging, missing rate limiting, etc.
+
+  e) Produce artefacts (test cases, defect reports, metrics) that satisfy
+     managerial and regulatory review requirements.
+
+The target release under test is v1.4.0, deployed at:
+  https://cardiocheck-releasev140.up.railway.app
+
+
+================================================================================
+2. APPLICATION OVERVIEW
+================================================================================
+
+2.1 Technology Stack
+--------------------
+
+  FRONTEND
+  --------
+  Framework       : Flutter Web (Dart)
+  Renderer        : CanvasKit (WASM-based Skia renderer)
+  Architecture    : Single Page Application (SPA)
+  State Mgmt      : (to be confirmed with dev team — likely Riverpod or BLoC)
+  Routing         : Flutter Navigator 2.0 / GoRouter (inferred)
+  Notable quirk   : All UI is rendered onto an HTML5 <canvas> element via
+                    CanvasKit. Standard DOM input elements do NOT exist for most
+                    form fields. Interaction with text inputs requires the Flutter
+                    accessibility tree to be activated by clicking the
+                    flt-semantics-placeholder element before Playwright (or any
+                    test automation) can interact with inputs using
+                    pressSequentially() — fill() does NOT work.
+
+  BACKEND
+  -------
+  Language        : Go
+  Framework       : Gin (HTTP router)
+  ORM             : GORM
+  Database        : MySQL (hosted, inferred from BIGINT/UUID coercion behavior)
+  Auth middleware : JWT Bearer token validation on all protected routes
+  Deployment      : Railway.app (containerized)
+  URL             : https://cardiocheck-releasev140.up.railway.app (same origin
+                    or separate backend service — to be confirmed)
+
+  AUTHENTICATION
+  --------------
+  Identity Provider : AWS Cognito (handles credential verification, MFA if
+                      configured, password reset flows)
+  Token Exchange    : After Cognito auth, the app exchanges the Cognito token
+                      with a Tricog UMS (User Management Service) to obtain a
+                      proprietary JWT
+  Token Properties  : 1-hour TTL, silent refresh triggered on HTTP 401 responses
+  Transport         : Bearer token on Authorization header for all API calls
+
+  INFRASTRUCTURE
+  --------------
+  Cloud             : AWS (Cognito, S3 for PDF/assets)
+  Container Host    : Railway.app
+  CDN/Storage       : S3 (inferred — PDF export likely stored/served from S3)
+  Firebase          : Referenced in codebase but currently commented out in
+                      pubspec.yaml (not active in v1.4.0)
+  Algorithm Service : Separate microservice for ECG risk scoring (exact endpoint
+                      TBC)
+
+2.2 Deployment
+--------------
+  Application URL       : https://cardiocheck-releasev140.up.railway.app
+  Mock Omron Ingest URL : https://mock-omron-releasev140.up.railway.app
+  Environment           : Release candidate (v1.4.0) on Railway
+  Protocol              : HTTPS (TLS enforced)
+
+
+================================================================================
+3. USER ROLES
+================================================================================
+
+3.1 Doctor / Cardiologist (Primary User)
+-----------------------------------------
+The principal end user. A licensed medical professional who:
+  - Logs in with their Tricog-issued credentials
+  - Belongs to one or more medical centers (organizations)
+  - Reviews ECG results, assigns risk assessments, and provides clinical
+    feedback
+  - Exports ECG reports as PDF for patient records
+  - May switch between centers if affiliated with multiple
+
+3.2 Medical Center Staff / Technician (Secondary User)
+-------------------------------------------------------
+A non-physician operator who may:
+  - Set up new ECG recordings by entering patient information
+  - Trigger ECG captures via Omron device or mock API
+  - View ECG list and status but may have restricted interpretation access
+    (role separation is TBC — the current app does not appear to enforce
+    separate permission levels beyond the doctors table row)
+
+3.3 System Administrator (Background Role)
+-------------------------------------------
+Manages user accounts, center affiliations, and Omron credential configuration
+through Tricog's back-office UMS. Does not interact with CardioCheck UI
+directly.
+
+3.4 Unauthenticated User (Pre-Login State)
+-------------------------------------------
+Any visitor who reaches the app URL before authenticating. Should only be able
+to access /login, /forgot-password, and /reset-password. All other routes must
+redirect to /login.
+
+
+================================================================================
+4. USER STORIES
+================================================================================
+
+All user stories are written from the perspective of a Doctor unless otherwise
+noted. Stories are prioritized as P1 (critical path), P2 (important), P3 (nice
+to have / edge case).
+
+US-001 | Login with Valid Credentials                                    [P1]
+------------------------------------------------------------------------
+As a doctor,
+I want to log in using my registered email and password,
+so that I can access my ECG dashboard and patient records securely.
+
+Acceptance criteria:
+  - Valid credentials navigate to /ecgs after successful Cognito + UMS token
+    exchange
+  - Bearer token is stored and applied to all subsequent API calls
+  - Session persists across page refreshes within the 1-hour token TTL
+  - EULA screen appears on first login and must be accepted before proceeding
+
+US-002 | EULA Acceptance on First Login                                  [P1]
+------------------------------------------------------------------------
+As a doctor using CardioCheck for the first time,
+I want to be shown the End User License Agreement,
+so that I can review and accept the terms before accessing patient data.
+
+Acceptance criteria:
+  - EULA screen is displayed after first successful login
+  - User cannot proceed to dashboard without accepting EULA
+  - Acceptance is recorded server-side and not shown again on subsequent logins
+  - Declining EULA logs the user out
+
+US-003 | Forgot Password Flow                                            [P1]
+------------------------------------------------------------------------
+As a doctor who has forgotten their password,
+I want to initiate a password reset from the login page,
+so that I can regain access to my account without contacting support.
+
+Acceptance criteria:
+  - Forgot Password link on /login navigates to /forgot-password
+  - Submitting a registered email sends a reset code via AWS Cognito
+  - Submitting an unregistered email shows an appropriate error (or generic
+    message to prevent user enumeration)
+  - Reset code entry and new password submission on /reset-password completes
+    the flow and allows login with the new password
+
+US-004 | Logout                                                          [P1]
+------------------------------------------------------------------------
+As a doctor,
+I want to log out of CardioCheck,
+so that my session is terminated and unauthorized access to patient data is
+prevented when I leave my workstation.
+
+Acceptance criteria:
+  - Logout option is accessible from the Profile module
+  - On logout, JWT is invalidated/cleared from local storage
+  - User is redirected to /login
+  - Back-navigation after logout does not expose protected routes
+
+US-005 | View ECG Dashboard (List)                                       [P1]
+------------------------------------------------------------------------
+As a doctor,
+I want to see a paginated list of all ECG records associated with my center,
+so that I can quickly locate and review patient ECG data.
+
+Acceptance criteria:
+  - /ecgs displays a list of ECG records with key metadata (patient ID, date,
+    risk level, status)
+  - Pagination controls allow navigation through large record sets
+  - New ECG badge/indicator is visible on records that have not yet been reviewed
+  - List updates when new ECGs are ingested
+
+US-006 | Search ECG Records                                              [P1]
+------------------------------------------------------------------------
+As a doctor,
+I want to search for a specific patient's ECG record by patient ID or name,
+so that I can find relevant records quickly without scrolling through the
+entire list.
+
+Acceptance criteria:
+  - Search field accepts alphanumeric input
+  - Results filter in real time or on submit
+  - Empty search state returns the full list
+  - Search with no matches shows a clear "no results" message
+  - Search is not case-sensitive
+
+US-007 | Create New ECG — Enter Patient Information                      [P1]
+------------------------------------------------------------------------
+As a doctor,
+I want to enter patient demographic information before an ECG reading,
+so that the resulting risk assessment is linked to the correct patient record.
+
+Acceptance criteria:
+  - /ecg/:id/patient form is accessible after a new ECG record is created
+  - Patient ID: 6–12 alphanumeric characters (^[a-zA-Z0-9]{6,12}$)
+  - Age: integer 18–150 inclusive
+  - Gender: selection of male / female / other
+  - Name: optional, letters and spaces only, maximum 100 characters
+  - Invalid inputs show inline validation errors before allowing submission
+  - Successful submission navigates to risk assessment view
+
+US-008 | View ECG Risk Assessment Result                                 [P1]
+------------------------------------------------------------------------
+As a doctor,
+I want to view the automated risk assessment result for an ECG,
+so that I can make an informed clinical decision for the patient.
+
+Acceptance criteria:
+  - /ecg/:id/result displays risk level: Low (green), Moderate (yellow/amber),
+    or High (red) with clear color coding
+  - The result page shows the ECG waveform or summary (TBC)
+  - Poor-quality ECG (POOR_QUALITY_ECG state) is communicated clearly to the
+    user with actionable guidance
+  - Result is read-only and cannot be altered by the user
+
+US-009 | Provide Clinical Feedback on ECG                               [P2]
+------------------------------------------------------------------------
+As a doctor,
+I want to submit clinical feedback on an ECG result,
+so that my observations are recorded alongside the automated risk assessment
+for audit and follow-up purposes.
+
+Acceptance criteria:
+  - Feedback input is available on the result page
+  - Feedback is saved server-side and associated with the ECG record
+  - Feedback can be viewed on subsequent visits to the result page
+  - Character limit on feedback field (limit TBC with dev team)
+
+US-010 | Export ECG Report as PDF                                        [P1]
+------------------------------------------------------------------------
+As a doctor,
+I want to export an ECG result and patient summary as a PDF,
+so that I can include it in the patient's physical or digital medical record.
+
+Acceptance criteria:
+  - Export PDF button is available on the result page
+  - Generated PDF contains patient information, ECG risk level, and assessment
+    details
+  - PDF is either downloaded directly or opened in a new browser tab
+  - PDF generation completes within an acceptable time window (target: <5s)
+  - PDF contains no PHI beyond what is displayed on the result page
+
+US-011 | View and Edit Profile                                           [P2]
+------------------------------------------------------------------------
+As a doctor,
+I want to view and update my profile information,
+so that my contact details and display name remain current in the system.
+
+Acceptance criteria:
+  - /profile displays the logged-in doctor's name, email, and affiliated center
+  - Editable fields (TBC) can be updated and saved
+  - Changes are persisted server-side and reflected on next profile load
+
+US-012 | Switch Medical Center                                           [P2]
+------------------------------------------------------------------------
+As a doctor affiliated with multiple medical centers,
+I want to switch between centers from my profile,
+so that I can review ECG records specific to each center I work at.
+
+Acceptance criteria:
+  - /profile/center-selection displays all centers the doctor is affiliated with
+  - Selecting a different center updates the active center context
+  - ECG list on /ecgs reflects only records from the currently selected center
+  - Center switch does not require re-authentication
+
+US-013 | Configure Omron ECG Device Credentials                         [P2]
+------------------------------------------------------------------------
+As a doctor or center administrator,
+I want to configure the Omron ECG device credentials for my center,
+so that ECG readings captured by the Omron device are routed to my center's
+records in CardioCheck.
+
+Acceptance criteria:
+  - /profile/omron-credentials allows entering and saving Omron device token
+  - Saved credentials are associated with the correct center
+  - Invalid credentials produce a clear error message
+  - Credentials are not displayed in plaintext after initial save (masked)
+
+US-014 | Receive New ECG via Omron Integration                          [P1]
+------------------------------------------------------------------------
+As a doctor,
+I want a new ECG record to appear in my dashboard when a patient's reading
+is captured via the Omron device,
+so that I am alerted to new data requiring review without manual upload.
+
+Acceptance criteria:
+  - ECG ingested via POST to mock Omron endpoint appears in the ECG list
+  - New ECG badge is displayed on the record
+  - Risk level (low/moderate/high) specified at ingest time is correctly
+    reflected in the assessment result
+
+US-015 | Offline Notification                                            [P2]
+------------------------------------------------------------------------
+As a doctor working in a clinic with unreliable internet,
+I want to be notified when the application has lost network connectivity,
+so that I am aware that data may not be current and submissions will fail.
+
+Acceptance criteria:
+  - An "offline" banner or indicator is displayed when network is lost
+  - Banner is dismissed or replaced when connectivity is restored ("online"
+    notification)
+  - The app does not silently fail API calls while offline — errors are
+    communicated
+
+US-016 | Session Expiry and Silent Refresh                              [P1]
+------------------------------------------------------------------------
+As a doctor in a long clinical session,
+I want my session to refresh automatically when the JWT nears expiry,
+so that I am not interrupted mid-workflow by unexpected logouts.
+
+Acceptance criteria:
+  - On a 401 response from the backend, the app attempts a silent token refresh
+  - If refresh succeeds, the original failed request is retried transparently
+  - If refresh fails (e.g., Cognito session expired), the user is redirected to
+    /login with a message explaining the session has ended
+  - No patient data is lost due to session expiry during form entry
+
+US-017 | Access Control — Route Protection                              [P1]
+------------------------------------------------------------------------
+As a security-conscious administrator,
+I want all protected routes to redirect unauthenticated users to /login,
+so that patient data is never exposed to unauthorized visitors.
+
+Acceptance criteria:
+  - Direct URL access to /ecgs, /ecg/:id/patient, /ecg/:id/result, /profile,
+    /profile/center-selection, /profile/omron-credentials without a valid token
+    redirects to /login
+  - Tampered or expired tokens are rejected and do not grant access
+  - A doctor from Center A cannot access ECG records belonging to Center B
+
+US-018 | Accessibility Tree Activation (Flutter CanvasKit)              [P2]
+------------------------------------------------------------------------
+As a user relying on assistive technology (screen reader),
+I want to interact with the CardioCheck forms using keyboard and assistive tools,
+so that the application is usable regardless of ability.
+
+Acceptance criteria:
+  - Clicking the flt-semantics-placeholder element activates the Flutter
+    accessibility tree
+  - All form inputs are reachable and operable via keyboard after activation
+  - Focus order is logical and follows the visual flow of the form
+  - WCAG 2.1 AA compliance is met for all interactive elements
+
+US-019 | Password Reset — Token Expiry                                  [P2]
+------------------------------------------------------------------------
+As a doctor who requested a password reset but delayed completing it,
+I want to receive a clear error if my reset token has expired,
+so that I know I need to request a new reset link rather than retrying the
+same expired one.
+
+Acceptance criteria:
+  - Submitting an expired reset token on /reset-password shows a clear,
+    user-friendly error
+  - Error message does not expose internal token details
+  - A link or prompt to request a new reset email is provided
+
+US-020 | Multi-Device / Multi-Tab Behavior                             [P3]
+------------------------------------------------------------------------
+As a doctor who works across multiple devices or browser tabs,
+I want my session state to remain consistent,
+so that logging out on one tab/device also protects access on others.
+
+Acceptance criteria:
+  - Logging out in one tab prevents continued API access in a second open tab
+    within a reasonable time window
+  - Token stored in local storage / session storage is cleared on logout
+    across all tabs (or a cross-tab logout mechanism is in place)
+  - No stale data is served from the second tab after logout
+
+
+================================================================================
+5. NAVIGATION FLOW
+================================================================================
+
+5.1 Route Map
+-------------
+
+  PUBLIC ROUTES (no auth required)
+  ---------------------------------
+  /login              → Login form (email + password)
+  /forgot-password    → Forgot Password form (email input)
+  /reset-password     → Reset Password form (token + new password)
+
+  PROTECTED ROUTES (Bearer token required)
+  -----------------------------------------
+  /ecgs                          → ECG Dashboard (main list view)
+  /ecg/:id/patient               → Patient Information Form for ECG record :id
+  /ecg/:id/result                → Risk Assessment Result for ECG record :id
+  /profile                       → User profile view/edit
+  /profile/center-selection      → Medical center switcher
+  /profile/omron-credentials     → Omron device credential configuration
+
+  IMPLICIT ROUTES / OVERLAYS
+  ---------------------------
+  EULA Screen                    → Modal/overlay displayed post-login on first
+                                   login; blocks navigation until accepted
+
+5.2 Navigation Transitions
+--------------------------
+
+  [Unauthenticated]
+    → /login
+      → (valid credentials) → [Cognito auth] → [UMS token exchange]
+        → (first login) → EULA screen → /ecgs
+        → (returning user) → /ecgs
+      → "Forgot Password" link → /forgot-password
+        → (email submitted) → reset code sent → /reset-password
+          → (valid token + new password) → /login
+
+  [Authenticated - /ecgs]
+    → Click ECG record → /ecg/:id/result   (existing, processed ECG)
+    → Create new ECG  → /ecg/:id/patient   (new record needing patient info)
+                       → (form submitted)  → /ecg/:id/result
+    → Profile icon    → /profile
+                       → Center Selection  → /profile/center-selection
+                       → Omron Credentials → /profile/omron-credentials
+                       → Logout            → /login
+
+  [Any Protected Route — no valid token]
+    → Redirect → /login
+
+5.3 Deep Link Behavior
+-----------------------
+  - Direct navigation to /ecg/:id/result without a valid token → /login
+  - Post-login redirect: app should ideally return the user to their originally
+    requested URL (deep link handling — behavior to be confirmed with dev team)
+
+
+================================================================================
+6. FUNCTIONAL FEATURES
+================================================================================
+
+6.1 Authentication Module
+--------------------------
+CardioCheck uses a two-stage authentication pipeline:
+
+  Stage 1 — AWS Cognito:
+    User credentials (email + password) are submitted to Cognito. Cognito
+    validates against its user pool and returns a Cognito ID token or access
+    token. Password policies and MFA (if configured) are enforced at this layer.
+
+  Stage 2 — UMS JWT Exchange:
+    The Cognito token is exchanged with Tricog's internal User Management
+    Service (UMS) for a proprietary JWT. This JWT carries:
+      - Doctor identity (user ID, email)
+      - Organization/center affiliation
+      - Role claims (to be confirmed)
+      - 1-hour TTL
+
+  Silent Refresh:
+    On receiving HTTP 401 from any API call, the app intercepts the response,
+    attempts to silently obtain a new JWT from UMS (using a refresh token or
+    Cognito re-auth — mechanism TBC), and retries the original request if
+    successful. If refresh fails, the user is redirected to /login.
+
+  EULA:
+    On first login, a full-page EULA screen is rendered. The user must
+    scroll and accept. Acceptance state is stored server-side against the
+    doctor's account. Non-acceptance terminates the session.
+
+  Logout:
+    Clears the JWT from client-side storage, optionally revokes the Cognito
+    session, and redirects to /login.
+
+6.2 ECG Dashboard (List Module)
+---------------------------------
+The primary post-login view, accessible at /ecgs. It displays a list of ECG
+records scoped to the active medical center. Key behaviors:
+
+  - Record list is fetched from the backend on load and on center switch
+  - Each record shows: patient identifier, date/time, risk level badge,
+    review status
+  - "New ECG" badge indicates records that have been ingested but not yet
+    reviewed by the doctor
+  - Search: accepts text input to filter records by patient ID or name
+  - Pagination: navigates through records in configurable page sizes
+    (page size TBC)
+  - Clicking a processed record opens /ecg/:id/result
+  - Clicking an unprocessed/new record opens /ecg/:id/patient
+
+6.3 Patient Information Form
+------------------------------
+Accessed at /ecg/:id/patient. Collects demographic data before ECG processing.
+
+  Fields:
+    Patient ID  : Required. Must match ^[a-zA-Z0-9]{6,12}$
+    Age         : Required. Integer between 18 and 150 inclusive
+    Gender      : Required. One of: male, female, other
+    Name        : Optional. Letters and spaces only, max 100 characters
+
+  Behavior:
+    - All validation runs client-side before form submission
+    - Server-side validation (assumed) acts as a secondary gate
+    - Successful submission POSTs patient data to the backend and triggers
+      or awaits the ECG algorithm processing
+    - User is navigated to /ecg/:id/result after submission
+
+6.4 Risk Assessment Module
+---------------------------
+Accessed at /ecg/:id/result. Displays the output of the ECG algorithm service.
+
+  Risk Levels:
+    Low      → Green indicator — no immediate cardiac risk flagged
+    Moderate → Amber/Yellow indicator — review recommended
+    High     → Red indicator — urgent clinical attention required
+
+  States:
+    PROCESSED        → Normal result display with risk level
+    POOR_QUALITY_ECG → ECG signal quality insufficient for analysis;
+                       error state displayed (current UX clarity is under review
+                       — see ANOMALY-005)
+    PENDING          → Processing in progress (loading state TBC)
+    ERROR            → Unexpected algorithm failure (behavior TBC)
+
+  Actions available on result page:
+    - Submit clinical feedback (text input)
+    - Export as PDF
+
+6.5 PDF Export
+---------------
+From the result page, the doctor can export a report containing:
+  - Patient demographics (as entered in Patient Information Form)
+  - ECG risk assessment result and color indicator
+  - Clinical feedback (if provided)
+  - Tricog branding and timestamp
+
+  PDF generation is likely handled server-side with the file delivered as a
+  download or S3-signed URL. Generation time target: <5 seconds.
+
+6.6 Profile Module
+-------------------
+Accessed at /profile. Displays the logged-in doctor's information.
+
+  Sub-routes:
+    /profile/center-selection   → Lists all centers the doctor is affiliated
+                                  with. Selecting a center updates the active
+                                  context used for the ECG list.
+    /profile/omron-credentials  → Interface for entering/updating the Omron
+                                  device authentication token for the active
+                                  center.
+
+  Logout:
+    Accessible from the profile screen. Clears session and redirects to /login.
+
+6.7 Multi-Center Support
+--------------------------
+A doctor may belong to multiple medical centers. The active center determines
+which ECG records are visible in the dashboard. Center switching is performed
+via /profile/center-selection and takes effect immediately (no re-auth needed).
+
+  Known Issue: The organization ID field in the database is typed as BIGINT,
+  but the UMS JWT carries the organization identifier as a UUID. MySQL coerces
+  the UUID string to an integer (typically 0), breaking organization-based
+  lookups. As a result, access control for center-specific data relies on a
+  doctors table join rather than the organizations.id field. This is
+  ANOMALY-001 and represents a significant architectural risk.
+
+6.8 Network Connectivity Module
+---------------------------------
+The application monitors browser network status events and displays visual
+banners:
+  - Offline banner: displayed when navigator.onLine = false or API calls
+    consistently fail due to network loss
+  - Online banner: displayed when connectivity is restored
+
+  Behavior during offline period:
+    - New API calls should fail gracefully with user-visible errors
+    - The app must not silently drop or corrupt data during reconnection
+
+6.9 Omron ECG Integration
+--------------------------
+Omron is a hardware ECG device whose readings are ingested into CardioCheck
+via an HTTP ingest endpoint.
+
+  Production flow:
+    Omron device → POST to Tricog ingest service → ECG record created in
+    CardioCheck backend → doctor sees new ECG in dashboard
+
+  Mock flow (v1.4.0 testing):
+    curl -X POST \
+      "https://mock-omron-releasev140.up.railway.app/_mock/ingest/sample" \
+      -H "x-mock-token: <token>" \
+      -d "risk=low|moderate|high"
+
+  The mock endpoint creates a synthetic ECG record with the specified risk
+  level. The x-mock-token must be the value configured in
+  /profile/omron-credentials for the active center.
+
+6.10 Security Module (Cross-Cutting)
+--------------------------------------
+Security is enforced at multiple layers:
+  - All routes protected by JWT Bearer token middleware
+  - HTTPS-only transport
+  - Input validation on Patient Information Form (client + server)
+  - Session expiry and silent refresh
+  - Center-scoped data access (subject to ANOMALY-001 limitations)
+
+  Areas of concern (see also Section 10):
+  - No visible rate limiting on /login endpoint
+  - No CSRF token observed (may be handled by SameSite cookie policy or
+    Bearer-only auth — to be confirmed)
+  - Injection surface: Patient ID, Name, and Feedback fields
+
+
+================================================================================
+7. VALIDATION RULES
+================================================================================
+
+7.1 Patient Information Form
+------------------------------
+
+  Field       | Rule                                        | Error Condition
+  ------------|---------------------------------------------|------------------
+  Patient ID  | Required                                    | Blank → error
+              | Regex: ^[a-zA-Z0-9]{6,12}$                 | < 6 chars → error
+              |                                             | > 12 chars → error
+              |                                             | Special chars → err
+              |                                             | Unicode → error
+  ------------|---------------------------------------------|------------------
+  Age         | Required                                    | Blank → error
+              | Integer only (no decimals)                  | Non-int → error
+              | Minimum: 18                                 | 17 → error
+              | Maximum: 150                                | 151 → error
+              | Boundary: 18 and 150 are valid              |
+  ------------|---------------------------------------------|------------------
+  Gender      | Required                                    | Unselected → error
+              | One of: male, female, other                 | Invalid val → err
+  ------------|---------------------------------------------|------------------
+  Name        | Optional                                    | No error if blank
+              | Letters (a-z, A-Z) and spaces only          | Digits → error
+              | Maximum: 100 characters                     | > 100 chars → err
+              | Special characters not allowed              | Special ch → error
+              | Unicode/emoji not allowed (assumed)         | Unicode → error
+  ------------|---------------------------------------------|------------------
+
+7.2 Login Form
+---------------
+
+  Field       | Rule                                        | Notes
+  ------------|---------------------------------------------|------------------
+  Email       | Required                                    | Format validation
+              | Valid email format                          | via Cognito
+  ------------|---------------------------------------------|------------------
+  Password    | Required                                    | Cognito enforces
+              | Min length: 8 chars (Cognito default)       | complexity policy
+              | Complexity: TBC (upper, number, special)    |
+  ------------|---------------------------------------------|------------------
+
+7.3 Forgot Password Form
+-------------------------
+
+  Field       | Rule
+  ------------|----------------------------------------------
+  Email       | Required; valid email format
+
+7.4 Reset Password Form
+------------------------
+
+  Field           | Rule
+  ----------------|------------------------------------------
+  Reset Token     | Required; provided via email link or code
+  New Password    | Required; meets Cognito password policy
+  Confirm Password| Required; must match New Password
+
+7.5 Clinical Feedback (Result Page)
+-------------------------------------
+
+  Field    | Rule
+  ---------|-----------------------------------------------------
+  Feedback | Optional (assumption); character limit TBC
+           | Should prevent XSS via script injection
+
+7.6 Omron Credentials Form
+---------------------------
+
+  Field        | Rule
+  -------------|----------------------------------------------------
+  Device Token | Required; format TBC (likely alphanumeric string)
+               | Should be stored securely (masked after save)
+
+
+================================================================================
+8. API ENDPOINTS
+================================================================================
+
+The following endpoints are inferred from the application's architecture,
+routing behavior, and feature set. Exact paths must be confirmed with the
+development team.
+
+  METHOD | ENDPOINT                                | AUTH     | PURPOSE
+  -------|----------------------------------------|----------|------------------
+  POST   | /auth/login                             | None     | Cognito credential
+         |                                         |          | submission & UMS
+         |                                         |          | token exchange
+  POST   | /auth/logout                            | Bearer   | Invalidate session
+  POST   | /auth/forgot-password                   | None     | Trigger Cognito
+         |                                         |          | password reset
+  POST   | /auth/reset-password                    | None     | Submit reset token
+         |                                         |          | and new password
+  POST   | /auth/refresh                           | Refresh  | Silent token
+         |                                         | token    | refresh
+  GET    | /auth/eula                              | Bearer   | Check EULA status
+  POST   | /auth/eula/accept                       | Bearer   | Record EULA
+         |                                         |          | acceptance
+  GET    | /ecgs                                   | Bearer   | List ECG records
+         |                                         |          | (paginated,
+         |                                         |          | filterable)
+  POST   | /ecgs                                   | Bearer   | Create new ECG
+         |                                         |          | record
+  GET    | /ecgs/:id                               | Bearer   | Get ECG record
+         |                                         |          | detail
+  PUT    | /ecgs/:id/patient                       | Bearer   | Submit patient
+         |                                         |          | information
+  GET    | /ecgs/:id/result                        | Bearer   | Get risk
+         |                                         |          | assessment result
+  POST   | /ecgs/:id/feedback                      | Bearer   | Submit clinical
+         |                                         |          | feedback
+  GET    | /ecgs/:id/pdf                           | Bearer   | Generate/fetch
+         |                                         |          | PDF export
+  GET    | /profile                                | Bearer   | Get user profile
+  PUT    | /profile                                | Bearer   | Update user profile
+  GET    | /profile/centers                        | Bearer   | List affiliated
+         |                                         |          | centers
+  PUT    | /profile/centers/active                 | Bearer   | Switch active
+         |                                         |          | center
+  GET    | /profile/omron-credentials              | Bearer   | Get Omron creds
+  PUT    | /profile/omron-credentials              | Bearer   | Update Omron creds
+  POST   | /_mock/ingest/sample (mock Omron host)  | x-mock-  | Trigger mock ECG
+         |                                         | token    | ingest
+
+
+================================================================================
+9. INTEGRATION POINTS
+================================================================================
+
+9.1 AWS Cognito
+----------------
+  Role          : Identity Provider
+  Integration   : CardioCheck frontend submits email/password to Cognito hosted
+                  UI or API. Cognito validates and returns tokens.
+  Failure modes : Invalid credentials, locked account, expired password,
+                  MFA challenge (if enabled), Cognito service outage
+  Test concern  : Cognito rate limiting behavior; behavior when Cognito is
+                  unavailable; whether error messages leak user enumeration
+                  data
+
+9.2 Tricog UMS (User Management Service)
+-----------------------------------------
+  Role          : Token exchange and user context provider
+  Integration   : Cognito token → UMS → proprietary JWT with doctor info,
+                  center affiliations, role claims
+  Failure modes : UMS unavailable, Cognito token rejected by UMS, JWT
+                  generation error
+  Known issue   : Organization ID in JWT is UUID, but DB organizations.id is
+                  BIGINT — coercion to 0 breaks org-based lookups (ANOMALY-001)
+  Test concern  : What happens when UMS is down? Does the app fail gracefully?
+                  Are there fallback auth paths?
+
+9.3 Mock Omron Ingest Service
+------------------------------
+  Role          : Simulates Omron ECG device in test environment
+  Endpoint      : https://mock-omron-releasev140.up.railway.app/_mock/ingest/sample
+  Auth          : x-mock-token header (value from /profile/omron-credentials)
+  Payload       : risk=low|moderate|high (form-encoded, exact format TBC)
+  Failure modes : Missing/invalid token, invalid risk value, service unavailable
+  Test concern  : Does missing x-mock-token return 401? Does an invalid risk
+                  value cause an error or default behavior?
+
+9.4 ECG Algorithm Service
+--------------------------
+  Role          : Processes raw ECG data and returns risk classification
+  Integration   : Called by backend after patient information is submitted
+  Output        : Risk level (LOW/MODERATE/HIGH) or error state
+                  (POOR_QUALITY_ECG, ERROR)
+  Failure modes : Algorithm timeout, poor signal quality, unexpected payload
+  Test concern  : POOR_QUALITY_ECG state handling in UI (ANOMALY-005);
+                  timeout behavior; whether resubmission is possible
+
+9.5 AWS S3
+-----------
+  Role          : Storage for PDF exports and potentially ECG signal files
+  Integration   : Backend generates PDF and stores in S3; returns signed URL
+                  or file stream to client
+  Failure modes : S3 bucket unavailable, expired signed URL, permission error
+  Test concern  : Do expired signed URLs expose an error or gracefully fail?
+                  Are S3 buckets private?
+
+9.6 Firebase (Inactive — v1.4.0)
+----------------------------------
+  Role          : Originally intended for push notifications or analytics
+                  (exact purpose TBC)
+  Status        : Package is commented out in pubspec.yaml; not active in
+                  current release
+  Test concern  : Are there dead code paths that reference Firebase and could
+                  cause silent failures? Is the intent to re-enable in a future
+                  release?
+
+9.7 Flutter CanvasKit (Renderer)
+----------------------------------
+  Role          : Web renderer for the Flutter UI
+  Behavior      : Renders all UI elements to an HTML5 canvas. Standard HTML
+                  form elements are not present in the DOM for most inputs.
+                  Playwright and other automation tools must interact via the
+                  Flutter accessibility tree, requiring the
+                  flt-semantics-placeholder element to be clicked first.
+  Integration   : All UI testing must account for this rendering model.
+
+
+================================================================================
+10. ANOMALIES OBSERVED IN APP
+================================================================================
+
+ANOMALY-001 | Organization ID Type Mismatch (UUID vs BIGINT)           [CRITICAL]
+---------------------------------------------------------------------------
+Description:
+  The organizations table in MySQL uses a BIGINT primary key (organizations.id).
+  However, the UMS JWT carries the organization identifier as a UUID string
+  (e.g., "a3f7c891-4b12-4e3a-9c21-d8f0e1234567"). When the backend performs
+  a database lookup using the UUID from the JWT, MySQL coerces the UUID string
+  to an integer. Strings beginning with non-numeric characters coerce to 0;
+  strings beginning with numeric characters coerce to the leading integer
+  portion. This results in organization ID lookups always resolving incorrectly
+  or to the wrong organization.
+
+Impact:
+  Organization-based data access is effectively broken. The backend has
+  compensated by routing access control through the doctors table (joining on
+  doctor user ID rather than organization ID), but this is an undocumented
+  workaround. It creates a risk that:
+    a) New features relying on organizations.id-based queries will silently fail
+    b) Edge cases in center-switching may expose records from incorrect centers
+    c) Future developers may not be aware of this workaround
+
+Severity    : Critical
+Category    : Data Integrity / Access Control
+Workaround  : doctors table join currently used; organizations.id path is broken
+Recommended : Migrate organizations.id to VARCHAR/UUID type, or store UUID in
+              a separate column and update all JWT claims to use the correct key
+
+---
+
+ANOMALY-002 | Firebase Setup Incomplete (Commented Out)                 [MEDIUM]
+---------------------------------------------------------------------------
+Description:
+  Firebase SDK is referenced in the project's pubspec.yaml but has been
+  commented out. The intended functionality (push notifications, analytics,
+  or crash reporting) is not active in v1.4.0.
+
+Impact:
+  - Any code paths that conditionally invoke Firebase APIs may throw null
+    pointer exceptions or fail silently at runtime
+  - If Firebase was intended to provide crash reporting, production errors
+    are not being captured
+  - Developers may not be aware of the incomplete integration during code review
+
+Severity    : Medium
+Category    : Dead Code / Missing Feature
+Recommended : Either fully remove Firebase references from the codebase or
+              complete the integration with proper initialization guards
+
+---
+
+ANOMALY-003 | Platform-Specific Backend URL Detection Edge Cases         [LOW]
+---------------------------------------------------------------------------
+Description:
+  The Flutter app detects whether it is running in a web browser or on a
+  native platform to determine the backend API base URL. This detection
+  mechanism may produce incorrect behavior in edge cases:
+    - Running in a Flutter Web build served from a non-standard hostname
+    - Localhost development vs. staging vs. production URL switching
+    - If the detection uses kIsWeb (compile-time constant), release builds
+      should be consistent, but debug and profile builds may behave differently
+
+Impact:
+  - API calls may be directed to wrong environment (dev vs. prod)
+  - Silent data isolation failures in test environments
+
+Severity    : Low
+Category    : Configuration / Environment Management
+Recommended : Use explicit environment variable injection at build time rather
+              than runtime detection; validate via build pipeline
+
+---
+
+ANOMALY-004 | Flutter CanvasKit Input Interaction (pressSequentially)    [HIGH]
+---------------------------------------------------------------------------
+Description:
+  Because CardioCheck renders its UI via CanvasKit (canvas-based rendering),
+  form input elements do not exist as standard HTML <input> elements in the
+  DOM. Playwright's fill() method — which locates an input by its DOM role and
+  sets its value — does not work. Instead, test automation must:
+    1. Click the flt-semantics-placeholder element to activate Flutter's
+       accessibility tree
+    2. Locate inputs through their accessible labels in the accessibility tree
+    3. Use pressSequentially() (character-by-character key simulation) instead
+       of fill() to type into the fields
+
+Impact:
+  - All automated testing must use this specific interaction pattern
+  - Tests written without this awareness will silently produce empty fields
+  - Test execution is slower due to character-by-character input
+  - Clipboard paste operations may not work in all scenarios
+
+Severity    : High (for test automation; user-facing impact is indirect)
+Category    : Test Automation / Flutter Web Architecture
+Recommended : Document this behavior in QA onboarding materials; consider
+              adding semantic labels to all input fields to simplify test
+              locator strategies
+
+---
+
+ANOMALY-005 | POOR_QUALITY_ECG Error State — Unclear UX                 [HIGH]
+---------------------------------------------------------------------------
+Description:
+  When the ECG algorithm service determines that the captured ECG signal has
+  insufficient quality for analysis, it returns a POOR_QUALITY_ECG status.
+  The current UI handling of this state is unclear — it is not confirmed
+  whether:
+    a) The user sees a meaningful error message explaining what "poor quality"
+       means
+    b) The user is given actionable steps (e.g., "Please capture the ECG again")
+    c) The doctor can still submit feedback or export any partial data
+    d) The record remains in the ECG list with a distinguishable status badge
+
+Impact:
+  - Doctors may be confused or alarmed by an opaque error state
+  - A doctor may miss that a reading needs to be retaken
+  - In a clinical setting, ambiguous error states carry patient safety risk
+
+Severity    : High
+Category    : UX / Clinical Safety
+Recommended : Define and implement explicit UX for POOR_QUALITY_ECG: clear
+              message, retry guidance, and a distinct visual indicator in the
+              ECG list
+
+---
+
+ANOMALY-006 | No Visible Rate Limiting on Login Endpoint                [HIGH]
+---------------------------------------------------------------------------
+Description:
+  The /login endpoint (or the Cognito authentication flow it proxies) does not
+  appear to enforce client-facing rate limiting. An attacker could submit an
+  unlimited number of credential guesses without being throttled, locked out,
+  or presented with a CAPTCHA. While AWS Cognito has some internal throttling,
+  the application-level behavior is not confirmed.
+
+Impact:
+  - Brute-force and credential stuffing attacks are feasible
+  - HIPAA security rule (45 CFR §164.312) requires automatic logoff and
+    authentication controls — unrestricted login attempts may violate this
+
+Severity    : High
+Category    : Security / HIPAA Compliance
+Recommended : Implement progressive delays, lockout after N failed attempts
+              (e.g., 5), and optionally a CAPTCHA; confirm Cognito's built-in
+              throttle is sufficient or supplement at the application layer
+
+---
+
+ANOMALY-007 | CSRF Protection Not Confirmed                             [MEDIUM]
+---------------------------------------------------------------------------
+Description:
+  Cross-Site Request Forgery (CSRF) protection is not explicitly confirmed.
+  The application uses JWT Bearer tokens on the Authorization header (not
+  cookies), which inherently prevents most CSRF attacks since cross-origin
+  requests cannot set custom headers. However, if any endpoints accept cookies
+  or use SameSite cookie behavior as the auth mechanism in any fallback path,
+  CSRF could be a risk.
+
+Severity    : Medium
+Category    : Security
+Recommended : Confirm no cookie-based auth paths exist; document JWT-only
+              design as the CSRF mitigation
+
+---
+
+ANOMALY-008 | Session Persistence Mechanism Not Confirmed               [MEDIUM]
+---------------------------------------------------------------------------
+Description:
+  It is not confirmed whether the UMS JWT is stored in localStorage,
+  sessionStorage, or an in-memory store. localStorage persists across tabs and
+  browser restarts (survives until explicitly cleared), while sessionStorage
+  is scoped to a single tab.
+
+  - If localStorage is used: token survives browser close; XSS could steal it
+  - If sessionStorage is used: multi-tab logout is not guaranteed
+  - If in-memory only: refresh loses auth, forcing re-login (poor UX)
+
+Severity    : Medium
+Category    : Security / Session Management
+Recommended : Confirm storage mechanism; prefer httpOnly cookies where possible
+              or implement token rotation; document XSS mitigations
+
+---
+
+ANOMALY-009 | Deep Link / Post-Login Redirect Behavior Not Confirmed    [LOW]
+---------------------------------------------------------------------------
+Description:
+  When a user navigates directly to a protected URL (e.g., /ecg/123/result)
+  without a session, the app redirects to /login. It is not confirmed whether
+  the originally requested URL is stored and the user is redirected back after
+  successful authentication. If not, users accessing shared deep links must
+  manually re-navigate.
+
+Severity    : Low
+Category    : UX / Navigation
+Recommended : Implement redirect preservation (store original URL in
+              sessionStorage before /login redirect; restore after auth)
+
+---
+
+ANOMALY-010 | PDF Export — PHI Scope Not Defined                        [MEDIUM]
+---------------------------------------------------------------------------
+Description:
+  The scope of Protected Health Information included in the exported PDF has
+  not been formally defined. If the PDF includes more PHI than is displayed
+  on the result page (e.g., internal patient IDs, organization metadata, raw
+  ECG data), there is a risk of inadvertent PHI disclosure when PDFs are
+  shared outside the clinical context.
+
+Severity    : Medium
+Category    : HIPAA Compliance / Data Minimization
+Recommended : Define and document exactly what PHI fields appear in the PDF;
+              apply data minimization principles; ensure PDF access requires
+              authentication (no public S3 URLs)
+
+
+================================================================================
+11. QUESTIONS FOR THE DEVELOPMENT TEAM
+================================================================================
+
+The following questions require clarification before comprehensive testing can
+be completed. Questions are grouped by domain.
+
+AUTHENTICATION & SESSION MANAGEMENT
+-------------------------------------
+Q-001  What is the exact mechanism for the silent JWT refresh? Does it use a
+       Cognito refresh token, or does it re-authenticate with stored credentials?
+       What is the TTL of the refresh token itself?
+
+Q-002  Where is the UMS JWT stored on the client? localStorage, sessionStorage,
+       or in-memory? Was this a deliberate security decision?
+
+Q-003  Does Cognito have account lockout configured? After how many failed
+       attempts? Is there lockout duration or progressive delay?
+
+Q-004  Does the application implement any application-level rate limiting on
+       the login endpoint beyond what Cognito provides?
+
+Q-005  On logout, is the Cognito session (refresh token) also invalidated
+       server-side, or is only the local JWT cleared?
+
+Q-006  Is MFA supported or planned for any user tier? If not, is this a
+       conscious product decision given the HIPAA context?
+
+Q-007  What is the EULA acceptance tracking mechanism? Is there a version field
+       so users are re-prompted when the EULA is updated?
+
+ORGANIZATION & ACCESS CONTROL
+--------------------------------
+Q-008  Confirming ANOMALY-001: Is the workaround (using doctors table for
+       access control instead of organizations.id) intentional and documented?
+       Is there a migration plan to fix the organizations.id UUID/BIGINT
+       mismatch?
+
+Q-009  Can a doctor belong to zero centers? What is the UI behavior in that
+       case?
+
+Q-010  When a doctor switches centers, is the ECG list refetched from the
+       backend immediately? Is there any client-side caching that could serve
+       stale data from the previous center?
+
+Q-011  Are there any admin-level roles beyond "doctor"? If so, what routes/
+       endpoints are restricted to admin only?
+
+ECG & ALGORITHM SERVICE
+------------------------
+Q-012  What is the expected SLA/timeout for the ECG algorithm service? What
+       happens in the UI if the algorithm does not respond within that window?
+
+Q-013  Can a POOR_QUALITY_ECG record be re-submitted with a new ECG capture
+       without creating a new record? Or is a new ECG record always required?
+
+Q-014  What is the complete set of statuses an ECG record can have? (e.g.,
+       PENDING, PROCESSING, COMPLETED, POOR_QUALITY_ECG, ERROR, CANCELLED?)
+
+Q-015  Is the raw ECG waveform displayed on the result page, or only the
+       risk classification? Is waveform data stored in S3?
+
+Q-016  What is the feedback field character limit? Is feedback content moderated
+       or validated server-side for injection attacks?
+
+OMRON INTEGRATION
+------------------
+Q-017  In the production environment, how does the Omron device authenticate
+       to the ingest service? Is the x-mock-token format the same as the
+       production Omron integration token?
+
+Q-018  What happens if a mock ingest is submitted with an unrecognized
+       x-mock-token value — 401? 403? Silent failure?
+
+Q-019  Is there a way to trigger a POOR_QUALITY_ECG state via the mock ingest
+       endpoint for testing that flow?
+
+VALIDATION & SECURITY
+-----------------------
+Q-020  Is server-side validation of the Patient Information Form fields
+       (Patient ID regex, Age range, Name character set) implemented, or is
+       client-side the only gate?
+
+Q-021  Is the Name field stored in the database as-is, or is it sanitized before
+       storage? What encoding/escaping is applied before rendering in the UI and
+       in the PDF?
+
+Q-022  Are there any fields in the app that are rendered as raw HTML rather than
+       text nodes? (Potential XSS surface.)
+
+HIPAA & COMPLIANCE
+-------------------
+Q-023  Is there an audit log of PHI access events (who viewed which ECG record,
+       when)? Is this stored separately from the main application database?
+
+Q-024  Is data at rest encrypted? (MySQL encryption, S3 server-side encryption.)
+
+Q-025  What is the data retention policy for ECG records and patient data?
+       Is there a deletion/expiry mechanism?
+
+FIREBASE & INFRASTRUCTURE
+--------------------------
+Q-026  What was Firebase intended for in this application? Is there a plan to
+       re-enable it, or will it be permanently removed?
+
+Q-027  Is there monitoring/alerting on the Railway.app deployment? What is the
+       escalation path for production incidents?
+
+
+================================================================================
+12. TEST ENVIRONMENT DETAILS
+================================================================================
+
+12.1 Application URLs
+----------------------
+  Primary App URL      : https://cardiocheck-releasev140.up.railway.app
+  Mock Omron Ingest    : https://mock-omron-releasev140.up.railway.app
+  Omron Mock Path      : /_mock/ingest/sample
+  Omron Mock Auth Hdr  : x-mock-token: <value from /profile/omron-credentials>
+  Omron Mock Body Param: risk=low | risk=moderate | risk=high
+
+12.2 Test Credentials
+----------------------
+  [To be provided by development team / Reeva]
+  - Doctor account 1: email, password, center affiliation
+  - Doctor account 2: email, password (for cross-center access testing)
+  - Account with multiple center affiliations (for center-switching tests)
+  - Account in first-login state (for EULA testing)
+
+  IMPORTANT: Test credentials must use synthetic patient data only. No real
+  patient PHI should be introduced into the test environment.
+
+12.3 Mock ECG Generation
+------------------------
+  To generate a test ECG record with a specific risk level:
+
+  curl -X POST \
+    "https://mock-omron-releasev140.up.railway.app/_mock/ingest/sample" \
+    -H "x-mock-token: <OMRON_TOKEN>" \
+    -H "Content-Type: application/x-www-form-urlencoded" \
+    -d "risk=low"
+
+  Replace risk= value with: low, moderate, or high as needed.
+  Replace <OMRON_TOKEN> with the token from /profile/omron-credentials.
+
+12.4 Browser Coverage
+----------------------
+  Primary     : Google Chrome (latest stable)
+  Secondary   : Mozilla Firefox (latest stable)
+  Secondary   : Microsoft Edge (latest stable)
+  Mobile Web  : Chrome on Android (latest)
+  Mobile Web  : Safari on iOS (latest)
+
+12.5 Test Data Guidelines
+--------------------------
+  All test data must be synthetic. Suggested test patient IDs:
+    Valid IDs   : "TEST001", "ALPHA12", "ABCD1234", "QA000001", "ZZ999999"
+    Invalid IDs : "AB" (too short), "TOOLONGID123" (too long), "PAT-001"
+                  (hyphen), "пациент" (unicode), " " (whitespace)
+
+  Test patient names:
+    Valid       : "John Smith", "Jane", "A B" (min), "A" * 100 chars (max)
+    Invalid     : "John123", "Jane@Smith", "" (if name becomes required edge)
+
+  Test ages:
+    Valid       : 18, 25, 100, 150
+    Invalid/Edge: 0, 17, 151, 200, -1, 999, 18.5 (decimal), "abc"
+
+
+================================================================================
+13. RISKS & DEPENDENCIES
+================================================================================
+
+13.1 Testing Risks
+-------------------
+
+  RISK-001 | Flutter CanvasKit Interaction Complexity                    [HIGH]
+  All input interactions require the accessibility tree to be activated. Tests
+  must use pressSequentially() exclusively. Missed implementation of this
+  pattern will cause silent test failures (fields remain empty, no error shown).
+  Mitigation: Standardize interaction helpers in the Playwright test framework.
+
+  RISK-002 | ANOMALY-001 (UUID/BIGINT) May Block Access Control Tests   [HIGH]
+  Center-based access control tests may return false positives or negatives
+  because the organization lookup is broken. Tests relying on center isolation
+  cannot fully validate the intended behavior.
+  Mitigation: Verify workaround behavior; flag center-isolation tests as
+  "testing compensating control, not intended design."
+
+  RISK-003 | Algorithm Service Availability                              [MEDIUM]
+  The ECG algorithm service is a dependency outside the QA team's control.
+  If the service is unavailable, risk assessment result tests will fail.
+  Mitigation: Identify if a mock algorithm service exists; otherwise, schedule
+  testing windows when the algorithm service is confirmed available.
+
+  RISK-004 | Test Environment Stability on Railway.app                  [MEDIUM]
+  Railway.app hobby/free-tier deployments may experience cold starts, resource
+  limits, or unexpected restarts. Performance and load tests may produce
+  misleading results.
+  Mitigation: Confirm deployment tier and resource allocation; run load tests
+  during off-peak hours; re-run flaky results before classifying as defects.
+
+  RISK-005 | POOR_QUALITY_ECG State Not Reproducible via Mock           [MEDIUM]
+  If the mock Omron ingest only supports low/moderate/high risk values and
+  does not support triggering the POOR_QUALITY_ECG state, that flow cannot be
+  tested without direct algorithm service manipulation.
+  Mitigation: Request a mock trigger from the dev team; alternatively test
+  POOR_QUALITY_ECG via API stubbing in Playwright tests.
+
+  RISK-006 | AWS Cognito Configuration Not Under QA Control             [MEDIUM]
+  Account lockout, MFA configuration, and rate limiting settings are managed
+  in the Cognito user pool by the backend team. Certain security tests require
+  these settings to be known or temporarily adjusted.
+  Mitigation: Engage backend team to share Cognito configuration details before
+  security testing begins.
+
+  RISK-007 | No Dedicated Test User Pool in Cognito                     [LOW]
+  If test accounts share the same Cognito user pool as production (or staging
+  that mirrors production), aggressive testing (lockout tests, password reset
+  loops) could affect legitimate accounts.
+  Mitigation: Confirm a dedicated test user pool or isolated test tenant is
+  available.
+
+13.2 External Dependencies
+---------------------------
+  - AWS Cognito service availability (external)
+  - Tricog UMS service availability (internal, separate deployment)
+  - Mock Omron service availability (Railway.app)
+  - ECG Algorithm service availability (Tricog internal)
+  - AWS S3 for PDF generation tests
+
+13.3 Team Dependencies
+-----------------------
+  - Development team must provide test credentials (see Section 12.2)
+  - Development team must confirm API endpoint paths (see Section 8)
+  - Development team must clarify open questions (see Section 11)
+  - DevOps must confirm Railway.app deployment tier and monitoring setup
+
+
+================================================================================
+END OF DOCUMENT
+================================================================================
+Version History:
+  1.0 | 2026-05-04 | Wrex | Initial draft
+================================================================================

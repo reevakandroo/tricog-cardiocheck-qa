@@ -1,0 +1,2638 @@
+{
+  "config": {
+    "configFile": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/playwright.config.js",
+    "rootDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "Desktop Chrome",
+        "name": "Desktop Chrome",
+        "testDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../reports/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "01_authentication.spec.js",
+      "file": "01_authentication.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC_Login \u2014 Authentication",
+          "file": "01_authentication.spec.js",
+          "line": 9,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC_LGN_001 Valid login \u2192 reaches ECG dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 16003,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:40:38.937Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-9f7f6-gin-\u2192-reaches-ECG-dashboard-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-59e6ddf076089fa99f1b",
+              "file": "01_authentication.spec.js",
+              "line": 14,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_002 Invalid password \u2192 error message shown",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 22643,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:40:55.085Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-2abf7-sword-\u2192-error-message-shown-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-888ccea55ed5f1665c1f",
+              "file": "01_authentication.spec.js",
+              "line": 31,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_003 Non-existent email \u2192 error shown, no dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 18765,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:41:17.769Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-66209--\u2192-error-shown-no-dashboard-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-a644af22718d4e3a14c4",
+              "file": "01_authentication.spec.js",
+              "line": 43,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_004 Empty email \u2192 cannot proceed to dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 10267,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:41:36.564Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-2f681-cannot-proceed-to-dashboard-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-d06931951ee230189b77",
+              "file": "01_authentication.spec.js",
+              "line": 52,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_005 Empty password \u2192 cannot proceed to dashboard",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 11377,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:41:46.864Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-97d00-cannot-proceed-to-dashboard-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-f1c57003004d28d520ff",
+              "file": "01_authentication.spec.js",
+              "line": 60,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_006 Both fields empty \u2192 cannot proceed",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 13246,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:41:58.260Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-dea5c-elds-empty-\u2192-cannot-proceed-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-0db58bd84990ff4b7eb3",
+              "file": "01_authentication.spec.js",
+              "line": 68,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_007 SQL injection in email \u2192 no server error, stays on login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 13422,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:11.525Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-18a51-server-error-stays-on-login-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-2ed8961406596d79fed8",
+              "file": "01_authentication.spec.js",
+              "line": 75,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_008 XSS in password field \u2192 sanitized, no script execution",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 14336,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:24.966Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-47d30-nitized-no-script-execution-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-42b291f82f0e3d8a0989",
+              "file": "01_authentication.spec.js",
+              "line": 87,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_009 Very long email (300 chars) \u2192 handled gracefully",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 12165,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:39.326Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-49179--chars-\u2192-handled-gracefully-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-3f323708957f78ad525a",
+              "file": "01_authentication.spec.js",
+              "line": 99,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_010 Email case sensitivity \u2014 uppercase email",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 32451,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/01_authentication.spec.js:121:20",
+                        "location": {
+                          "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/01_authentication.spec.js",
+                          "column": 20,
+                          "line": 121
+                        },
+                        "snippet": "  119 |     const text = (await pageText(page)).toLowerCase();\n  120 |     const result = url.includes('/ecg') || ['invalid', 'incorrect', 'error'].some(k => text.includes(k));\n> 121 |     expect(result).toBe(true);\n      |                    ^\n  122 |   });\n  123 |\n  124 |   test('TC_LGN_012 Session persists after page reload', async ({ page }) => {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/01_authentication.spec.js",
+                            "column": 20,
+                            "line": 121
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  119 |     const text = (await pageText(page)).toLowerCase();\n  120 |     const result = url.includes('/ecg') || ['invalid', 'incorrect', 'error'].some(k => text.includes(k));\n> 121 |     expect(result).toBe(true);\n      |                    ^\n  122 |   });\n  123 |\n  124 |   test('TC_LGN_012 Session persists after page reload', async ({ page }) => {\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/01_authentication.spec.js:121:20"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:51.533Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-4b41e-nsitivity-\u2014-uppercase-email-Desktop-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-4b41e-nsitivity-\u2014-uppercase-email-Desktop-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-4b41e-nsitivity-\u2014-uppercase-email-Desktop-Chrome/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/01_authentication.spec.js",
+                        "column": 20,
+                        "line": 121
+                      }
+                    },
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 13875,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-05-05T15:43:24.628Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-4b41e-nsitivity-\u2014-uppercase-email-Desktop-Chrome-retry1/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "45b8382457101db91b9a-baef5d490c4ddd072d2e",
+              "file": "01_authentication.spec.js",
+              "line": 111,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_012 Session persists after page reload",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 30071,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:43:38.636Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-1dada--persists-after-page-reload-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-0c02a4799168c78aadda",
+              "file": "01_authentication.spec.js",
+              "line": 124,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_013 Logout clears session \u2192 redirects to login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 38004,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:44:08.731Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-37cd2-ession-\u2192-redirects-to-login-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-d1128035e903ceb8c217",
+              "file": "01_authentication.spec.js",
+              "line": 134,
+              "column": 3
+            },
+            {
+              "title": "TC_LGN_015 Forgot password link visible and navigates",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 13613,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:44:46.758Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/01_authentication-TC-Login-9963b--link-visible-and-navigates-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "45b8382457101db91b9a-5bf384332130ae3bc0a5",
+              "file": "01_authentication.spec.js",
+              "line": 158,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "07_profile.spec.js",
+      "file": "07_profile.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC_Profile",
+          "file": "07_profile.spec.js",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC_PRF_001 Profile page shows user info",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 28374,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:40:38.907Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/07_profile-TC-Profile-TC-P-4a33d-rofile-page-shows-user-info-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5202d49c877924c4bb3a-d47075588f4ce1cd9486",
+              "file": "07_profile.spec.js",
+              "line": 10,
+              "column": 3
+            },
+            {
+              "title": "TC_PRF_002 Logout \u2192 redirected to login, back button blocked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 32069,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:41:07.421Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/07_profile-TC-Profile-TC-P-a5825-o-login-back-button-blocked-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5202d49c877924c4bb3a-9ae92a4446e4b1642143",
+              "file": "07_profile.spec.js",
+              "line": 20,
+              "column": 3
+            },
+            {
+              "title": "TC_PRF_003 Center selection screen accessible from profile",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 21362,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:41:39.529Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/07_profile-TC-Profile-TC-P-362ef-een-accessible-from-profile-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5202d49c877924c4bb3a-e05644298e49675d79b1",
+              "file": "07_profile.spec.js",
+              "line": 48,
+              "column": 3
+            },
+            {
+              "title": "TC_PRF_004 Omron credentials screen accessible",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 19554,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:00.912Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/07_profile-TC-Profile-TC-P-49c20-edentials-screen-accessible-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5202d49c877924c4bb3a-4ed81b347e1a270ea8a3",
+              "file": "07_profile.spec.js",
+              "line": 57,
+              "column": 3
+            },
+            {
+              "title": "TC_PRF_005 All profile menu options are present",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 21315,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:20.482Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/07_profile-TC-Profile-TC-P-10a98-le-menu-options-are-present-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "5202d49c877924c4bb3a-ad4895fff77105ff5cac",
+              "file": "07_profile.spec.js",
+              "line": 67,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "09_security.spec.js",
+      "file": "09_security.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC_Security",
+          "file": "09_security.spec.js",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC_SEC_001 Access ECG list without auth \u2192 redirected to login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5220,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:41.839Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-8f0dc--auth-\u2192-redirected-to-login-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d9f8a67ba5efe0ebd04e-bb3e6af42dd383ecee4f",
+              "file": "09_security.spec.js",
+              "line": 6,
+              "column": 3
+            },
+            {
+              "title": "TC_SEC_002 Access patient form without auth \u2192 redirected to login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5141,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:47.078Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-84ad1--auth-\u2192-redirected-to-login-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d9f8a67ba5efe0ebd04e-21d53aa43a593d2bab85",
+              "file": "09_security.spec.js",
+              "line": 13,
+              "column": 3
+            },
+            {
+              "title": "TC_SEC_003 Risk result screen without auth \u2192 redirected to login",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 5695,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:52.238Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-fbfa0--auth-\u2192-redirected-to-login-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d9f8a67ba5efe0ebd04e-9cc29ea7cf4523336433",
+              "file": "09_security.spec.js",
+              "line": 20,
+              "column": 3
+            },
+            {
+              "title": "TC_SEC_004 Direct URL to non-existent ECG \u2192 404 or access denied",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 18815,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:42:57.951Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-79b97--ECG-\u2192-404-or-access-denied-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d9f8a67ba5efe0ebd04e-9857e44875515225b7b8",
+              "file": "09_security.spec.js",
+              "line": 27,
+              "column": 3
+            },
+            {
+              "title": "TC_SEC_005 XSS in patient name \u2192 stored safely, no execution",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "timedOut",
+                      "duration": 60261,
+                      "error": {
+                        "message": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m",
+                        "stack": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m"
+                      },
+                      "errors": [
+                        {
+                          "message": "\u001b[31mTest timeout of 60000ms exceeded.\u001b[39m"
+                        },
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/helpers.js",
+                            "column": 18,
+                            "line": 198
+                          },
+                          "message": "Error: page.waitForTimeout: Test timeout of 60000ms exceeded.\n\n   at helpers.js:198\n\n  196 |     await generateECG(risk);\n  197 |     for (let i = 0; i < 6; i++) {\n> 198 |       await page.waitForTimeout(5000);\n      |                  ^\n  199 |       await page.reload({ waitUntil: 'domcontentloaded' });\n  200 |       await page.waitForTimeout(1500);\n  201 |       await enableFlutterA11y(page, 1000);\n    at openFreshECG (/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/helpers.js:198:18)\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/09_security.spec.js:44:5"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:43:16.782Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-5218d--stored-safely-no-execution-Desktop-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-5218d--stored-safely-no-execution-Desktop-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-5218d--stored-safely-no-execution-Desktop-Chrome/error-context.md"
+                        }
+                      ]
+                    },
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 54068,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-05-05T15:44:17.654Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-5218d--stored-safely-no-execution-Desktop-Chrome-retry1/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "d9f8a67ba5efe0ebd04e-b9aff4969668be84ff71",
+              "file": "09_security.spec.js",
+              "line": 39,
+              "column": 3
+            },
+            {
+              "title": "TC_SEC_006 SQL injection in patient ID \u2192 caught by validation",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 26102,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:45:11.834Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-80b94-t-ID-\u2192-caught-by-validation-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d9f8a67ba5efe0ebd04e-f970798d6cbd8d8110ba",
+              "file": "09_security.spec.js",
+              "line": 53,
+              "column": 3
+            },
+            {
+              "title": "TC_SEC_007 HTTPS enforcement \u2014 no mixed content",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 24224,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:45:37.954Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-48407-orcement-\u2014-no-mixed-content-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d9f8a67ba5efe0ebd04e-4b6ae09a976d5d25f55d",
+              "file": "09_security.spec.js",
+              "line": 66,
+              "column": 3
+            },
+            {
+              "title": "TC_SEC_008 No auth tokens in accessible cookies",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 15398,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:46:02.193Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/09_security-TC-Security-TC-de9c0-okens-in-accessible-cookies-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d9f8a67ba5efe0ebd04e-958bc162b4289ff4cdf4",
+              "file": "09_security.spec.js",
+              "line": 79,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "10_hipaa.spec.js",
+      "file": "10_hipaa.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC_HIPAA \u2014 HIPAA Compliance",
+          "file": "10_hipaa.spec.js",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC_HIPAA_001 PHI not exposed in URL parameters",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 31201,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:45:00.391Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/10_hipaa-TC-HIPAA-\u2014-HIPAA--4470e-t-exposed-in-URL-parameters-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7c90e169fae6391ae147-cb052569b67b846dc73e",
+              "file": "10_hipaa.spec.js",
+              "line": 6,
+              "column": 3
+            },
+            {
+              "title": "TC_HIPAA_002 Authenticated access required for all PHI screens",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 13757,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:45:31.610Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/10_hipaa-TC-HIPAA-\u2014-HIPAA--fce76-equired-for-all-PHI-screens-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7c90e169fae6391ae147-3b69778291931f800760",
+              "file": "10_hipaa.spec.js",
+              "line": 24,
+              "column": 3
+            },
+            {
+              "title": "TC_HIPAA_004 Data minimization \u2014 no excess PHI in API responses",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 18712,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:45:45.396Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/10_hipaa-TC-HIPAA-\u2014-HIPAA--d9361-excess-PHI-in-API-responses-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7c90e169fae6391ae147-226178d685026451c99b",
+              "file": "10_hipaa.spec.js",
+              "line": 37,
+              "column": 3
+            },
+            {
+              "title": "TC_HIPAA_005 Center-based access control \u2014 user sees only their centers data",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 21849,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:46:04.146Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/10_hipaa-TC-HIPAA-\u2014-HIPAA--1dd66-ees-only-their-centers-data-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "7c90e169fae6391ae147-03a5a04c7b31ffc84d9d",
+              "file": "10_hipaa.spec.js",
+              "line": 59,
+              "column": 3
+            },
+            {
+              "title": "TC_HIPAA_006 PDF export accessible only when authenticated",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 9117,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecg/1/result\"\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecg/1/result\"\u001b[39m\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/10_hipaa.spec.js:80:24",
+                        "location": {
+                          "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/10_hipaa.spec.js",
+                          "column": 24,
+                          "line": 80
+                        },
+                        "snippet": "  78 |     await page.waitForTimeout(3000);\n  79 |     await page.screenshot({ path: 'reports/screenshots/HIPAA_006_pdf_no_auth.png' });\n> 80 |     expect(page.url()).toContain('login');\n     |                        ^\n  81 |   });\n  82 | });\n  83 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/10_hipaa.spec.js",
+                            "column": 24,
+                            "line": 80
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecg/1/result\"\u001b[39m\n\n  78 |     await page.waitForTimeout(3000);\n  79 |     await page.screenshot({ path: 'reports/screenshots/HIPAA_006_pdf_no_auth.png' });\n> 80 |     expect(page.url()).toContain('login');\n     |                        ^\n  81 |   });\n  82 | });\n  83 |\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/10_hipaa.spec.js:80:24"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T15:46:26.009Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/10_hipaa-TC-HIPAA-\u2014-HIPAA--cc855-ble-only-when-authenticated-Desktop-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/10_hipaa-TC-HIPAA-\u2014-HIPAA--cc855-ble-only-when-authenticated-Desktop-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/10_hipaa-TC-HIPAA-\u2014-HIPAA--cc855-ble-only-when-authenticated-Desktop-Chrome/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/10_hipaa.spec.js",
+                        "column": 24,
+                        "line": 80
+                      }
+                    },
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 4462,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-05-05T15:46:35.572Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/10_hipaa-TC-HIPAA-\u2014-HIPAA--cc855-ble-only-when-authenticated-Desktop-Chrome-retry1/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "flaky"
+                }
+              ],
+              "id": "7c90e169fae6391ae147-ec2d9a2bb1e7d05a8db7",
+              "file": "10_hipaa.spec.js",
+              "line": 75,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "02_ecg_dashboard.spec.js",
+      "file": "02_ecg_dashboard.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC_ECG_Dashboard \u2014 ECG List",
+          "file": "02_ecg_dashboard.spec.js",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC_ECG_001 ECG list loads with entries",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 20422,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:07:21.688Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/02_ecg_dashboard-TC-ECG-Da-dfe91-ECG-list-loads-with-entries-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "74ad7a36f2494ef2d3b1-b8a4aee86ca38d6e2c7c",
+              "file": "02_ecg_dashboard.spec.js",
+              "line": 15,
+              "column": 3
+            },
+            {
+              "title": "TC_ECG_004 Click ECG \u2192 opens detail view",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 18766,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:07:42.295Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/02_ecg_dashboard-TC-ECG-Da-ce77f-ick-ECG-\u2192-opens-detail-view-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "74ad7a36f2494ef2d3b1-51c196b2d7c07c547548",
+              "file": "02_ecg_dashboard.spec.js",
+              "line": 38,
+              "column": 3
+            },
+            {
+              "title": "TC_ECG_005 Pagination \u2014 scroll loads more ECGs",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 23549,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:08:01.093Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/02_ecg_dashboard-TC-ECG-Da-9ca2b-on-\u2014-scroll-loads-more-ECGs-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "74ad7a36f2494ef2d3b1-92d672195535637a50ec",
+              "file": "02_ecg_dashboard.spec.js",
+              "line": 57,
+              "column": 3
+            },
+            {
+              "title": "TC_ECG_006 New unprocessed ECG shows \"New ECG\" label",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 15397,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:08:24.672Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/02_ecg_dashboard-TC-ECG-Da-fc4b7-sed-ECG-shows-New-ECG-label-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "74ad7a36f2494ef2d3b1-c0ed1524d645ed2bacfc",
+              "file": "02_ecg_dashboard.spec.js",
+              "line": 69,
+              "column": 3
+            },
+            {
+              "title": "TC_ECG_007 Processed ECGs show risk level color labels",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 14334,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:08:40.085Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/02_ecg_dashboard-TC-ECG-Da-52b25-how-risk-level-color-labels-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "74ad7a36f2494ef2d3b1-2572c2e547d6c79f935b",
+              "file": "02_ecg_dashboard.spec.js",
+              "line": 83,
+              "column": 3
+            },
+            {
+              "title": "TC_ECG_009 Large dataset \u2014 10+ ECGs, list stable",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 17171,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:08:54.434Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/02_ecg_dashboard-TC-ECG-Da-4a630-taset-\u2014-10-ECGs-list-stable-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "74ad7a36f2494ef2d3b1-93d34c0a3d616b61b51f",
+              "file": "02_ecg_dashboard.spec.js",
+              "line": 91,
+              "column": 3
+            },
+            {
+              "title": "TC_ECG_010 Refresh after seed \u2014 new ECG appears",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 25300,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:09:11.625Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/02_ecg_dashboard-TC-ECG-Da-4ac2e-fter-seed-\u2014-new-ECG-appears-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "74ad7a36f2494ef2d3b1-04c6f78403d4af752b7e",
+              "file": "02_ecg_dashboard.spec.js",
+              "line": 100,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "06_search.spec.js",
+      "file": "06_search.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC_Search_Bar \u2014 ECG Search",
+          "file": "06_search.spec.js",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC_SRC_001 Exact patient ID search returns matching result",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 23045,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:07:21.724Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--d43d1-rch-returns-matching-result-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d161264ead777544eeaf-415665aba710d04c4023",
+              "file": "06_search.spec.js",
+              "line": 21,
+              "column": 3
+            },
+            {
+              "title": "TC_SRC_003 No results for unknown ID \u2192 empty state shown",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 21639,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:07:44.919Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--51d0f-nown-ID-\u2192-empty-state-shown-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d161264ead777544eeaf-6064280dbdebaeddec1d",
+              "file": "06_search.spec.js",
+              "line": 34,
+              "column": 3
+            },
+            {
+              "title": "TC_SRC_004 Clear search restores full list",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 43872,
+                      "error": {
+                        "message": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label*=\"Search\"]')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label*=\"Search\"]')\u001b[22m\n\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:53:35",
+                        "location": {
+                          "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                          "column": 35,
+                          "line": 53
+                        },
+                        "snippet": "  51 |     await page.waitForTimeout(1500);\n  52 |     // Clear search\n> 53 |     await page.locator(searchSel).click();\n     |                                   ^\n  54 |     await page.keyboard.selectAll();\n  55 |     await page.keyboard.press('Backspace');\n  56 |     await page.waitForTimeout(2000);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                            "column": 35,
+                            "line": 53
+                          },
+                          "message": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label*=\"Search\"]')\u001b[22m\n\n\n  51 |     await page.waitForTimeout(1500);\n  52 |     // Clear search\n> 53 |     await page.locator(searchSel).click();\n     |                                   ^\n  54 |     await page.keyboard.selectAll();\n  55 |     await page.keyboard.press('Backspace');\n  56 |     await page.waitForTimeout(2000);\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:53:35"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:08:06.575Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--2bc3e-r-search-restores-full-list-Desktop-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--2bc3e-r-search-restores-full-list-Desktop-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--2bc3e-r-search-restores-full-list-Desktop-Chrome/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                        "column": 35,
+                        "line": 53
+                      }
+                    },
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 1,
+                      "status": "failed",
+                      "duration": 44408,
+                      "error": {
+                        "message": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label*=\"Search\"]')\u001b[22m\n",
+                        "stack": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label*=\"Search\"]')\u001b[22m\n\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:53:35",
+                        "location": {
+                          "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                          "column": 35,
+                          "line": 53
+                        },
+                        "snippet": "  51 |     await page.waitForTimeout(1500);\n  52 |     // Clear search\n> 53 |     await page.locator(searchSel).click();\n     |                                   ^\n  54 |     await page.keyboard.selectAll();\n  55 |     await page.keyboard.press('Backspace');\n  56 |     await page.waitForTimeout(2000);"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                            "column": 35,
+                            "line": 53
+                          },
+                          "message": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label*=\"Search\"]')\u001b[22m\n\n\n  51 |     await page.waitForTimeout(1500);\n  52 |     // Clear search\n> 53 |     await page.locator(searchSel).click();\n     |                                   ^\n  54 |     await page.keyboard.selectAll();\n  55 |     await page.keyboard.press('Backspace');\n  56 |     await page.waitForTimeout(2000);\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:53:35"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-05-05T16:08:51.695Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--2bc3e-r-search-restores-full-list-Desktop-Chrome-retry1/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--2bc3e-r-search-restores-full-list-Desktop-Chrome-retry1/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--2bc3e-r-search-restores-full-list-Desktop-Chrome-retry1/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                        "column": 35,
+                        "line": 53
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "d161264ead777544eeaf-34b5a5a0e90decb0f6a1",
+              "file": "06_search.spec.js",
+              "line": 46,
+              "column": 3
+            },
+            {
+              "title": "TC_SRC_005 Special characters in search \u2014 no crash",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 16209,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:09:36.941Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--bea6c-acters-in-search-\u2014-no-crash-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d161264ead777544eeaf-6e3cdb38c756562660ef",
+              "file": "06_search.spec.js",
+              "line": 62,
+              "column": 3
+            },
+            {
+              "title": "TC_SRC_006 SQL injection in search \u2014 no data leak",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "location": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                        "line": 75,
+                        "column": 28
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "skipped",
+                      "duration": 56669,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:09:53.246Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                            "line": 75,
+                            "column": 28
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--f8793-on-in-search-\u2014-no-data-leak-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d161264ead777544eeaf-22cbd2d857d800eb9a35",
+              "file": "06_search.spec.js",
+              "line": 73,
+              "column": 3
+            },
+            {
+              "title": "TC_SRC_007 XSS in search \u2014 no script execution",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "location": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                        "line": 88,
+                        "column": 28
+                      }
+                    }
+                  ],
+                  "expectedStatus": "skipped",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "skipped",
+                      "duration": 55768,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:10:49.935Z",
+                      "annotations": [
+                        {
+                          "type": "skip",
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js",
+                            "line": 88,
+                            "column": 28
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--9fd36-earch-\u2014-no-script-execution-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "skipped"
+                }
+              ],
+              "id": "d161264ead777544eeaf-b3baa19358b96339895b",
+              "file": "06_search.spec.js",
+              "line": 86,
+              "column": 3
+            },
+            {
+              "title": "TC_SRC_008 Very long search string \u2014 no crash",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 13542,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:11:45.721Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--5ad35-ng-search-string-\u2014-no-crash-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d161264ead777544eeaf-6b0213604427f575bba1",
+              "file": "06_search.spec.js",
+              "line": 97,
+              "column": 3
+            },
+            {
+              "title": "TC_SRC_009 Whitespace-only search \u2014 graceful handling",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 14297,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:11:59.275Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/06_search-TC-Search-Bar-\u2014--cefcf--search-\u2014-graceful-handling-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "d161264ead777544eeaf-21d84e1704ea94c7f4c3",
+              "file": "06_search.spec.js",
+              "line": 108,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "08_network.spec.js",
+      "file": "08_network.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "TC_Network \u2014 Connectivity",
+          "file": "08_network.spec.js",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC_NET_001 Offline banner appears when network disabled",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 16977,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:24:23",
+                        "location": {
+                          "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                          "column": 23,
+                          "line": 24
+                        },
+                        "snippet": "  22 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,\n  23 |     });\n> 24 |     expect(hasBanner).toBe(true);\n     |                       ^\n  25 |   });\n  26 |\n  27 |   test('TC_NET_002 Online recovery \u2014 banner disappears after reconnect', async ({ page }) => {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                            "column": 23,
+                            "line": 24
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  22 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,\n  23 |     });\n> 24 |     expect(hasBanner).toBe(true);\n     |                       ^\n  25 |   });\n  26 |\n  27 |   test('TC_NET_002 Online recovery \u2014 banner disappears after reconnect', async ({ page }) => {\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:24:23"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:12:20.382Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-21e86-pears-when-network-disabled-Desktop-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-21e86-pears-when-network-disabled-Desktop-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-21e86-pears-when-network-disabled-Desktop-Chrome/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                        "column": 23,
+                        "line": 24
+                      }
+                    },
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 15334,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:24:23",
+                        "location": {
+                          "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                          "column": 23,
+                          "line": 24
+                        },
+                        "snippet": "  22 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,\n  23 |     });\n> 24 |     expect(hasBanner).toBe(true);\n     |                       ^\n  25 |   });\n  26 |\n  27 |   test('TC_NET_002 Online recovery \u2014 banner disappears after reconnect', async ({ page }) => {"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                            "column": 23,
+                            "line": 24
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  22 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,\n  23 |     });\n> 24 |     expect(hasBanner).toBe(true);\n     |                       ^\n  25 |   });\n  26 |\n  27 |   test('TC_NET_002 Online recovery \u2014 banner disappears after reconnect', async ({ page }) => {\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:24:23"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-05-05T16:12:37.909Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-21e86-pears-when-network-disabled-Desktop-Chrome-retry1/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-21e86-pears-when-network-disabled-Desktop-Chrome-retry1/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-21e86-pears-when-network-disabled-Desktop-Chrome-retry1/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                        "column": 23,
+                        "line": 24
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "4036cd518f2a6a924eab-15f8261f4a176a78eae9",
+              "file": "08_network.spec.js",
+              "line": 9,
+              "column": 3
+            },
+            {
+              "title": "TC_NET_002 Online recovery \u2014 banner disappears after reconnect",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 45022,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:12:53.769Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-f1d57--disappears-after-reconnect-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4036cd518f2a6a924eab-e42a7257a5d86f52b49c",
+              "file": "08_network.spec.js",
+              "line": 27,
+              "column": 3
+            },
+            {
+              "title": "TC_NET_004 Submit patient data offline \u2014 graceful error",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 23727,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:13:38.887Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-53514-ta-offline-\u2014-graceful-error-Desktop-Chrome/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "4036cd518f2a6a924eab-2387f86d3120ad2acc00",
+              "file": "08_network.spec.js",
+              "line": 64,
+              "column": 3
+            },
+            {
+              "title": "TC_NET_005 Load ECG list while offline \u2014 graceful error shown",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 90000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Desktop Chrome",
+                  "projectName": "Desktop Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 15629,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m\"\"\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m\"\"\u001b[39m\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:99:32",
+                        "location": {
+                          "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                          "column": 32,
+                          "line": 99
+                        },
+                        "snippet": "   97 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,\n   98 |     });\n>  99 |     expect(await page.title()).toBeTruthy();\n      |                                ^\n  100 |   });\n  101 | });\n  102 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                            "column": 32,
+                            "line": 99
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m\"\"\u001b[39m\n\n   97 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,\n   98 |     });\n>  99 |     expect(await page.title()).toBeTruthy();\n      |                                ^\n  100 |   });\n  101 | });\n  102 |\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:99:32"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-05T16:14:02.627Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-aa749-line-\u2014-graceful-error-shown-Desktop-Chrome/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-aa749-line-\u2014-graceful-error-shown-Desktop-Chrome/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-aa749-line-\u2014-graceful-error-shown-Desktop-Chrome/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                        "column": 32,
+                        "line": 99
+                      }
+                    },
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 43038,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m\"\"\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m\"\"\u001b[39m\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:99:32",
+                        "location": {
+                          "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                          "column": 32,
+                          "line": 99
+                        },
+                        "snippet": "   97 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,\n   98 |     });\n>  99 |     expect(await page.title()).toBeTruthy();\n      |                                ^\n  100 |   });\n  101 | });\n  102 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                            "column": 32,
+                            "line": 99
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m\"\"\u001b[39m\n\n   97 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,\n   98 |     });\n>  99 |     expect(await page.title()).toBeTruthy();\n      |                                ^\n  100 |   });\n  101 | });\n  102 |\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:99:32"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 1,
+                      "startTime": "2026-05-05T16:14:18.813Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-aa749-line-\u2014-graceful-error-shown-Desktop-Chrome-retry1/test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-aa749-line-\u2014-graceful-error-shown-Desktop-Chrome-retry1/video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results/08_network-TC-Network-\u2014-Co-aa749-line-\u2014-graceful-error-shown-Desktop-Chrome-retry1/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js",
+                        "column": 32,
+                        "line": 99
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "4036cd518f2a6a924eab-60f088903d28b841d342",
+              "file": "08_network.spec.js",
+              "line": 86,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-05-05T15:40:38.193Z",
+    "duration": 816619.174,
+    "expected": 42,
+    "skipped": 2,
+    "unexpected": 3,
+    "flaky": 3
+  }
+}

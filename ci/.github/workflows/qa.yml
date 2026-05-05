@@ -1,0 +1,112 @@
+name: CardioCheck QA — Automated Test Suite
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run nightly at 2am IST (8:30pm UTC)
+    - cron: '30 20 * * *'
+  workflow_dispatch:
+    inputs:
+      module:
+        description: 'Test module to run (leave empty for all)'
+        required: false
+        default: ''
+      risk_level:
+        description: 'Mock ECG risk level (low/moderate/high)'
+        required: false
+        default: 'high'
+
+env:
+  APP_URL: 'https://cardiocheck-releasev140.up.railway.app'
+  MOCK_URL: 'https://mock-omron-releasev140.up.railway.app/_mock/ingest/sample'
+  MOCK_TOKEN: 'mock-ingest-s3cr3t'
+  OMRON_ID: '86f66e18-494a-4232-8f76-530276b38d3c'
+
+jobs:
+  qa-suite:
+    name: E2E Test Suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout QA repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Create reports directory
+        run: mkdir -p reports/screenshots
+
+      - name: Run test suite (all modules)
+        if: ${{ !inputs.module }}
+        run: npx playwright test --config=tests/playwright/playwright.config.js
+        env:
+          TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+        continue-on-error: true
+
+      - name: Run specific module
+        if: ${{ inputs.module }}
+        run: npx playwright test tests/playwright/${{ inputs.module }}.spec.js --config=tests/playwright/playwright.config.js
+        continue-on-error: true
+
+      - name: Generate HTML report
+        if: always()
+        run: node scripts/generate_report.js reports/results.json reports/execution_report_${{ github.run_number }}.html
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-report-${{ github.run_number }}
+          path: |
+            reports/execution_report_*.html
+            reports/screenshots/
+          retention-days: 30
+
+      - name: Upload Playwright trace
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces-${{ github.run_number }}
+          path: test-results/
+          retention-days: 7
+
+      - name: Post summary
+        if: always()
+        run: |
+          echo "## QA Report Summary" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Run | #${{ github.run_number }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Trigger | ${{ github.event_name }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| App URL | ${{ env.APP_URL }} |" >> $GITHUB_STEP_SUMMARY
+          echo "See artifacts for full HTML report with screenshots." >> $GITHUB_STEP_SUMMARY
+
+  # ── New Feature Detection Job ────────────────────────────────────────────────
+  feature-check:
+    name: Check for new features in CardioCheck
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout QA repo
+        uses: actions/checkout@v4
+
+      - name: Check CardioCheck repo for new commits
+        run: |
+          git ls-remote https://github.com/Tricog-Engineering/cardiocheck.git HEAD > /tmp/upstream_head.txt
+          cat /tmp/upstream_head.txt
+          echo "New commit SHA captured. Review and trigger test suite if new features detected."

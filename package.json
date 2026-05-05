@@ -1,0 +1,25 @@
+{
+  "name": "tricog-cardiocheck-qa",
+  "version": "2.0.0",
+  "description": "End-to-end QA suite for Tricog CardioCheck — Playwright + HTML report generation",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:login": "npx playwright test tests/playwright/01_authentication.spec.js",
+    "test:ecg": "npx playwright test tests/playwright/02_ecg_dashboard.spec.js",
+    "test:patient": "npx playwright test tests/playwright/03_patient_form.spec.js",
+    "test:risk": "npx playwright test tests/playwright/04_risk_assessment.spec.js",
+    "test:report": "npx playwright test tests/playwright/05_report_export.spec.js",
+    "test:search": "npx playwright test tests/playwright/06_search.spec.js",
+    "test:profile": "npx playwright test tests/playwright/07_profile.spec.js",
+    "test:network": "npx playwright test tests/playwright/08_network.spec.js",
+    "test:security": "npx playwright test tests/playwright/09_security.spec.js",
+    "test:hipaa": "npx playwright test tests/playwright/10_hipaa.spec.js",
+    "test:omron": "npx playwright test tests/playwright/11_omron.spec.js",
+    "report": "node scripts/generate_report.js",
+    "full": "npx playwright test && node scripts/generate_report.js"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.44.0"
+  },
+  "devDependencies": {}
+}

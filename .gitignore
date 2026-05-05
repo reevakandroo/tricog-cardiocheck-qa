@@ -1,0 +1,7 @@
+node_modules/
+test-results/
+*.mp4
+*.webm
+playwright-report/
+.playwright/
+/tmp/
