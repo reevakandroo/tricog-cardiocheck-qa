@@ -149,10 +149,13 @@ test.describe('TC_Profile — Additional Coverage', () => {
 
   test('TC_PRF_012 Logout dialog has Cancel option', async ({ page }) => {
     await page.goto(`${APP_URL}/profile`, { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(2000);
-    await enableFlutterA11y(page, 2000);
-    // Click logout to open dialog
-    const logoutBtn = page.locator('flt-semantics[role="button"]:has-text("Logout")');
+    await page.waitForTimeout(3000);
+    await enableFlutterA11y(page, 3000);
+    // Wait for logout button with generous timeout so Flutter has time to render
+    const logoutBtn = page.locator('flt-semantics[role="button"]:has-text("Logout")').or(
+      page.locator('flt-semantics[role="button"]:has-text("Log Out")').or(
+        page.locator('flt-semantics[role="button"]:has-text("Sign Out")')));
+    await logoutBtn.first().waitFor({ timeout: 10000 }).catch(() => {});
     if (await logoutBtn.count() === 0) { test.skip(); return; }
     await logoutBtn.first().click({ timeout: 5000 }).catch(() => {});
     await page.waitForTimeout(2000);

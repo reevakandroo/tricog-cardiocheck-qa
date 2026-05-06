@@ -70,7 +70,7 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
   <h1>Tricog CardioCheck v1.4.0 — QA Execution Report</h1>
   <div class="subtitle">Automated E2E Test Suite · Playwright · Cycle 3 — Full Coverage Run · 13 Modules · 178 Test Cases</div>
   <div class="meta-grid">
-    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-06 10:51:13</div></div>
+    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-06 12:50:02</div></div>
     <div class="meta-field"><label>Tester</label><div class="val">Wrex QA Agent</div></div>
     <div class="meta-field"><label>App Version</label><div class="val">v1.4.0 (Railway)</div></div>
     <div class="meta-field"><label>Framework</label><div class="val">Playwright · Node.js</div></div>
@@ -83,11 +83,11 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
 
 <div class="stats-bar">
   <div class="stat-card total"><div class="num">178</div><div class="lbl">Total</div></div>
-  <div class="stat-card passed"><div class="num">157</div><div class="lbl">Passed</div></div>
+  <div class="stat-card passed"><div class="num">160</div><div class="lbl">Passed</div></div>
   <div class="stat-card failed"><div class="num">13</div><div class="lbl">Failed</div></div>
   <div class="stat-card blocked"><div class="num">0</div><div class="lbl">Blocked</div></div>
-  <div class="stat-card skipped"><div class="num">8</div><div class="lbl">Skipped</div></div>
-  <div class="stat-card pct"><div class="num">88.2%</div><div class="lbl">Pass Rate</div></div>
+  <div class="stat-card skipped"><div class="num">5</div><div class="lbl">Skipped</div></div>
+  <div class="stat-card pct"><div class="num">89.9%</div><div class="lbl">Pass Rate</div></div>
 </div>
 
 
@@ -100,11 +100,6 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">Scenario</th>
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">Severity</th>
     </tr></thead><tbody><tr style="border-bottom:1px solid #fed7d7;">
-      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_SRC_004</td>
-      <td style="padding:7px 8px;color:#4a5568">06 · Search</td>
-      <td style="padding:7px 8px">TC_SRC_004 Clear search restores full list</td>
-      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
-    </tr><tr style="border-bottom:1px solid #fed7d7;">
       <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_NET_001</td>
       <td style="padding:7px 8px;color:#4a5568">08 · Network</td>
       <td style="padding:7px 8px">TC_NET_001 Offline banner appears when network disabled</td>
@@ -150,11 +145,6 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
       <td style="padding:7px 8px">TC_RSK_010 Feedback question "Was 12 lead ECG done?" visible on result</td>
       <td style="padding:7px 8px"><span class="sev-critical">Critical</span></td>
     </tr><tr style="border-bottom:1px solid #fed7d7;">
-      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_SRC_010</td>
-      <td style="padding:7px 8px;color:#4a5568">06 · Search (Extended)</td>
-      <td style="padding:7px 8px">TC_SRC_010 Empty search input shows full ECG list</td>
-      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
-    </tr><tr style="border-bottom:1px solid #fed7d7;">
       <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_NET_007</td>
       <td style="padding:7px 8px;color:#4a5568">08 · Network (Extended)</td>
       <td style="padding:7px 8px">TC_NET_007 Network restored — ECG list can be refreshed</td>
@@ -164,6 +154,16 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
       <td style="padding:7px 8px;color:#4a5568">08 · Network (Extended)</td>
       <td style="padding:7px 8px">TC_NET_009 Very slow 2G network — app still renders</td>
       <td style="padding:7px 8px"><span class="sev-high">High</span></td>
+    </tr><tr style="border-bottom:1px solid #fed7d7;">
+      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_SRC_004</td>
+      <td style="padding:7px 8px;color:#4a5568">06 · Search</td>
+      <td style="padding:7px 8px">TC_SRC_004 Clear search restores full list</td>
+      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
+    </tr><tr style="border-bottom:1px solid #fed7d7;">
+      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_SRC_010</td>
+      <td style="padding:7px 8px;color:#4a5568">06 · Search (Extended)</td>
+      <td style="padding:7px 8px">TC_SRC_010 Empty search input shows full ECG list</td>
+      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
     </tr></tbody></table>
 </div>
 
@@ -205,26 +205,26 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
         <span style="font-size:12px;font-weight:600">05 · Report Export</span>
-        <span style="font-size:11px;color:#718096">8/10 (80%)</span>
+        <span style="font-size:11px;color:#718096">5/10 (50%)</span>
       </div>
       <div style="background:#edf2f7;border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:#d69e2e;width:80%;height:100%;border-radius:4px"></div>
+        <div style="background:#e53e3e;width:50%;height:100%;border-radius:4px"></div>
       </div>
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
         <span style="font-size:12px;font-weight:600">06 · Search</span>
-        <span style="font-size:11px;color:#718096">6/13 (46%)</span>
+        <span style="font-size:11px;color:#718096">11/13 (85%)</span>
       </div>
       <div style="background:#edf2f7;border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:#e53e3e;width:46%;height:100%;border-radius:4px"></div>
+        <div style="background:#d69e2e;width:85%;height:100%;border-radius:4px"></div>
       </div>
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
         <span style="font-size:12px;font-weight:600">07 · Profile</span>
-        <span style="font-size:11px;color:#718096">11/12 (92%)</span>
+        <span style="font-size:11px;color:#718096">12/12 (100%)</span>
       </div>
       <div style="background:#edf2f7;border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:#38a169;width:92%;height:100%;border-radius:4px"></div>
+        <div style="background:#38a169;width:100%;height:100%;border-radius:4px"></div>
       </div>
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
@@ -1293,7 +1293,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>38.7s</td>
+        <td>40.1s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1303,7 +1303,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>18.2s</td>
+        <td>16.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1313,7 +1313,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>⏭️ Skipped</strong></td>
-        <td>33.5s</td>
+        <td>187.9s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1322,33 +1322,33 @@ Received: [31mfalse[39m
         <td class="scenario-text">TC_RPT_010 PDF endpoint requires authentication</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
-        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>36.0s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>37.9s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="module-header">
       <td colspan="9">05 · Report Export (Extended) &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          6 tests — ✅ 5 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 1 Skipped
+          6 tests — ✅ 2 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 4 Skipped
         </span>
-      </td></tr><tr class="status-Pass">
+      </td></tr><tr class="status-Skipped">
         <td><span class="tc-id">TC_RPT_002</span></td>
         <td class="scenario-text">TC_RPT_002 Export PDF button label is readable</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
-        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>33.7s</td>
+        <td><strong>⏭️ Skipped</strong></td>
+        <td>193.8s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Pass">
+      </tr><tr class="status-Skipped">
         <td><span class="tc-id">TC_RPT_003</span></td>
         <td class="scenario-text">TC_RPT_003 After PDF export page stays on result (no navigation away)</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
-        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>30.6s</td>
+        <td><strong>⏭️ Skipped</strong></td>
+        <td>193.6s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1358,7 +1358,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>113.9s</td>
+        <td>114.9s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1368,7 +1368,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>16.0s</td>
+        <td>63.9s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1378,24 +1378,24 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>⏭️ Skipped</strong></td>
-        <td>33.7s</td>
+        <td>198.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Pass">
+      </tr><tr class="status-Skipped">
         <td><span class="tc-id">TC_RPT_011</span></td>
         <td class="scenario-text">TC_RPT_011 PDF export initiates within 8 seconds</td>
         <td><span class="badge badge-Performance">Performance</span></td>
         <td><span class="sev-high">High</span></td>
-        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>0.0s</td>
-        <td><span style="color:#a0aec0;font-size:11px">—</span></td>
+        <td><strong>⏭️ Skipped</strong></td>
+        <td>33.6s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="module-header">
       <td colspan="9">06 · Search &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          8 tests — ✅ 5 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 2 Skipped
+          8 tests — ✅ 7 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
       </td></tr><tr class="status-Pass">
         <td><span class="tc-id">TC_SRC_001</span></td>
@@ -1403,7 +1403,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>23.0s</td>
+        <td>18.3s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1413,7 +1413,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>21.6s</td>
+        <td>20.6s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1423,7 +1423,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>44.4s</td>
+        <td>46.1s</td>
         <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
         <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
           <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">TimeoutError: locator.click: Timeout 25000ms exceeded.
@@ -1431,14 +1431,14 @@ Call log:
 [2m  - waiting for locator('input[aria-label*="Search"]')[22m
 
 
-  51 |     await page.waitForTimeout(1500);
-  52 |     // Clear search
-&gt; 53 |     await page.locator(searchSel).click();
+  55 |     await page.waitForTimeout(1500);
+  56 |     // Clear search
+&gt; 57 |     await page.locator(searchSel).click();
      |                                   ^
-  54 |     await page.keyboard.selectAll();
-  55 |     await page.keyboard.press('Backspace');
-  56 |     await page.waitForTimeout(2000);
-    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:53:35</pre>
+  58 |     await page.keyboard.press('Control+a');
+  59 |     await page.keyboard.press('Backspace');
+  60 |     await page.waitForTimeout(2000);
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:57:35</pre>
          </details></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
@@ -1447,27 +1447,27 @@ Call log:
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>16.2s</td>
+        <td>21.3s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_SRC_006</span></td>
         <td class="scenario-text">TC_SRC_006 SQL injection in search — no data leak</td>
         <td><span class="badge badge-Security">Security</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>56.7s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>21.1s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_SRC_007</span></td>
         <td class="scenario-text">TC_SRC_007 XSS in search — no script execution</td>
         <td><span class="badge badge-Security">Security</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>55.8s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>21.0s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1477,7 +1477,7 @@ Call log:
         <td><span class="badge badge-Edge">Edge</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>13.5s</td>
+        <td>66.1s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1487,22 +1487,22 @@ Call log:
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>14.3s</td>
+        <td>21.4s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="module-header">
       <td colspan="9">06 · Search (Extended) &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          5 tests — ✅ 1 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 3 Skipped
+          5 tests — ✅ 4 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
-      </td></tr><tr class="status-Skipped">
+      </td></tr><tr class="status-Pass">
         <td><span class="tc-id">TC_SRC_002</span></td>
         <td class="scenario-text">TC_SRC_002 Partial patient ID match returns filtered results</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>56.3s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>59.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1512,7 +1512,7 @@ Call log:
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>34.5s</td>
+        <td>41.2s</td>
         <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
         <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
           <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
@@ -1520,33 +1520,33 @@ Call log:
 Expected: &gt; [32m0[39m
 Received:   [31m0[39m
 
-  148 |     await page.screenshot({ path: 'reports/screenshots/SRC_010_empty_search.png' });
-  149 |     const count = await page.locator(SEL_ECG_ITEM).count();
-&gt; 150 |     expect(count).toBeGreaterThan(0);
+  158 |     await page.screenshot({ path: 'reports/screenshots/SRC_010_empty_search.png' });
+  159 |     const count = await page.locator(SEL_ECG_ITEM).count();
+&gt; 160 |     expect(count).toBeGreaterThan(0);
       |                   ^
-  151 |   });
-  152 |
-  153 |   test('TC_SRC_011 Search is case-insensitive', async ({ page }) =&gt; {
-    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:150:19</pre>
+  161 |   });
+  162 |
+  163 |   test('TC_SRC_011 Search is case-insensitive', async ({ page }) =&gt; {
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:160:19</pre>
          </details></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_SRC_011</span></td>
         <td class="scenario-text">TC_SRC_011 Search is case-insensitive</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>56.0s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>40.6s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_SRC_012</span></td>
         <td class="scenario-text">TC_SRC_012 Single character search — no crash</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>55.6s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>60.4s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1556,7 +1556,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>13.9s</td>
+        <td>17.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1571,7 +1571,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>28.4s</td>
+        <td>17.7s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1581,7 +1581,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>32.1s</td>
+        <td>27.1s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1591,7 +1591,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>21.4s</td>
+        <td>20.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1601,7 +1601,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>19.6s</td>
+        <td>20.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1610,15 +1610,15 @@ Received:   [31m0[39m
         <td class="scenario-text">TC_PRF_005 All profile menu options are present</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>✅ Pass</strong></td>
-        <td>21.3s</td>
+        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
+        <td>16.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="module-header">
       <td colspan="9">07 · Profile (Extended) &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          7 tests — ✅ 6 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 1 Skipped
+          7 tests — ✅ 7 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
       </td></tr><tr class="status-Pass">
         <td><span class="tc-id">TC_PRF_006</span></td>
@@ -1626,7 +1626,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>17.1s</td>
+        <td>21.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1636,7 +1636,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>15.5s</td>
+        <td>16.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1646,7 +1646,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>17.6s</td>
+        <td>42.6s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1656,7 +1656,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>41.2s</td>
+        <td>41.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1666,7 +1666,7 @@ Received:   [31m0[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>20.8s</td>
+        <td>19.7s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -1675,18 +1675,18 @@ Received:   [31m0[39m
         <td class="scenario-text">TC_PRF_011 Profile page shows logged-in user email</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>✅ Pass</strong></td>
-        <td>18.5s</td>
+        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
+        <td>16.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_PRF_012</span></td>
         <td class="scenario-text">TC_PRF_012 Logout dialog has Cancel option</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>41.9s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>22.0s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -2438,8 +2438,8 @@ Received: [31mfalse[39m
 </div>
 
 <footer>
-  Generated by Wrex QA Agent · Tricog CardioCheck v1.4.0 · Cycle 3 Full Coverage Run · 2026-05-06 10:51:13<br>
-  Total: 178 | Pass: 157 | Fail: 13 | Blocked: 0 | Skipped: 8 | Pass Rate: 88.2%
+  Generated by Wrex QA Agent · Tricog CardioCheck v1.4.0 · Cycle 3 Full Coverage Run · 2026-05-06 12:50:02<br>
+  Total: 178 | Pass: 160 | Fail: 13 | Blocked: 0 | Skipped: 5 | Pass Rate: 89.9%
 </footer>
 
 <script>

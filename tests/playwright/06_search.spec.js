@@ -12,10 +12,14 @@ test.describe('TC_Search_Bar — ECG Search', () => {
     await doLogin(page);
     await ensureDashboard(page);
     await page.waitForSelector(SEL_ECG_ITEM, { timeout: 15000 }).catch(() => {});
-    // Discover search input selector
+    // Activate Flutter a11y tree before probing for search input
+    await enableFlutterA11y(page, 2500);
+    // Discover search input selector with fallbacks
     searchSel = 'input[aria-label*="Search"]';
-    const found = await page.locator(searchSel).count();
-    if (!found) searchSel = 'input[aria-label*="search"]';
+    let found = await page.locator(searchSel).count();
+    if (!found) { searchSel = 'input[aria-label*="search"]'; found = await page.locator(searchSel).count(); }
+    if (!found) { searchSel = 'input[type="text"]'; found = await page.locator(searchSel).count(); }
+    if (!found) { searchSel = 'flt-semantics[role="textbox"]'; }
   });
 
   test('TC_SRC_001 Exact patient ID search returns matching result', async ({ page }) => {
@@ -51,7 +55,7 @@ test.describe('TC_Search_Bar — ECG Search', () => {
     await page.waitForTimeout(1500);
     // Clear search
     await page.locator(searchSel).click();
-    await page.keyboard.selectAll();
+    await page.keyboard.press('Control+a');
     await page.keyboard.press('Backspace');
     await page.waitForTimeout(2000);
     await page.screenshot({ path: 'reports/screenshots/SRC_004_clear_search.png' });
@@ -124,7 +128,13 @@ test.describe('TC_Search_Bar — Additional Coverage', () => {
     await doLogin(page);
     await ensureDashboard(page);
     await page.waitForSelector(SEL_ECG_ITEM, { timeout: 15000 }).catch(() => {});
-    searchSel = 'input[aria-label*="Search"], input[aria-label*="search"]';
+    // Activate Flutter a11y tree before probing for search input
+    await enableFlutterA11y(page, 2500);
+    searchSel = 'input[aria-label*="Search"]';
+    let found = await page.locator(searchSel).count();
+    if (!found) { searchSel = 'input[aria-label*="search"]'; found = await page.locator(searchSel).count(); }
+    if (!found) { searchSel = 'input[type="text"]'; found = await page.locator(searchSel).count(); }
+    if (!found) { searchSel = 'flt-semantics[role="textbox"]'; }
   });
 
   test('TC_SRC_002 Partial patient ID match returns filtered results', async ({ page }) => {

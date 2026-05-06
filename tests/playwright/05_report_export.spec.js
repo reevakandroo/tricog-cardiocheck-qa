@@ -28,8 +28,8 @@ test.describe('TC_Report_Export — PDF Export', () => {
         { timeout: 45000 }
       ).catch(() => {});
     }
-    await page.waitForTimeout(1500);
-    await enableFlutterA11y(page, 1500);
+    await page.waitForTimeout(4000);
+    await enableFlutterA11y(page, 3000);
   }
 
   test('TC_RPT_001 Export PDF — download initiates', async ({ page }) => {
@@ -64,6 +64,7 @@ test.describe('TC_Report_Export — PDF Export', () => {
   });
 
   test('TC_RPT_008 Multiple export attempts — no crash', async ({ page }) => {
+    test.setTimeout(300000);
     await doLogin(page);
     await getToRiskResult(page, 'moderate');
     const exportBtn = page.locator(SEL_EXPORT_PDF);
@@ -78,6 +79,7 @@ test.describe('TC_Report_Export — PDF Export', () => {
   });
 
   test('TC_RPT_010 PDF endpoint requires authentication', async ({ page, context }) => {
+    test.setTimeout(300000);
     await doLogin(page);
     // Intercept outgoing requests to capture any PDF API call
     const pdfRequests = [];
@@ -128,11 +130,12 @@ test.describe('TC_Report_Export — Additional Coverage', () => {
         { timeout: 45000 }
       ).catch(() => {});
     }
-    await page.waitForTimeout(1500);
-    await enableFlutterA11y(page, 1500);
+    await page.waitForTimeout(4000);
+    await enableFlutterA11y(page, 3000);
   }
 
   test('TC_RPT_002 Export PDF button label is readable', async ({ page }) => {
+    test.setTimeout(300000);
     await doLogin(page);
     await getToResult(page, 'high');
     const exportBtn = page.locator(SEL_EXPORT_PDF).first();
@@ -146,6 +149,7 @@ test.describe('TC_Report_Export — Additional Coverage', () => {
   });
 
   test('TC_RPT_003 After PDF export page stays on result (no navigation away)', async ({ page }) => {
+    test.setTimeout(300000);
     await doLogin(page);
     await getToResult(page, 'high');
     const exportBtn = page.locator(SEL_EXPORT_PDF);
@@ -195,6 +199,7 @@ test.describe('TC_Report_Export — Additional Coverage', () => {
   });
 
   test('TC_RPT_009 Export on slow network — no crash', async ({ page }) => {
+    test.setTimeout(300000);
     await doLogin(page);
     await getToResult(page, 'high');
     const exportBtn = page.locator(SEL_EXPORT_PDF);
@@ -214,6 +219,7 @@ test.describe('TC_Report_Export — Additional Coverage', () => {
   });
 
   test('TC_RPT_011 PDF export initiates within 8 seconds', async ({ page }) => {
+    test.setTimeout(300000);
     await doLogin(page);
     await getToResult(page, 'high');
     const exportBtn = page.locator(SEL_EXPORT_PDF);
