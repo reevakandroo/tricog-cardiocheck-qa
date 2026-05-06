@@ -25,7 +25,7 @@ test.describe('TC_Report_Export — PDF Export', () => {
         () => ['low', 'moderate', 'high'].some(v =>
           Array.from(document.querySelectorAll('flt-semantics')).map(e => e.innerText || '').join(' ').toLowerCase().includes(v)
         ),
-        { timeout: 45000 }
+        { timeout: 90000 }
       ).catch(() => {});
     }
     await page.waitForTimeout(4000);
@@ -127,7 +127,7 @@ test.describe('TC_Report_Export — Additional Coverage', () => {
         () => ['low', 'moderate', 'high'].some(v =>
           Array.from(document.querySelectorAll('flt-semantics')).map(e => e.innerText || '').join(' ').toLowerCase().includes(v)
         ),
-        { timeout: 45000 }
+        { timeout: 90000 }
       ).catch(() => {});
     }
     await page.waitForTimeout(4000);

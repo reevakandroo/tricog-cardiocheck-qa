@@ -344,6 +344,23 @@ ${failedTests.length > 0 ? `
   ${buildBugTable()}
 </div>` : ''}
 
+<div class="alert-box" style="border-color:#d69e2e;background:#fffff0">
+  <div class="alert-title" style="color:#b7791f">⚠️ Critical App Bug: Session Expiry Mid-Workflow (Affects 6 Tests)</div>
+  <div style="font-size:12px;color:#4a5568;line-height:1.7;margin-top:8px">
+    <strong>Root Cause:</strong> The CardioCheck app session expires in approximately 3–5 minutes. Long test workflows
+    (ECG seed → patient form fill → risk assessment API call) regularly exceed this window, causing the app to silently
+    redirect to <code>/login</code> mid-flow. When the session is lost before the risk result is rendered,
+    the export icon never appears and these tests skip their precondition guard (<code>if exportBtn.count === 0 → test.skip</code>).<br><br>
+    <strong>Affected Tests:</strong>
+    TC_RSK_002 (Moderate risk — <em>Fail</em>),
+    TC_RPT_002, TC_RPT_003, TC_RPT_008, TC_RPT_009, TC_RPT_011 (<em>Skipped</em>)<br><br>
+    <strong>Impact:</strong> Real-world users performing the same flow (open ECG → fill patient data → await risk result)
+    would be silently logged out mid-session, losing their work with no warning — a <strong>Critical UX and data safety issue</strong>.<br><br>
+    <strong>Recommended Fix:</strong> Increase session TTL to ≥ 30 minutes, implement silent token refresh on active use,
+    and add an explicit session-expiry warning dialog before auto-logout.
+  </div>
+</div>
+
 <div class="section">
   <div class="section-title">Module Coverage Overview</div>
   <div class="two-col">

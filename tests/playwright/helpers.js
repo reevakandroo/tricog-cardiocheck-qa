@@ -34,7 +34,16 @@ const SEL_PAT_NAME   = 'input[aria-label*="Patient Name"], input[placeholder*="P
 const SEL_AGE        = 'input[aria-label*="Age"], input[placeholder*="Age"]';
 const SEL_GENDER_BTN = 'button:has-text("Gender"), [aria-label*="Gender"]';
 const SEL_RISK_BTN   = 'flt-semantics[role="button"]:has-text("Get Risk Assessment")';
-const SEL_EXPORT_PDF = 'flt-semantics[role="button"]:has-text("Export PDF"), flt-semantics[role="button"]:has-text("Export"), flt-semantics[role="button"]:has-text("PDF"), button:has-text("Export PDF")';
+const SEL_EXPORT_PDF = [
+  'flt-semantics[role="button"][aria-label*="Export" i]',
+  'flt-semantics[role="button"][aria-label*="Share" i]',
+  'flt-semantics[role="button"][aria-label*="PDF" i]',
+  'flt-semantics[role="button"][aria-label*="Download" i]',
+  'flt-semantics[role="button"]:has-text("Export PDF")',
+  'flt-semantics[role="button"]:has-text("Export")',
+  'flt-semantics[role="button"]:has-text("PDF")',
+  'button:has-text("Export PDF")',
+].join(', ');
 
 // ── Enable Flutter accessibility ──────────────────────────────────────────────
 async function enableFlutterA11y(page, waitMs = 2500) {

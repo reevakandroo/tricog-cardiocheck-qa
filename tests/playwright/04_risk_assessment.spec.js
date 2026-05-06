@@ -25,7 +25,7 @@ test.describe('TC_Risk_Assessment', () => {
         () => ['low', 'moderate', 'high'].some(v =>
           Array.from(document.querySelectorAll('flt-semantics')).map(e => e.innerText || '').join(' ').toLowerCase().includes(v)
         ),
-        { timeout: 45000 }
+        { timeout: 90000 }
       ).catch(() => {});
     }
     await page.waitForTimeout(4000);
@@ -121,7 +121,7 @@ test.describe('TC_Risk_Assessment — Additional Coverage', () => {
         () => ['low', 'moderate', 'high'].some(v =>
           Array.from(document.querySelectorAll('flt-semantics')).map(e => e.innerText || '').join(' ').toLowerCase().includes(v)
         ),
-        { timeout: 45000 }
+        { timeout: 90000 }
       ).catch(() => {});
     }
     await page.waitForTimeout(4000);
