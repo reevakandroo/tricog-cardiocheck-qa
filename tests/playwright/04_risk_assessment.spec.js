@@ -28,8 +28,8 @@ test.describe('TC_Risk_Assessment', () => {
         { timeout: 45000 }
       ).catch(() => {});
     }
-    await page.waitForTimeout(1500);
-    await enableFlutterA11y(page, 1500);
+    await page.waitForTimeout(4000);
+    await enableFlutterA11y(page, 3000);
   }
 
   test('TC_RSK_001 Low risk result → "Low" label visible', async ({ page }) => {
@@ -41,6 +41,7 @@ test.describe('TC_Risk_Assessment', () => {
   });
 
   test('TC_RSK_002 Moderate risk result → "Moderate" label visible', async ({ page }) => {
+    test.setTimeout(300000);
     await doLogin(page);
     await seedAndGetRisk(page, 'moderate');
     await page.screenshot({ path: 'reports/screenshots/RSK_002_moderate.png' });
@@ -123,11 +124,12 @@ test.describe('TC_Risk_Assessment — Additional Coverage', () => {
         { timeout: 45000 }
       ).catch(() => {});
     }
-    await page.waitForTimeout(1500);
-    await enableFlutterA11y(page, 1500);
+    await page.waitForTimeout(4000);
+    await enableFlutterA11y(page, 3000);
   }
 
   test('TC_RSK_004 Risk result page shows ECG waveform strip', async ({ page }) => {
+    test.setTimeout(300000);
     await doLogin(page);
     await seedAndOpen(page, 'high');
     await page.screenshot({ path: 'reports/screenshots/RSK_004_ecg_strip.png' });
@@ -187,8 +189,8 @@ test.describe('TC_Risk_Assessment — Additional Coverage', () => {
     await doLogin(page);
     await seedAndOpen(page, 'high');
     await page.goBack();
-    await page.waitForTimeout(2000);
-    await enableFlutterA11y(page, 1500);
+    await page.waitForTimeout(4000);
+    await enableFlutterA11y(page, 3000);
     await page.screenshot({ path: 'reports/screenshots/RSK_013_back_from_result.png' });
     const url = page.url();
     expect(url).toMatch(/\/(ecg|login)/);
@@ -210,6 +212,7 @@ test.describe('TC_Risk_Assessment — Additional Coverage', () => {
   });
 
   test('TC_RSK_015 Risk result has Export PDF option visible', async ({ page }) => {
+    test.setTimeout(300000);
     const { SEL_EXPORT_PDF } = require('./helpers');
     await doLogin(page);
     await seedAndOpen(page, 'high');

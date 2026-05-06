@@ -70,7 +70,7 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
   <h1>Tricog CardioCheck v1.4.0 — QA Execution Report</h1>
   <div class="subtitle">Automated E2E Test Suite · Playwright · Cycle 3 — Full Coverage Run · 13 Modules · 178 Test Cases</div>
   <div class="meta-grid">
-    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-06 10:12:21</div></div>
+    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-06 10:51:13</div></div>
     <div class="meta-field"><label>Tester</label><div class="val">Wrex QA Agent</div></div>
     <div class="meta-field"><label>App Version</label><div class="val">v1.4.0 (Railway)</div></div>
     <div class="meta-field"><label>Framework</label><div class="val">Playwright · Node.js</div></div>
@@ -83,16 +83,16 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
 
 <div class="stats-bar">
   <div class="stat-card total"><div class="num">178</div><div class="lbl">Total</div></div>
-  <div class="stat-card passed"><div class="num">153</div><div class="lbl">Passed</div></div>
-  <div class="stat-card failed"><div class="num">12</div><div class="lbl">Failed</div></div>
-  <div class="stat-card blocked"><div class="num">5</div><div class="lbl">Blocked</div></div>
+  <div class="stat-card passed"><div class="num">157</div><div class="lbl">Passed</div></div>
+  <div class="stat-card failed"><div class="num">13</div><div class="lbl">Failed</div></div>
+  <div class="stat-card blocked"><div class="num">0</div><div class="lbl">Blocked</div></div>
   <div class="stat-card skipped"><div class="num">8</div><div class="lbl">Skipped</div></div>
-  <div class="stat-card pct"><div class="num">86.0%</div><div class="lbl">Pass Rate</div></div>
+  <div class="stat-card pct"><div class="num">88.2%</div><div class="lbl">Pass Rate</div></div>
 </div>
 
 
 <div class="alert-box">
-  <div class="alert-title">❌ 12 Failing Tests — Bugs Found</div>
+  <div class="alert-title">❌ 13 Failing Tests — Bugs Found</div>
   <table style="width:100%;border-collapse:collapse;font-size:12px;">
     <thead><tr style="background:#fed7d7;">
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">TC ID</th>
@@ -128,6 +128,11 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
       <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_RSK_001</td>
       <td style="padding:7px 8px;color:#4a5568">04 · Risk Assessment</td>
       <td style="padding:7px 8px">TC_RSK_001 Low risk result → "Low" label visible</td>
+      <td style="padding:7px 8px"><span class="sev-critical">Critical</span></td>
+    </tr><tr style="border-bottom:1px solid #fed7d7;">
+      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_RSK_002</td>
+      <td style="padding:7px 8px;color:#4a5568">04 · Risk Assessment</td>
+      <td style="padding:7px 8px">TC_RSK_002 Moderate risk result → "Moderate" label visible</td>
       <td style="padding:7px 8px"><span class="sev-critical">Critical</span></td>
     </tr><tr style="border-bottom:1px solid #fed7d7;">
       <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_RSK_003</td>
@@ -192,10 +197,10 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
         <span style="font-size:12px;font-weight:600">04 · Risk Assessment</span>
-        <span style="font-size:11px;color:#718096">6/14 (43%)</span>
+        <span style="font-size:11px;color:#718096">10/14 (71%)</span>
       </div>
       <div style="background:#edf2f7;border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:#e53e3e;width:43%;height:100%;border-radius:4px"></div>
+        <div style="background:#d69e2e;width:71%;height:100%;border-radius:4px"></div>
       </div>
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
@@ -1064,7 +1069,7 @@ Call log:
       </tr><tr class="module-header">
       <td colspan="9">04 · Risk Assessment &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          6 tests — ✅ 3 Pass &nbsp; ❌ 2 Fail &nbsp; ⚠️ 1 Blocked &nbsp; ⏭️ 0 Skipped
+          6 tests — ✅ 3 Pass &nbsp; ❌ 3 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
       </td></tr><tr class="status-Fail">
         <td><span class="tc-id">TC_RSK_001</span></td>
@@ -1091,15 +1096,33 @@ Received string:    [31m"patient details[39m
   39 |     const text = (await pageTe</pre>
          </details></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Blocked">
+      </tr><tr class="status-Fail">
         <td><span class="tc-id">TC_RSK_002</span></td>
         <td class="scenario-text">TC_RSK_002 Moderate risk result → "Moderate" label visible</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-critical">Critical</span></td>
-        <td><strong>⚠️ Blocked</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
-        <td>185.6s</td>
+        <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
+        <td>195.2s</td>
         <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
-        <td></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+Expected substring: [32m"moderate"[39m
+Received string:    [31m"login to your account[39m
+[31memail id[39m
+[31mpassword[39m
+[31mforgot password?[39m
+[31mlogin[39m
+[31mversion 1.4.0"[39m
+
+  47 |     await page.screenshot({ path: 'reports/screenshots/RSK_002_moderate.png' });
+  48 |     const text = (await pageText(page)).toLowerCase();
+&gt; 49 |     expect(text).toContain('moderate');
+     |                  ^
+  50 |   });
+  51 |
+  52 |   test('TC_RSK_003 High risk result →</pre>
+         </details></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Fail">
         <td><span class="tc-id">TC_RSK_003</span></td>
@@ -1163,16 +1186,16 @@ Received string:    [31m"pt639521[39m
       </tr><tr class="module-header">
       <td colspan="9">04 · Risk Assessment (Extended) &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          8 tests — ✅ 3 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 4 Blocked &nbsp; ⏭️ 0 Skipped
+          8 tests — ✅ 7 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
-      </td></tr><tr class="status-Blocked">
+      </td></tr><tr class="status-Pass">
         <td><span class="tc-id">TC_RSK_004</span></td>
         <td class="scenario-text">TC_RSK_004 Risk result page shows ECG waveform strip</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-critical">Critical</span></td>
-        <td><strong>⚠️ Blocked</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>185.2s</td>
-        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>42.9s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
@@ -1185,14 +1208,14 @@ Received string:    [31m"pt639521[39m
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Blocked">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_RSK_009</span></td>
         <td class="scenario-text">TC_RSK_009 Done button after feedback — navigable</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-critical">Critical</span></td>
-        <td><strong>⚠️ Blocked</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>180.4s</td>
-        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>36.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Fail">
@@ -1229,14 +1252,14 @@ Received: [31mfalse[39m
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Blocked">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_RSK_013</span></td>
         <td class="scenario-text">TC_RSK_013 Back navigation from result page goes to ECG list</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-critical">Critical</span></td>
-        <td><strong>⚠️ Blocked</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>185.4s</td>
-        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
+        <td>42.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
@@ -1249,14 +1272,14 @@ Received: [31mfalse[39m
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Blocked">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_RSK_015</span></td>
         <td class="scenario-text">TC_RSK_015 Risk result has Export PDF option visible</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-critical">Critical</span></td>
-        <td><strong>⚠️ Blocked</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>185.3s</td>
-        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>35.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="module-header">
@@ -2415,8 +2438,8 @@ Received: [31mfalse[39m
 </div>
 
 <footer>
-  Generated by Wrex QA Agent · Tricog CardioCheck v1.4.0 · Cycle 3 Full Coverage Run · 2026-05-06 10:12:21<br>
-  Total: 178 | Pass: 153 | Fail: 12 | Blocked: 5 | Skipped: 8 | Pass Rate: 86.0%
+  Generated by Wrex QA Agent · Tricog CardioCheck v1.4.0 · Cycle 3 Full Coverage Run · 2026-05-06 10:51:13<br>
+  Total: 178 | Pass: 157 | Fail: 13 | Blocked: 0 | Skipped: 8 | Pass Rate: 88.2%
 </footer>
 
 <script>
