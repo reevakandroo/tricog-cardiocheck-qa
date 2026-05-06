@@ -24,11 +24,9 @@ test.describe('TC_Omron_Integration — Mock ECG Seeding', () => {
     // Process it
     await openFreshECG(page, 'low');
     await fillPatient(page, { patientId: `LW${Date.now().toString().slice(-5)}`, name: 'Low Risk', age: '40', gender: 'Male' });
-    const saveBtn = page.locator('flt-semantics[role="button"]:has-text("Save")').or(
-      page.locator('flt-semantics[role="button"]:has-text("Submit")'));
-    await saveBtn.first().click({ timeout: 5000 }).catch(() => {});
-    await page.waitForTimeout(2000);
-    await enableFlutterA11y(page, 2000);
+    await page.waitForTimeout(1500);
+    await enableFlutterA11y(page, 1500);
+    // On fresh ECGs, "Get Risk Assessment" is the single submit + risk trigger button
     const riskBtn = page.locator('flt-semantics[role="button"]:has-text("Get Risk Assessment")');
     if (await riskBtn.count() > 0) {
       await riskBtn.click({ timeout: 5000 });

@@ -33,8 +33,8 @@ const SEL_PATIENT_ID = 'input[aria-label*="Patient ID"], input[placeholder*="Pat
 const SEL_PAT_NAME   = 'input[aria-label*="Patient Name"], input[placeholder*="Patient Name"]';
 const SEL_AGE        = 'input[aria-label*="Age"], input[placeholder*="Age"]';
 const SEL_GENDER_BTN = 'button:has-text("Gender"), [aria-label*="Gender"]';
-const SEL_RISK_BTN   = 'button:has-text("Get Risk Assessment")';
-const SEL_EXPORT_PDF = 'button:has-text("Export PDF"), button:has-text("Export"), a:has-text("PDF")';
+const SEL_RISK_BTN   = 'flt-semantics[role="button"]:has-text("Get Risk Assessment")';
+const SEL_EXPORT_PDF = 'flt-semantics[role="button"]:has-text("Export PDF"), flt-semantics[role="button"]:has-text("Export"), flt-semantics[role="button"]:has-text("PDF"), button:has-text("Export PDF")';
 
 // ── Enable Flutter accessibility ──────────────────────────────────────────────
 async function enableFlutterA11y(page, waitMs = 2500) {
@@ -220,21 +220,68 @@ async function openFreshECG(page, risk = 'high') {
 // ── Fill patient form ─────────────────────────────────────────────────────────
 async function fillPatient(page, { patientId = 'PT1001', name = 'John Doe', age = '45', gender = 'Male' } = {}) {
   if (patientId !== null) await robustFill(page, SEL_PATIENT_ID, patientId);
-  if (name !== null)      await robustFill(page, SEL_PAT_NAME, name);
-  if (age !== null)       await robustFill(page, SEL_AGE, age);
+  // name and age filled AFTER gender — gender coordinate click causes Flutter re-render
+  // that clears any text input filled before the dropdown interaction
 
+  // Select gender BEFORE filling age — Flutter dropdown interaction causes re-render
+  // that clears any previously typed age value
   if (gender) {
     try {
       const sel = page.locator('select').first();
       if (await sel.count() > 0) {
         await sel.selectOption({ label: gender });
       } else {
-        await page.locator(SEL_GENDER_BTN).first().click({ timeout: 4000 });
-        await page.waitForTimeout(500);
-        await page.locator(`text=${gender}`).first().click({ timeout: 3000 }).catch(() => {});
+        // The gender button is flt-semantics[role=button][aria-label="Gender *"]
+        // After robustFill calls reset the a11y tree, use coordinate-based click
+        // Form layout (1280×800 viewport): Age x=364,y=300,w=276 | Gender x=648,y=300,w=268
+        // Gender button center ≈ (782, 334)
+        const genderBtnCenter = { x: 782, y: 334 };
+
+        // Try selector first (works if a11y tree is still up)
+        const gBtn = page.locator('flt-semantics[role="button"][aria-label*="Gender"], [aria-label*="Gender"]');
+        if (await gBtn.count() > 0) {
+          await gBtn.first().click({ timeout: 3000 }).catch(() => {});
+        } else {
+          // Fallback: coordinate-based click on gender button area
+          await page.mouse.click(genderBtnCenter.x, genderBtnCenter.y);
+        }
+        await page.waitForTimeout(1000);
+
+        // Now click the gender option. Dropdown options appear as innerText elements.
+        // Option Y positions (from screenshot analysis, viewport 1280×800):
+        //   Male ≈ y=333, Female ≈ y=381, Other ≈ y=430, center X ≈ 785
+        const optionY = { Male: 333, Female: 381, Other: 430 };
+        const targetY = optionY[gender] || 333;
+        await page.mouse.click(785, targetY);
+        await page.waitForTimeout(600);
+
+        // Verify dropdown closed (Female option should no longer be visible as innerText)
+        const stillOpen = await page.evaluate(() => {
+          for (const el of document.querySelectorAll('*')) {
+            if ((el.innerText || '').trim() === 'Female' &&
+                el.getBoundingClientRect().width > 0) return true;
+          }
+          return false;
+        });
+        if (stillOpen) {
+          // Last resort: click the Male text element directly
+          await page.evaluate((g) => {
+            for (const el of document.querySelectorAll('*')) {
+              if ((el.innerText || '').trim() === g) {
+                el.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+                break;
+              }
+            }
+          }, gender).catch(() => {});
+          await page.waitForTimeout(400);
+        }
       }
     } catch (_) {}
   }
+
+  // Fill name and age AFTER gender — safe from Flutter re-render clearing
+  if (name !== null) await robustFill(page, SEL_PAT_NAME, name);
+  if (age !== null)  await robustFill(page, SEL_AGE, age);
 }
 
 // ── Page text ─────────────────────────────────────────────────────────────────

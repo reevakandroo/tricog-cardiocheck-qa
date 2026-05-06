@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CardioCheck QA — Execution Report</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 13px; background: #f0f2f5; color: #1a1a2e; }
+
+.page-header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%); color: #fff; padding: 24px 32px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.35); }
+.page-header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.page-header .subtitle { font-size: 12px; color: #a0aec0; margin-bottom: 18px; }
+
+.meta-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+.meta-field { display: flex; flex-direction: column; gap: 4px; }
+.meta-field label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: #90cdf4; }
+.meta-field .val { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 5px; color: #e2e8f0; padding: 5px 9px; font-size: 13px; }
+
+.stats-bar { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 32px; }
+.stat-card { background: #fff; border-radius: 8px; padding: 14px 20px; flex: 1; min-width: 110px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,0.1); border-top: 3px solid #cbd5e0; }
+.stat-card.total { border-top-color: #4a5568; } .stat-card.passed { border-top-color: #38a169; }
+.stat-card.failed { border-top-color: #e53e3e; } .stat-card.blocked { border-top-color: #d69e2e; }
+.stat-card.skipped { border-top-color: #718096; } .stat-card.pct { border-top-color: #3182ce; }
+.stat-card .num { font-size: 28px; font-weight: 700; line-height: 1; }
+.stat-card.total .num { color: #4a5568; } .stat-card.passed .num { color: #38a169; }
+.stat-card.failed .num { color: #e53e3e; } .stat-card.blocked .num { color: #d69e2e; }
+.stat-card.skipped .num { color: #718096; } .stat-card.pct .num { color: #3182ce; }
+.stat-card .lbl { font-size: 11px; font-weight: 600; text-transform: uppercase; color: #718096; margin-top: 4px; }
+
+.table-wrap { margin: 0 32px 24px; background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.09); overflow: hidden; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+tr.module-header td { background: #2d3748; color: #e2e8f0; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 8px 14px; }
+thead tr th { background: #edf2f7; color: #4a5568; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 10px 8px; border-bottom: 2px solid #cbd5e0; white-space: nowrap; position: sticky; top: 0; z-index: 10; }
+tbody tr { border-bottom: 1px solid #edf2f7; }
+tbody td { padding: 7px 8px; vertical-align: top; }
+.status-Pass { background: #f0fff4 !important; } .status-Fail { background: #fff5f5 !important; }
+.status-Blocked { background: #fffff0 !important; } .status-Skipped { background: #f7fafc !important; }
+.tc-id { color: #3182ce; font-weight: 600; font-size: 12px; white-space: nowrap; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.badge-Positive { background: #c6f6d5; color: #276749; } .badge-Negative { background: #fed7d7; color: #9b2c2c; }
+.badge-Edge { background: #e9d8fd; color: #553c9a; } .badge-Security { background: #feebc8; color: #7b341e; }
+.sev-critical { color: #e53e3e; font-weight: 700; } .sev-high { color: #d69e2e; font-weight: 600; }
+.sev-medium { color: #3182ce; } .sev-low { color: #718096; }
+.scenario-text { font-size: 12px; max-width: 300px; }
+
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin: 0 32px 16px; align-items: center; }
+.filter-bar select, .filter-bar input { padding: 6px 10px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 12px; }
+.btn { padding: 7px 16px; border: none; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.btn-primary { background: #3182ce; color: #fff; } .btn-export { background: #805ad5; color: #fff; }
+
+footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Tricog CardioCheck — QA Execution Report</h1>
+  <div class="subtitle">Automated E2E · Playwright · Cycle 2</div>
+  <div class="meta-grid">
+    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-06 06:56:30</div></div>
+    <div class="meta-field"><label>Tester</label><div class="val">Wrex QA Agent</div></div>
+    <div class="meta-field"><label>App URL</label><div class="val">cardiocheck-releasev140.up.railway.app</div></div>
+    <div class="meta-field"><label>Framework</label><div class="val">Playwright v1.44 · Node.js</div></div>
+    <div class="meta-field"><label>Test Account</label><div class="val">reeva.kandroo+8@tricog.com</div></div>
+    <div class="meta-field"><label>Browser</label><div class="val">Chromium (headless)</div></div>
+    <div class="meta-field"><label>Total Modules</label><div class="val">11</div></div>
+    <div class="meta-field"><label>Retry Policy</label><div class="val">3 retries with delay variation</div></div>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-card total"><div class="num">80</div><div class="lbl">Total</div></div>
+  <div class="stat-card passed"><div class="num">68</div><div class="lbl">Passed</div></div>
+  <div class="stat-card failed"><div class="num">8</div><div class="lbl">Failed</div></div>
+  <div class="stat-card blocked"><div class="num">1</div><div class="lbl">Blocked</div></div>
+  <div class="stat-card skipped"><div class="num">3</div><div class="lbl">Skipped</div></div>
+  <div class="stat-card pct"><div class="num">85.0%</div><div class="lbl">Pass Rate</div></div>
+</div>
+
+<div class="filter-bar">
+  <select id="statusFilter" onchange="filterRows()">
+    <option value="">All Statuses</option>
+    <option value="Pass">Pass</option>
+    <option value="Fail">Fail</option>
+    <option value="Blocked">Blocked</option>
+    <option value="Skipped">Skipped</option>
+  </select>
+  <select id="sevFilter" onchange="filterRows()">
+    <option value="">All Severities</option>
+    <option value="Critical">Critical</option>
+    <option value="High">High</option>
+    <option value="Medium">Medium</option>
+    <option value="Low">Low</option>
+  </select>
+  <input type="text" id="searchFilter" placeholder="Search test ID or scenario..." oninput="filterRows()" style="width:250px">
+  <button class="btn btn-primary" onclick="exportCSV()">Export CSV</button>
+  <button class="btn btn-export" onclick="window.print()">Print / PDF</button>
+</div>
+
+<div class="table-wrap">
+  <table id="resultsTable">
+    <thead>
+      <tr>
+        <th>TC ID</th>
+        <th>Scenario</th>
+        <th>Type</th>
+        <th>Severity</th>
+        <th>Status</th>
+        <th>Duration</th>
+        <th>Screenshots</th>
+        <th>Bug Details</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr class="module-header">
+      <td colspan="9">TC_Login — Authentication &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          13 tests — ✅ 13 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_001</span></td>
+        <td class="scenario-text">TC_LGN_001 Valid login → reaches ECG dashboard</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>16.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_002</span></td>
+        <td class="scenario-text">TC_LGN_002 Invalid password → error message shown</td>
+        <td><span class="badge badge-Negative">Negative</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>22.6s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_003</span></td>
+        <td class="scenario-text">TC_LGN_003 Non-existent email → error shown, no dashboard</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>18.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_004</span></td>
+        <td class="scenario-text">TC_LGN_004 Empty email → cannot proceed to dashboard</td>
+        <td><span class="badge badge-Negative">Negative</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>10.3s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_005</span></td>
+        <td class="scenario-text">TC_LGN_005 Empty password → cannot proceed to dashboard</td>
+        <td><span class="badge badge-Negative">Negative</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>11.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_006</span></td>
+        <td class="scenario-text">TC_LGN_006 Both fields empty → cannot proceed</td>
+        <td><span class="badge badge-Negative">Negative</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>13.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_007</span></td>
+        <td class="scenario-text">TC_LGN_007 SQL injection in email → no server error, stays on login</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>13.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_008</span></td>
+        <td class="scenario-text">TC_LGN_008 XSS in password field → sanitized, no script execution</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>14.3s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_009</span></td>
+        <td class="scenario-text">TC_LGN_009 Very long email (300 chars) → handled gracefully</td>
+        <td><span class="badge badge-Edge">Edge</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>12.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_010</span></td>
+        <td class="scenario-text">TC_LGN_010 Email case sensitivity — uppercase email</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>13.9s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_012</span></td>
+        <td class="scenario-text">TC_LGN_012 Session persists after page reload</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>30.1s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_013</span></td>
+        <td class="scenario-text">TC_LGN_013 Logout clears session → redirects to login</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>38.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_LGN_015</span></td>
+        <td class="scenario-text">TC_LGN_015 Forgot password link visible and navigates</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>13.6s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_Profile &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          5 tests — ✅ 5 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PRF_001</span></td>
+        <td class="scenario-text">TC_PRF_001 Profile page shows user info</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>28.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PRF_002</span></td>
+        <td class="scenario-text">TC_PRF_002 Logout → redirected to login, back button blocked</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>32.1s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PRF_003</span></td>
+        <td class="scenario-text">TC_PRF_003 Center selection screen accessible from profile</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>21.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PRF_004</span></td>
+        <td class="scenario-text">TC_PRF_004 Omron credentials screen accessible</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>19.6s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PRF_005</span></td>
+        <td class="scenario-text">TC_PRF_005 All profile menu options are present</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>21.3s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_Security &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          8 tests — ✅ 8 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SEC_001</span></td>
+        <td class="scenario-text">TC_SEC_001 Access ECG list without auth → redirected to login</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>5.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SEC_002</span></td>
+        <td class="scenario-text">TC_SEC_002 Access patient form without auth → redirected to login</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>5.1s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SEC_003</span></td>
+        <td class="scenario-text">TC_SEC_003 Risk result screen without auth → redirected to login</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>5.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SEC_004</span></td>
+        <td class="scenario-text">TC_SEC_004 Direct URL to non-existent ECG → 404 or access denied</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>18.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SEC_005</span></td>
+        <td class="scenario-text">TC_SEC_005 XSS in patient name → stored safely, no execution</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>54.1s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SEC_006</span></td>
+        <td class="scenario-text">TC_SEC_006 SQL injection in patient ID → caught by validation</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>26.1s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SEC_007</span></td>
+        <td class="scenario-text">TC_SEC_007 HTTPS enforcement — no mixed content</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>24.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SEC_008</span></td>
+        <td class="scenario-text">TC_SEC_008 No auth tokens in accessible cookies</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>15.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_HIPAA — HIPAA Compliance &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          5 tests — ✅ 5 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_HIPAA_001</span></td>
+        <td class="scenario-text">TC_HIPAA_001 PHI not exposed in URL parameters</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>31.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_HIPAA_002</span></td>
+        <td class="scenario-text">TC_HIPAA_002 Authenticated access required for all PHI screens</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>13.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_HIPAA_004</span></td>
+        <td class="scenario-text">TC_HIPAA_004 Data minimization — no excess PHI in API responses</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>18.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_HIPAA_005</span></td>
+        <td class="scenario-text">TC_HIPAA_005 Center-based access control — user sees only their centers data</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>21.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_HIPAA_006</span></td>
+        <td class="scenario-text">TC_HIPAA_006 PDF export accessible only when authenticated</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>4.5s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_ECG_Dashboard — ECG List &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          7 tests — ✅ 7 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_ECG_001</span></td>
+        <td class="scenario-text">TC_ECG_001 ECG list loads with entries</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>20.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_ECG_004</span></td>
+        <td class="scenario-text">TC_ECG_004 Click ECG → opens detail view</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>18.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_ECG_005</span></td>
+        <td class="scenario-text">TC_ECG_005 Pagination — scroll loads more ECGs</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>23.5s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_ECG_006</span></td>
+        <td class="scenario-text">TC_ECG_006 New unprocessed ECG shows "New ECG" label</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>15.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_ECG_007</span></td>
+        <td class="scenario-text">TC_ECG_007 Processed ECGs show risk level color labels</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>14.3s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_ECG_009</span></td>
+        <td class="scenario-text">TC_ECG_009 Large dataset — 10+ ECGs, list stable</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>17.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_ECG_010</span></td>
+        <td class="scenario-text">TC_ECG_010 Refresh after seed — new ECG appears</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>25.3s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_Search_Bar — ECG Search &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          8 tests — ✅ 5 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 2 Skipped
+        </span>
+      </td></tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SRC_001</span></td>
+        <td class="scenario-text">TC_SRC_001 Exact patient ID search returns matching result</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>23.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SRC_003</span></td>
+        <td class="scenario-text">TC_SRC_003 No results for unknown ID → empty state shown</td>
+        <td><span class="badge badge-Negative">Negative</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>21.6s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Fail">
+        <td><span class="tc-id">TC_SRC_004</span></td>
+        <td class="scenario-text">TC_SRC_004 Clear search restores full list</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>❌ Fail</strong></td>
+        <td>44.4s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">TimeoutError: locator.click: Timeout 25000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[aria-label*="Search"]')[22m
+
+
+  51 |     await page.waitForTimeout(1500);
+  52 |     // Clear search
+> 53 |     await page.locator(searchSel).click();
+     |                                   ^
+  54 |     await page.keyboard.selectAll();
+  55 |     await page.keyboard.press('Backspace');
+  56 |     await page.waitForTimeout(2000);
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/06_search.spec.js:53:35</pre>
+         </details></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SRC_005</span></td>
+        <td class="scenario-text">TC_SRC_005 Special characters in search — no crash</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>16.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Skipped">
+        <td><span class="tc-id">TC_SRC_006</span></td>
+        <td class="scenario-text">TC_SRC_006 SQL injection in search — no data leak</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>⏭️ Skipped</strong></td>
+        <td>56.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Skipped">
+        <td><span class="tc-id">TC_SRC_007</span></td>
+        <td class="scenario-text">TC_SRC_007 XSS in search — no script execution</td>
+        <td><span class="badge badge-Security">Security</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>⏭️ Skipped</strong></td>
+        <td>55.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SRC_008</span></td>
+        <td class="scenario-text">TC_SRC_008 Very long search string — no crash</td>
+        <td><span class="badge badge-Edge">Edge</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>13.5s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_SRC_009</span></td>
+        <td class="scenario-text">TC_SRC_009 Whitespace-only search — graceful handling</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-medium">Medium</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>14.3s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_Network — Connectivity &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          4 tests — ✅ 2 Pass &nbsp; ❌ 2 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Fail">
+        <td><span class="tc-id">TC_NET_001</span></td>
+        <td class="scenario-text">TC_NET_001 Offline banner appears when network disabled</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>❌ Fail</strong></td>
+        <td>15.3s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+Expected: [32mtrue[39m
+Received: [31mfalse[39m
+
+  22 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,
+  23 |     });
+> 24 |     expect(hasBanner).toBe(true);
+     |                       ^
+  25 |   });
+  26 |
+  27 |   test('TC_NET_002 Online recovery — banner disappears after reconnect', async ({ page }) => {
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:24:23</pre>
+         </details></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_NET_002</span></td>
+        <td class="scenario-text">TC_NET_002 Online recovery — banner disappears after reconnect</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>45.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_NET_004</span></td>
+        <td class="scenario-text">TC_NET_004 Submit patient data offline — graceful error</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>23.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Fail">
+        <td><span class="tc-id">TC_NET_005</span></td>
+        <td class="scenario-text">TC_NET_005 Load ECG list while offline — graceful error shown</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>❌ Fail</strong></td>
+        <td>43.0s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeTruthy[2m()[22m
+
+Received: [31m""[39m
+
+   97 |       offline: false, latency: 0, downloadThroughput: -1, uploadThroughput: -1,
+   98 |     });
+>  99 |     expect(await page.title()).toBeTruthy();
+      |                                ^
+  100 |   });
+  101 | });
+  102 |
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/08_network.spec.js:99:32</pre>
+         </details></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_Patient_Info — Patient Form Validation &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          15 tests — ✅ 13 Pass &nbsp; ❌ 2 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Fail">
+        <td><span class="tc-id">TC_PAT_001</span></td>
+        <td class="scenario-text">TC_PAT_001 Valid patient details — risk button enabled</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>❌ Fail</strong></td>
+        <td>26.5s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBeGreaterThan[2m([22m[32mexpected[39m[2m)[22m
+
+Expected: > [32m0[39m
+Received:   [31m0[39m
+
+  23 |     const riskBtnCount = await submitBtn.count();
+  24 |     await page.screenshot({ path: 'reports/screenshots/PAT_001_after_submit.png' });
+> 25 |     expect(riskBtnCount).toBeGreaterThan(0);
+     |                          ^
+  26 |   });
+  27 |
+  28 |   test('TC_PAT_003 Patient ID too short (5 chars) → validation error', async ({ page }) => {
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/03_patient_form.spec.js:25:26</pre>
+         </details></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_003</span></td>
+        <td class="scenario-text">TC_PAT_003 Patient ID too short (5 chars) → validation error</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>19.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_004</span></td>
+        <td class="scenario-text">TC_PAT_004 Patient ID too long (13 chars) → validation error</td>
+        <td><span class="badge badge-Edge">Edge</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>22.1s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_005</span></td>
+        <td class="scenario-text">TC_PAT_005 Patient ID with special chars → validation error</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>22.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_006</span></td>
+        <td class="scenario-text">TC_PAT_006 Patient ID exactly 6 chars → valid (boundary)</td>
+        <td><span class="badge badge-Edge">Edge</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>24.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_007</span></td>
+        <td class="scenario-text">TC_PAT_007 Patient ID exactly 12 chars → valid (boundary)</td>
+        <td><span class="badge badge-Edge">Edge</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>26.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_009</span></td>
+        <td class="scenario-text">TC_PAT_009 Age below 18 → validation error</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>20.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_010</span></td>
+        <td class="scenario-text">TC_PAT_010 Age exactly 18 → valid (boundary)</td>
+        <td><span class="badge badge-Edge">Edge</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>24.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_011</span></td>
+        <td class="scenario-text">TC_PAT_011 Age exactly 150 → valid (boundary)</td>
+        <td><span class="badge badge-Edge">Edge</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>22.6s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_012</span></td>
+        <td class="scenario-text">TC_PAT_012 Age 151 → validation error</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>20.1s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_013</span></td>
+        <td class="scenario-text">TC_PAT_013 Age zero → validation error</td>
+        <td><span class="badge badge-Edge">Edge</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>23.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Fail">
+        <td><span class="tc-id">TC_PAT_014</span></td>
+        <td class="scenario-text">TC_PAT_014 Negative age → validation error</td>
+        <td><span class="badge badge-Negative">Negative</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>❌ Fail</strong></td>
+        <td>196.6s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: page.reload: net::ERR_INTERNET_DISCONNECTED
+Call log:
+[2m  - waiting for navigation until "domcontentloaded"[22m
+
+
+   at helpers.js:199
+
+  197 |     for (let i = 0; i < 6; i++) {
+  198 |       await page.waitForTimeout(5000);
+> 199 |       await page.reload({ waitUntil: 'domcontentloaded' });
+      |                  ^
+  200 |       await page.waitForTimeout(1500);
+  201 |       await enableFlutterA11y(page, 1000);
+  202 |       if ((await page.locator(SEL_NEW_ECG).count()) > 0) { hasNew = true; break; }
+    at openFreshECG (/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/helpers.js:199:18)
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/03_patient_form.spec.js:12:5
+[31mTearing down "context" exceeded the test timeout</pre>
+         </details></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_016</span></td>
+        <td class="scenario-text">TC_PAT_016 Name with numbers → validation error</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>22.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_018</span></td>
+        <td class="scenario-text">TC_PAT_018 Name over 100 chars → validation error</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>22.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_PAT_019</span></td>
+        <td class="scenario-text">TC_PAT_019 Emoji in name → handled gracefully</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>17.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_Risk_Assessment &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          6 tests — ✅ 3 Pass &nbsp; ❌ 2 Fail &nbsp; ⚠️ 1 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Fail">
+        <td><span class="tc-id">TC_RSK_001</span></td>
+        <td class="scenario-text">TC_RSK_001 Low risk result → "Low" label visible</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>❌ Fail</strong></td>
+        <td>38.2s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+Expected substring: [32m"low"[39m
+Received string:    [31m"patient details[39m
+[31m06 may 2026, 11:36 am[39m
+[31mplease enter the patient details to proceed with the tcc risk assessment.[39m
+[31mshould use 6-12 characters[39m
+[31mmust be 100 characters or less[39m
+[31mvalue must be between 18 and 150[39m
+[31myears[39m
+[31mget risk assessment"[39m
+
+  38 |     await page.screenshot({ path: 'reports/screenshots/RSK_001_low.png' });
+  39 |     const text = (await pageText(page)).toLowerCase();
+> 40 |     expect(text).toContain('low');
+     |                  ^
+  41 |   });
+  42 |
+  43 |   test('TC_RSK_002 Moderate risk result → "Moderate" label visible', async ({ pa</pre>
+         </details></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Blocked">
+        <td><span class="tc-id">TC_RSK_002</span></td>
+        <td class="scenario-text">TC_RSK_002 Moderate risk result → "Moderate" label visible</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>⚠️ Blocked</strong></td>
+        <td>185.6s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Fail">
+        <td><span class="tc-id">TC_RSK_003</span></td>
+        <td class="scenario-text">TC_RSK_003 High risk result → "High" label visible</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>❌ Fail</strong></td>
+        <td>36.7s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+Expected substring: [32m"high"[39m
+Received string:    [31m"pt639521[39m
+[31m06 may 2026, 11:49 am[39m
+[31mexport pdf[39m
+[31medit patient details[39m
+[31mecg waveform strip[39m
+[31mscroll position 0 percent[39m
+[31mscroll sideways to view the full strip[39m
+[31mmoderate[39m
+[31mrisk of cvd detected. please consult a doctor.[39m
+[31mwe value your feedback![39m
+[31mwas 12 lead ecg done?[39m
+[31mconfirm[39m
+[31mdone"[39m
+
+  54 |     await page.screenshot({ path: 'reports/screenshots/RSK_003_high.png' });
+  55 |     const text = (await pageText(page)).toLowerCase();
+> 56 |     expect(text).toContain('high');
+     |                  ^
+  57 |   });
+  58 |
+ </pre>
+         </details></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_RSK_005</span></td>
+        <td class="scenario-text">TC_RSK_005 Submit satisfied feedback</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>38.4s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_RSK_007</span></td>
+        <td class="scenario-text">TC_RSK_007 Risk button disabled before patient data saved</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>20.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_RSK_008</span></td>
+        <td class="scenario-text">TC_RSK_008 Double-click risk assessment — no duplicate submission</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-critical">Critical</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>41.8s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_Report_Export — PDF Export &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          4 tests — ✅ 3 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 1 Skipped
+        </span>
+      </td></tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_RPT_001</span></td>
+        <td class="scenario-text">TC_RPT_001 Export PDF — download initiates</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>38.7s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_RPT_007</span></td>
+        <td class="scenario-text">TC_RPT_007 Export PDF button absent before risk assessment</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>18.2s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Skipped">
+        <td><span class="tc-id">TC_RPT_008</span></td>
+        <td class="scenario-text">TC_RPT_008 Multiple export attempts — no crash</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>⏭️ Skipped</strong></td>
+        <td>33.5s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_RPT_010</span></td>
+        <td class="scenario-text">TC_RPT_010 PDF endpoint requires authentication</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>36.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="module-header">
+      <td colspan="9">TC_Omron_Integration — Mock ECG Seeding &nbsp;
+        <span style="font-weight:normal;font-size:11px;opacity:0.85">
+          5 tests — ✅ 4 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
+        </span>
+      </td></tr><tr class="status-Fail">
+        <td><span class="tc-id">TC_OMR_001</span></td>
+        <td class="scenario-text">TC_OMR_001 Seed low risk ECG → appears and shows Low result</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>❌ Fail</strong></td>
+        <td>92.8s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+Expected: [32mtrue[39m
+Received: [31mfalse[39m
+
+  21 |     }
+  22 |     await page.screenshot({ path: 'reports/screenshots/OMR_001_low_in_list.png' });
+> 23 |     expect(appeared).toBe(true);
+     |                      ^
+  24 |     // Process it
+  25 |     await openFreshECG(page, 'low');
+  26 |     await fillPatient(page, { patientId: `LW${Date.now().toString().slice(-5)}`, name: 'Low Risk', age: '40', gender: 'Male' });
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/11_omron.spec.js:23:22</pre>
+         </details></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_OMR_002</span></td>
+        <td class="scenario-text">TC_OMR_002 Seed moderate risk ECG → shows Moderate result</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>32.3s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_OMR_003</span></td>
+        <td class="scenario-text">TC_OMR_003 Seed high risk ECG → shows High result</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>31.6s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_OMR_004</span></td>
+        <td class="scenario-text">TC_OMR_004 ECG appears within 30 seconds of seeding</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>20.6s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Pass">
+        <td><span class="tc-id">TC_OMR_005</span></td>
+        <td class="scenario-text">TC_OMR_005 New ECG shows "New ECG" label before patient data entry</td>
+        <td><span class="badge badge-Positive">Positive</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>32.1s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  Generated by Wrex QA Agent · Tricog CardioCheck Cycle 2 · 2026-05-06 06:56:30<br>
+  Total: 80 | Pass: 68 | Fail: 8 | Blocked: 1 | Skipped: 3 | Pass Rate: 85.0%
+</footer>
+
+<script>
+function filterRows() {
+  const status = document.getElementById('statusFilter').value.toLowerCase();
+  const sev    = document.getElementById('sevFilter').value.toLowerCase();
+  const search = document.getElementById('searchFilter').value.toLowerCase();
+  const rows   = document.querySelectorAll('#tableBody tr:not(.module-header)');
+  rows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    const show = (!status || text.includes(status)) &&
+                 (!sev || text.includes(sev)) &&
+                 (!search || text.includes(search));
+    row.style.display = show ? '' : 'none';
+  });
+}
+
+function exportCSV() {
+  const rows = document.querySelectorAll('#tableBody tr:not(.module-header)');
+  let csv = 'TC ID,Scenario,Type,Severity,Status,Duration\n';
+  rows.forEach(row => {
+    const cells = row.querySelectorAll('td');
+    if (cells.length > 0) {
+      csv += [cells[0],cells[1],cells[2],cells[3],cells[4],cells[5]]
+        .map(c => '"' + (c.textContent || '').replace(/"/g,'""').trim() + '"')
+        .join(',') + '\n';
+    }
+  });
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'cardiocheck_results.csv';
+  a.click();
+}
+</script>
+</body>
+</html>

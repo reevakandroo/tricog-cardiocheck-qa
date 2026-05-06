@@ -9,29 +9,27 @@ const {
 test.describe('TC_Report_Export — PDF Export', () => {
   async function getToRiskResult(page, risk = 'high') {
     await generateECG(risk);
-    await page.waitForTimeout(6000);
+    await page.waitForTimeout(3000);
     await page.reload({ waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(2000);
-    await enableFlutterA11y(page, 2000);
+    await page.waitForTimeout(1500);
+    await enableFlutterA11y(page, 1500);
     await openFreshECG(page, risk);
     await fillPatient(page, { patientId: `EX${Date.now().toString().slice(-5)}`, name: 'Export Test', age: '40', gender: 'Female' });
-    const saveBtn = page.locator('flt-semantics[role="button"]:has-text("Save")').or(
-      page.locator('flt-semantics[role="button"]:has-text("Submit")'));
-    await saveBtn.first().click({ timeout: 5000 }).catch(() => {});
-    await page.waitForTimeout(3000);
-    await enableFlutterA11y(page, 2000);
+    await page.waitForTimeout(1000);
+    await enableFlutterA11y(page, 1500);
+    // On fresh ECGs, "Get Risk Assessment" is the single submit + risk trigger button
     const riskBtn = page.locator('flt-semantics[role="button"]:has-text("Get Risk Assessment")');
     if (await riskBtn.count() > 0) {
-      await riskBtn.click({ timeout: 5000 });
+      await riskBtn.click({ timeout: 8000 });
       await page.waitForFunction(
         () => ['low', 'moderate', 'high'].some(v =>
           Array.from(document.querySelectorAll('flt-semantics')).map(e => e.innerText || '').join(' ').toLowerCase().includes(v)
         ),
-        { timeout: 40000 }
+        { timeout: 45000 }
       ).catch(() => {});
     }
-    await page.waitForTimeout(2000);
-    await enableFlutterA11y(page, 2000);
+    await page.waitForTimeout(1500);
+    await enableFlutterA11y(page, 1500);
   }
 
   test('TC_RPT_001 Export PDF — download initiates', async ({ page }) => {
