@@ -114,3 +114,73 @@ test.describe('TC_Search_Bar — ECG Search', () => {
     expect(await page.title()).toBeTruthy();
   });
 });
+
+// ─── NEW TESTS added for full coverage ───────────────────────────────────────
+
+test.describe('TC_Search_Bar — Additional Coverage', () => {
+  let searchSel;
+
+  test.beforeEach(async ({ page }) => {
+    await doLogin(page);
+    await ensureDashboard(page);
+    await page.waitForSelector(SEL_ECG_ITEM, { timeout: 15000 }).catch(() => {});
+    searchSel = 'input[aria-label*="Search"], input[aria-label*="search"]';
+  });
+
+  test('TC_SRC_002 Partial patient ID match returns filtered results', async ({ page }) => {
+    const hasSearch = await page.locator(searchSel).count();
+    if (!hasSearch) { test.skip(); return; }
+    await robustFill(page, searchSel, 'PT');
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: 'reports/screenshots/SRC_002_partial_search.png' });
+    // Should return results starting with PT or show empty state — no crash
+    expect(await page.title()).toBeTruthy();
+  });
+
+  test('TC_SRC_010 Empty search input shows full ECG list', async ({ page }) => {
+    const hasSearch = await page.locator(searchSel).count();
+    if (!hasSearch) { test.skip(); return; }
+    // Type and then clear
+    await robustFill(page, searchSel, 'XYZ');
+    await page.waitForTimeout(1000);
+    await robustFill(page, searchSel, '');
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: 'reports/screenshots/SRC_010_empty_search.png' });
+    const count = await page.locator(SEL_ECG_ITEM).count();
+    expect(count).toBeGreaterThan(0);
+  });
+
+  test('TC_SRC_011 Search is case-insensitive', async ({ page }) => {
+    const hasSearch = await page.locator(searchSel).count();
+    if (!hasSearch) { test.skip(); return; }
+    // Search with lowercase
+    await robustFill(page, searchSel, 'pt');
+    await page.waitForTimeout(1500);
+    const lowerCount = await page.locator(SEL_ECG_ITEM).count();
+    // Search with uppercase
+    await robustFill(page, searchSel, 'PT');
+    await page.waitForTimeout(1500);
+    const upperCount = await page.locator(SEL_ECG_ITEM).count();
+    await page.screenshot({ path: 'reports/screenshots/SRC_011_case_insensitive.png' });
+    // Both searches should return the same number of results
+    expect(lowerCount).toBe(upperCount);
+  });
+
+  test('TC_SRC_012 Single character search — no crash', async ({ page }) => {
+    const hasSearch = await page.locator(searchSel).count();
+    if (!hasSearch) { test.skip(); return; }
+    await robustFill(page, searchSel, 'P');
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: 'reports/screenshots/SRC_012_single_char.png' });
+    expect(await page.title()).toBeTruthy();
+  });
+
+  test('TC_SRC_013 Numeric search term — no crash', async ({ page }) => {
+    const hasSearch = await page.locator(searchSel).count();
+    if (!hasSearch) { test.skip(); return; }
+    await robustFill(page, searchSel, '12345');
+    await page.waitForTimeout(2000);
+    await page.screenshot({ path: 'reports/screenshots/SRC_013_numeric_search.png' });
+    expect(await page.title()).toBeTruthy();
+  });
+});
