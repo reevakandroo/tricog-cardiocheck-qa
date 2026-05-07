@@ -45,6 +45,18 @@ const MODULE_LABEL_MAP = {
   'TC_Omron_Integration — Additional Coverage': '11 · Omron Integration (Extended)',
   'TC_UX_EndUser — End-User Experience'     : '12 · UX & End-User Experience',
   'TC_Performance — Response Time Benchmarks': '13 · Performance Benchmarks',
+  'TC_AUTH_BB — Positive'                   : '14 · Auth Black Box (Positive)',
+  'TC_AUTH_BB — Negative'                   : '14 · Auth Black Box (Negative)',
+  'TC_AUTH_BB — Edge & Boundary'            : '14 · Auth Black Box (Edge)',
+  'TC_PAT_BB — Positive'                    : '15 · Patient Form Black Box (Positive)',
+  'TC_PAT_BB — Negative'                    : '15 · Patient Form Black Box (Negative)',
+  'TC_PAT_BB — Edge & Boundary'             : '15 · Patient Form Black Box (Edge)',
+  'TC_ECG_BB — Positive'                    : '16 · ECG Flow Black Box (Positive)',
+  'TC_ECG_BB — Negative'                    : '16 · ECG Flow Black Box (Negative)',
+  'TC_ECG_BB — Edge'                        : '16 · ECG Flow Black Box (Edge)',
+  'TC_UX_BB — Positive & UX Quality'        : '17 · UX & Accessibility Black Box (Positive)',
+  'TC_UX_BB — Negative & Error States'      : '17 · UX & Accessibility Black Box (Negative)',
+  'TC_UX_BB — Edge & Accessibility'         : '17 · UX & Accessibility Black Box (Edge)',
 };
 
 // ── Severity mapping by module keyword ───────────────────────────────────────
