@@ -179,9 +179,10 @@ function screenshotHtml(shots) {
     const name = path.basename(s || 'screenshot.png');
     const b64  = screenshotBase64(name);
     if (b64) {
-      return `<a href="${b64}" target="_blank" title="${name}" style="font-size:11px;color:#3182ce;margin-right:4px">
-        <img src="${b64}" style="height:40px;border:1px solid #e2e8f0;border-radius:3px;vertical-align:middle;cursor:pointer" title="Click to open full screenshot"/>
-      </a>`;
+      return `<img src="${b64}" data-full="${b64}" data-name="${name}"
+        onclick="openLightbox(this)"
+        style="height:40px;border:1px solid #e2e8f0;border-radius:3px;vertical-align:middle;cursor:zoom-in;margin-right:4px"
+        title="Click to view: ${name}"/>`;
     }
     return `<span style="color:#a0aec0;font-size:10px">📸 ${name}</span>`;
   }).join('');
@@ -299,10 +300,11 @@ function buildBugTable() {
     if (info.shot) {
       const b64 = screenshotBase64(info.shot);
       if (b64) {
-        shotHtml = `<a href="${b64}" target="_blank" title="Click to view full screenshot" style="display:block;text-decoration:none">
-          <img src="${b64}" style="height:50px;max-width:80px;border:1px solid #fc8181;border-radius:4px;vertical-align:middle;cursor:pointer;object-fit:cover" title="${info.shot}"/>
-          <div style="font-size:9px;color:#3182ce;margin-top:2px;text-align:center">View</div>
-        </a>`;
+        shotHtml = `<img src="${b64}" data-full="${b64}" data-name="${info.shot}"
+          onclick="openLightbox(this)"
+          style="height:50px;max-width:80px;border:1px solid #fc8181;border-radius:4px;cursor:zoom-in;object-fit:cover;display:block"
+          title="Click to view: ${info.shot}"/>
+          <div style="font-size:9px;color:#3182ce;margin-top:2px;text-align:center;cursor:zoom-in" onclick="openLightbox(this.previousElementSibling)">🔍 View</div>`;
       } else {
         shotHtml = `<span style="color:#a0aec0;font-size:10px">📸 ${info.shot}</span>`;
       }
@@ -546,7 +548,35 @@ ${failedTests.length > 0 ? `
   Total: ${total} | Pass: ${totalPassed} | Fail: ${totalFailed} | Blocked: ${totalBlocked} | Skipped: ${totalSkipped} | Pass Rate: ${pct}%
 </footer>
 
+<!-- Lightbox overlay -->
+<div id="lb-overlay" onclick="closeLightbox()"
+     style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.88);z-index:9999;cursor:zoom-out;overflow:auto">
+  <div style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100%;padding:30px 20px">
+    <div style="width:100%;max-width:1100px;text-align:right;margin-bottom:8px">
+      <span onclick="closeLightbox()" style="color:#e2e8f0;font-size:28px;cursor:pointer;line-height:1;user-select:none">✕</span>
+    </div>
+    <img id="lb-img" src="" style="max-width:100%;max-height:85vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,0.6);object-fit:contain"/>
+    <div id="lb-name" style="color:#90cdf4;font-size:12px;margin-top:12px;font-family:monospace"></div>
+    <div style="color:#718096;font-size:11px;margin-top:6px">Click anywhere or press Esc to close</div>
+  </div>
+</div>
+
 <script>
+function openLightbox(el) {
+  const src  = el.dataset.full || el.src;
+  const name = el.dataset.name || el.title || '';
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-name').textContent = name;
+  document.getElementById('lb-overlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lb-overlay').style.display = 'none';
+  document.getElementById('lb-img').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
 function filterRows() {
   const status = document.getElementById('statusFilter').value.toLowerCase();
   const sev    = document.getElementById('sevFilter').value.toLowerCase();
