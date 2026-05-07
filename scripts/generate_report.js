@@ -37,6 +37,10 @@ const MODULE_LABEL_MAP = {
   'TC_Profile — Additional Coverage'        : '07 · Profile (Extended)',
   'TC_Network — Connectivity'               : '08 · Network',
   'TC_Network — Additional Coverage'        : '08 · Network (Extended)',
+  'TC_Network — Offline Banner'             : '08 · Network — Offline Banner',
+  'TC_Network — Slow Network Banner'        : '08 · Network — Slow Network',
+  'TC_Network — Banner Combinations'        : '08 · Network — Banner Combinations',
+  'TC_Network — Functional Behaviour'       : '08 · Network — Functional',
   'TC_Security'                             : '09 · Security',
   'TC_Security — Additional Coverage'       : '09 · Security (Extended)',
   'TC_HIPAA — HIPAA Compliance'             : '10 · HIPAA Compliance',
@@ -149,8 +153,8 @@ const sortedModules = Object.keys(byModule).sort((a, b) => {
   return a.includes('Extended') ? 1 : -1;
 });
 
-// ── Collect failed tests for bugs section ─────────────────────────────────────
-const failedTests = rows.filter(r => r.status === 'Fail');
+// ── Collect failed/blocked tests for bugs section ────────────────────────────
+const failedTests = rows.filter(r => r.status === 'Fail' || r.status === 'Blocked');
 
 // ── Screenshot base64 embed ────────────────────────────────────────────────────
 const screenshotsDir = path.join(__dirname, '../reports/screenshots');
@@ -185,10 +189,26 @@ function screenshotHtml(shots) {
 
 // ── Bug info: layman description + screenshot per TC ID ────────────────────────
 const BUG_INFO = {
-  'TC_NET_001': { shot: 'NET_001_offline.png',         desc: 'When WiFi or internet is switched off, the app shows no warning message. Users have no idea why data stopped loading.' },
-  'TC_NET_005': { shot: 'NET_005_offline_list.png',    desc: 'When trying to view ECG records without internet, the screen gets stuck with no helpful message telling the user what went wrong.' },
-  'TC_NET_007': { shot: 'NET_007_restore_refresh.png', desc: 'After the internet comes back, the ECG list does not automatically refresh. Users may think their records are gone.' },
-  'TC_NET_009': { shot: null,                           desc: 'On a very slow connection (like 2G or rural network), the app completely fails to load — leaving the user on a blank screen.' },
+  // ── Network: Offline Banner (missing feature) ───────────────────────────────
+  'TC_NET_001': { shot: 'NET_001_offline_banner.png',  desc: 'When WiFi is cut while on the dashboard, the app shows nothing. Expected: a clear "You\'re offline" banner so doctors know the network is down.' },
+  'TC_NET_002': { shot: 'NET_002_offline_login.png',   desc: 'Cutting network on the login page shows no "You\'re offline" banner. Users have no way to know why their login isn\'t working.' },
+  'TC_NET_003': { shot: 'NET_003_offline_ecglist.png', desc: 'Going offline on the ECG list shows no banner. The screen just freezes silently — no message explaining why new ECGs aren\'t loading.' },
+  'TC_NET_004': { shot: 'NET_004_offline_detail.png',  desc: 'Going offline while viewing an ECG detail causes the app to time out and hang instead of showing an "You\'re offline" message.' },
+  'TC_NET_005': { shot: 'NET_005_offline_recovered.png', desc: 'Even if an offline banner were to appear, it never disappears when the network comes back — the app gets stuck in offline state.' },
+  // ── Network: Slow Network Banner (missing feature) ───────────────────────────
+  'TC_NET_006': { shot: 'NET_006_2g_banner_dash.png',  desc: 'On a 2G / very slow connection, the dashboard shows no "Low network connection" banner. Doctors working in low-signal areas get no warning.' },
+  'TC_NET_007': { shot: 'NET_007_2g_banner_list.png',  desc: 'On a 2G connection, the ECG list shows no slow-network banner. Doctors may wait indefinitely without knowing the network is the problem.' },
+  'TC_NET_008': { shot: 'NET_008_2g_patient_form.png', desc: 'Filling the patient form on a 2G connection shows no "Low network connection" warning. Risk submission may silently fail or time out.' },
+  'TC_NET_009': { shot: 'NET_009_2g_login.png',        desc: 'On a 2G connection, the login page shows no slow-network banner. Doctors cannot tell if login is slow due to their network or the app.' },
+  'TC_NET_010': { shot: 'NET_010_2g_recovered.png',    desc: 'When network speed improves from 2G back to normal, the "Low network connection" banner (if shown) doesn\'t clear — app stays in slow-network state.' },
+  // ── Network: Banner State Transitions ───────────────────────────────────────
+  'TC_NET_011': { shot: 'NET_011_offline_to_2g.png',   desc: 'Going offline then restoring to 2G leaves the offline banner visible instead of clearing it. The app doesn\'t detect the partial reconnection.' },
+  'TC_NET_012': { shot: 'NET_012_2g_to_offline.png',   desc: 'Moving from slow 2G to fully offline does not trigger the "You\'re offline" banner — the app fails to detect the transition to no-network.' },
+  // ── Network: Text Quality / Functional ───────────────────────────────────────
+  'TC_NET_014': { shot: 'NET_014_offline_text_quality.png', desc: 'Going offline causes the app to hang and time out rather than showing any message. This means even the error quality check couldn\'t complete.' },
+  'TC_NET_016': { shot: 'NET_016_offline_login_attempt.png', desc: 'Loading the login page in offline mode causes a JavaScript error. The browser console shows an unhandled exception — a silent crash.' },
+  'TC_NET_018': { shot: 'NET_018_offline_reload.png',  desc: 'Reloading the ECG list while offline shows a completely blank white screen with no title, no message, and no explanation — total blank screen bug.' },
+  'TC_NET_020': { shot: null,                           desc: 'On a 2G slow connection, the Flutter login form takes over 30 seconds to appear. The app times out and the user is stuck on a blank screen.' },
   'TC_PAT_001': { shot: 'PAT_001_valid.png',           desc: 'Even after filling all patient details correctly (name, age, gender, ID), the Get Risk Assessment button stays greyed out and cannot be clicked.' },
   'TC_PAT_014': { shot: 'PAT_014_neg_age.png',         desc: 'If a user types an age below 18 (e.g., age = 1 or 17), the app shows no warning. It should say "Age must be between 18 and 150" but it is silent.' },
   'TC_PAT_BB_003': { shot: 'PAT_BB_003_age99.png',     desc: 'A perfectly valid age of 99 years is being rejected by the form — the risk assessment button does not activate, blocking the entire workflow.' },
@@ -266,6 +286,7 @@ function buildBugTable() {
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">Module</th>
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">Scenario</th>
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">Severity</th>
+      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">Status</th>
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">Screenshot</th>
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">What This Means (Plain English)</th>
     </tr></thead><tbody>`;
@@ -295,6 +316,7 @@ function buildBugTable() {
       <td style="padding:7px 8px;color:#4a5568;font-size:11px">${r.module}</td>
       <td style="padding:7px 8px;font-size:11px">${r.scenario}</td>
       <td style="padding:7px 8px"><span class="sev-${r.severity.toLowerCase()}">${r.severity}</span></td>
+      <td style="padding:7px 8px;font-size:11px;white-space:nowrap">${r.status === 'Blocked' ? '<span style="color:#d69e2e;font-weight:600">⚠️ Blocked</span>' : '<span style="color:#e53e3e;font-weight:600">❌ Fail</span>'}</td>
       <td style="padding:7px 8px;text-align:center">${shotHtml}</td>
       <td style="padding:7px 8px">${laymanDesc}</td>
     </tr>`;
