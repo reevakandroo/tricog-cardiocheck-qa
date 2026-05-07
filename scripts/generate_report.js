@@ -104,7 +104,7 @@ function walkSuites(suites, moduleName) {
                        overallStatus === 'flaky'    ? 'Pass' :
                        lastAttempt.status === 'timedOut' ? 'Blocked' : 'Fail';
 
-        const idMatch = spec.title.match(/TC_[A-Z0-9]+_\d+/);
+        const idMatch = spec.title.match(/TC_[A-Z0-9_]+\d+/);
         const id  = idMatch ? idMatch[0] : 'TC_UNKNOWN';
         const sev = getSeverity(mod);
         const duration = ((lastAttempt.duration || 0) / 1000).toFixed(1) + 's';
@@ -152,15 +152,65 @@ const sortedModules = Object.keys(byModule).sort((a, b) => {
 // ── Collect failed tests for bugs section ─────────────────────────────────────
 const failedTests = rows.filter(r => r.status === 'Fail');
 
-// ── Screenshot links ───────────────────────────────────────────────────────────
+// ── Screenshot base64 embed ────────────────────────────────────────────────────
+const screenshotsDir = path.join(__dirname, '../reports/screenshots');
+
+function screenshotBase64(filename) {
+  if (!filename) return null;
+  const candidates = [
+    path.join(screenshotsDir, filename),
+    path.join(screenshotsDir, path.basename(filename)),
+  ];
+  for (const p of candidates) {
+    if (fs.existsSync(p)) {
+      return 'data:image/png;base64,' + fs.readFileSync(p).toString('base64');
+    }
+  }
+  return null;
+}
+
 function screenshotHtml(shots) {
   if (!shots || shots.length === 0) return '<span style="color:#a0aec0;font-size:11px">—</span>';
   return shots.map(s => {
     const name = path.basename(s || 'screenshot.png');
-    const relPath = `screenshots/${name}`;
-    return `<a href="${relPath}" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 ${name}]</a>`;
+    const b64  = screenshotBase64(name);
+    if (b64) {
+      return `<a href="${b64}" target="_blank" title="${name}" style="font-size:11px;color:#3182ce;margin-right:4px">
+        <img src="${b64}" style="height:40px;border:1px solid #e2e8f0;border-radius:3px;vertical-align:middle;cursor:pointer" title="Click to open full screenshot"/>
+      </a>`;
+    }
+    return `<span style="color:#a0aec0;font-size:10px">📸 ${name}</span>`;
   }).join('');
 }
+
+// ── Bug info: layman description + screenshot per TC ID ────────────────────────
+const BUG_INFO = {
+  'TC_NET_001': { shot: 'NET_001_offline.png',         desc: 'When WiFi or internet is switched off, the app shows no warning message. Users have no idea why data stopped loading.' },
+  'TC_NET_005': { shot: 'NET_005_offline_list.png',    desc: 'When trying to view ECG records without internet, the screen gets stuck with no helpful message telling the user what went wrong.' },
+  'TC_NET_007': { shot: 'NET_007_restore_refresh.png', desc: 'After the internet comes back, the ECG list does not automatically refresh. Users may think their records are gone.' },
+  'TC_NET_009': { shot: null,                           desc: 'On a very slow connection (like 2G or rural network), the app completely fails to load — leaving the user on a blank screen.' },
+  'TC_PAT_001': { shot: 'PAT_001_valid.png',           desc: 'Even after filling all patient details correctly (name, age, gender, ID), the Get Risk Assessment button stays greyed out and cannot be clicked.' },
+  'TC_PAT_014': { shot: 'PAT_014_neg_age.png',         desc: 'If a user types an age below 18 (e.g., age = 1 or 17), the app shows no warning. It should say "Age must be between 18 and 150" but it is silent.' },
+  'TC_PAT_BB_003': { shot: 'PAT_BB_003_age99.png',     desc: 'A perfectly valid age of 99 years is being rejected by the form — the risk assessment button does not activate, blocking the entire workflow.' },
+  'TC_RSK_001': { shot: 'RSK_001_low.png',             desc: 'After completing all steps for a Low risk ECG, the result is never shown. The app logs the user out mid-process due to session timeout.' },
+  'TC_RSK_002': { shot: 'RSK_002_moderate.png',        desc: 'After completing all steps for a Moderate risk ECG, the result never appears. The session expires before the result is displayed.' },
+  'TC_RSK_003': { shot: 'RSK_003_high.png',            desc: 'After completing all steps for a High risk ECG, the result never appears. The session expires before the result can be shown to the doctor.' },
+  'TC_RSK_010': { shot: 'RSK_010_feedback_q.png',      desc: 'The question asking the doctor "Was a 12-lead ECG done?" does not appear on the result screen. Clinical feedback cannot be captured.' },
+  'TC_OMR_001': { shot: 'OMR_001_low_in_list.png',     desc: 'When a Low risk ECG is sent from the Omron device, it either does not appear in the ECG list or does not show the correct risk result.' },
+  'TC_SRC_004': { shot: 'SRC_004_clear_search.png',    desc: 'After searching for a patient and then clearing the search bar (pressing X), the full list of ECGs does not come back. The screen stays empty.' },
+  'TC_SRC_010': { shot: 'SRC_010_empty_search.png',    desc: 'When the search bar is left completely empty, all ECG records should be shown. Instead, the list stays empty or incomplete.' },
+  'TC_ECG_BB_006': { shot: 'ECG_BB_006_name_on_result.png', desc: 'The patient name that was typed into the Patient Information Form is missing from the final risk result screen.' },
+  'TC_ECG_BB_007': { shot: 'ECG_BB_007_age_on_result.png',  desc: 'The patient age that was typed into the Patient Information Form is missing from the final risk result screen.' },
+  'TC_ECG_BB_009': { shot: 'ECG_BB_009_waveform.png',       desc: 'The ECG heart trace (waveform image) is not appearing on the ECG detail page. Doctors cannot visually review the trace.' },
+  'TC_LGN_BB_003': { shot: 'LGN_BB_003_enter_key.png',      desc: 'Pressing the Enter key after typing a password does not log the user in. The doctor must manually click the Login button — poor usability.' },
+  'TC_LGN_BB_005': { shot: 'LGN_BB_005_retry_success.png',  desc: 'If a user types the wrong password first and then types the correct one, the app still refuses to log them in. They must refresh the page.' },
+  'TC_LGN_BB_018': { shot: 'LGN_BB_018_long_email.png',     desc: 'Pasting a very long email address (300+ characters) causes JavaScript errors in the app — a crash risk that should be handled gracefully.' },
+  'TC_LGN_BB_019': { shot: 'LGN_BB_019_long_pass.png',      desc: 'Pasting a very long password (300+ characters) causes JavaScript errors. The app should quietly reject it without crashing.' },
+  'TC_LGN_BB_020': { shot: null,                              desc: 'After 5 failed login attempts in quick succession, the login form becomes completely unresponsive. Users are unable to type in their credentials.' },
+  'TC_UX_BB_005': { shot: 'UX_BB_005_version.png',           desc: 'The app version number is not displayed anywhere on the login screen, making it impossible to verify which version is currently installed.' },
+  'TC_UX_BB_010': { shot: 'UX_BB_010_zoom_150.png',          desc: 'When the browser zoom is increased to 150% (common for users with vision difficulties), the app layout breaks and key elements disappear.' },
+  'TC_UX_BB_017': { shot: 'UX_BB_017_forgot_pass.png',       desc: 'The "Forgot Password" link is not visible on the login page. Users who forget their password have no way to reset it from the login screen.' },
+};
 
 // ── Table rows ─────────────────────────────────────────────────────────────────
 function buildRows() {
@@ -211,17 +261,42 @@ function buildBugTable() {
   if (failedTests.length === 0) return '<p style="color:#38a169;font-weight:600">✅ No failing tests.</p>';
   let html = `<table style="width:100%;border-collapse:collapse;font-size:12px;">
     <thead><tr style="background:#fed7d7;">
-      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">TC ID</th>
-      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">Module</th>
+      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">#</th>
+      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">TC ID</th>
+      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">Module</th>
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">Scenario</th>
-      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">Severity</th>
+      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">Severity</th>
+      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;white-space:nowrap">Screenshot</th>
+      <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">What This Means (Plain English)</th>
     </tr></thead><tbody>`;
+  let bugNum = 0;
   for (const r of failedTests) {
-    html += `<tr style="border-bottom:1px solid #fed7d7;">
+    bugNum++;
+    const info = BUG_INFO[r.id] || {};
+    // Screenshot thumbnail — embed as base64 so it works offline
+    let shotHtml = '<span style="color:#a0aec0;font-size:10px">No screenshot</span>';
+    if (info.shot) {
+      const b64 = screenshotBase64(info.shot);
+      if (b64) {
+        shotHtml = `<a href="${b64}" target="_blank" title="Click to view full screenshot" style="display:block;text-decoration:none">
+          <img src="${b64}" style="height:50px;max-width:80px;border:1px solid #fc8181;border-radius:4px;vertical-align:middle;cursor:pointer;object-fit:cover" title="${info.shot}"/>
+          <div style="font-size:9px;color:#3182ce;margin-top:2px;text-align:center">View</div>
+        </a>`;
+      } else {
+        shotHtml = `<span style="color:#a0aec0;font-size:10px">📸 ${info.shot}</span>`;
+      }
+    }
+    const laymanDesc = info.desc
+      ? `<span style="color:#2d3748;font-size:11px;line-height:1.5">${escHtml(info.desc)}</span>`
+      : `<span style="color:#a0aec0;font-size:10px">See scenario title</span>`;
+    html += `<tr style="border-bottom:1px solid #fed7d7;vertical-align:top">
+      <td style="padding:7px 8px;color:#718096;font-size:11px;white-space:nowrap">${bugNum}</td>
       <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">${r.id}</td>
-      <td style="padding:7px 8px;color:#4a5568">${r.module}</td>
-      <td style="padding:7px 8px">${r.scenario}</td>
+      <td style="padding:7px 8px;color:#4a5568;font-size:11px">${r.module}</td>
+      <td style="padding:7px 8px;font-size:11px">${r.scenario}</td>
       <td style="padding:7px 8px"><span class="sev-${r.severity.toLowerCase()}">${r.severity}</span></td>
+      <td style="padding:7px 8px;text-align:center">${shotHtml}</td>
+      <td style="padding:7px 8px">${laymanDesc}</td>
     </tr>`;
   }
   html += '</tbody></table>';
