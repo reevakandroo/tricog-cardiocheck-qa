@@ -5,7 +5,7 @@
  * zoom behaviour, and end-user experience edge cases.
  */
 const { test, expect } = require('@playwright/test');
-const { APP_URL, enableFlutterA11y, doLogin, ensureDashboard, pageText, SEL_ECG_ITEM } = require('./helpers');
+const { APP_URL, enableFlutterA11y, doLogin, gotoLogin, ensureDashboard, pageText, SEL_ECG_ITEM } = require('./helpers');
 
 const LOGIN_URL = `${APP_URL}/login`;
 
@@ -31,10 +31,8 @@ test.describe('TC_UX_BB — Positive & UX Quality', () => {
   });
 
   test('TC_UX_BB_003 Error message on wrong login is plain English (not stack trace)', async ({ page }) => {
-    await page.goto(LOGIN_URL, { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(2500);
-    await enableFlutterA11y(page, 2000);
-    const emailInput = page.locator('input[type="email"], input[aria-label*="Email"]').first();
+    await gotoLogin(page);
+    const emailInput = page.locator('input[aria-label="Enter your email"], input[placeholder="Enter your email"]').first();
     if (await emailInput.count() === 0) { test.skip(); return; }
     await emailInput.fill('wrong@wrong.com');
     await page.locator('input[type="password"]').first().fill('WrongPass!');
@@ -205,9 +203,7 @@ test.describe('TC_UX_BB — Negative & Error States', () => {
 test.describe('TC_UX_BB — Edge & Accessibility', () => {
 
   test('TC_UX_BB_015 Password field input is masked by default', async ({ page }) => {
-    await page.goto(LOGIN_URL, { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(2000);
-    await enableFlutterA11y(page, 1500);
+    await gotoLogin(page);
     const passField = page.locator('input[type="password"]').first();
     if (await passField.count() === 0) { test.skip(); return; }
     const inputType = await passField.getAttribute('type');
@@ -216,10 +212,8 @@ test.describe('TC_UX_BB — Edge & Accessibility', () => {
   });
 
   test('TC_UX_BB_016 Login button is disabled / shows loading after click', async ({ page }) => {
-    await page.goto(LOGIN_URL, { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(2500);
-    await enableFlutterA11y(page, 2000);
-    const emailInput = page.locator('input[type="email"], input[aria-label*="Email"]').first();
+    await gotoLogin(page);
+    const emailInput = page.locator('input[aria-label="Enter your email"], input[placeholder="Enter your email"]').first();
     if (await emailInput.count() === 0) { test.skip(); return; }
     await emailInput.fill('reeva.kandroo@tricog.com');
     await page.locator('input[type="password"]').first().fill('test@123');

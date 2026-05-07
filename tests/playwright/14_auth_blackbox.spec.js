@@ -4,17 +4,17 @@
  * Covers all positive, negative, and edge combinations for login/session.
  */
 const { test, expect } = require('@playwright/test');
-const { APP_URL, USERNAME, enableFlutterA11y, doLogin, pageText, robustFill } = require('./helpers');
+const { APP_URL, USERNAME, enableFlutterA11y, doLogin, gotoLogin, pageText, robustFill } = require('./helpers');
 
 const LOGIN_URL = `${APP_URL}/login`;
-const EMAIL_SEL = 'input[type="email"], input[aria-label*="Email"], flt-semantics[role="textbox"]:has-text("Email")';
-const PASS_SEL  = 'input[type="password"], input[aria-label*="Password"]';
+// Use exact selectors matching Flutter's aria-label (case-sensitive CSS attribute selectors)
+const EMAIL_SEL = 'input[aria-label="Enter your email"], input[placeholder="Enter your email"]';
+const PASS_SEL  = 'input[type="password"], input[aria-label="Enter your password"], input[placeholder="Enter your password"]';
 const LOGIN_BTN = 'flt-semantics[role="button"]:has-text("Login"), button:has-text("Login")';
 
+// Delegates to helpers.gotoLogin which has a 3-attempt retry loop + 30s waitForSelector
 async function goLogin(page) {
-  await page.goto(LOGIN_URL, { waitUntil: 'domcontentloaded' });
-  await page.waitForTimeout(2500);
-  await enableFlutterA11y(page, 2000);
+  await gotoLogin(page);
 }
 
 // ── Positive Tests ────────────────────────────────────────────────────────────

@@ -70,7 +70,7 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
   <h1>Tricog CardioCheck v1.4.0 — QA Execution Report</h1>
   <div class="subtitle">Automated E2E Test Suite · Playwright · Cycle 3 — Full Coverage Run · 13 Modules · 269 Test Cases</div>
   <div class="meta-grid">
-    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-07 07:08:22</div></div>
+    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-07 09:22:29</div></div>
     <div class="meta-field"><label>Tester</label><div class="val">Wrex QA Agent</div></div>
     <div class="meta-field"><label>App Version</label><div class="val">v1.4.0 (Railway)</div></div>
     <div class="meta-field"><label>Framework</label><div class="val">Playwright · Node.js</div></div>
@@ -83,16 +83,16 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
 
 <div class="stats-bar">
   <div class="stat-card total"><div class="num">269</div><div class="lbl">Total</div></div>
-  <div class="stat-card passed"><div class="num">225</div><div class="lbl">Passed</div></div>
-  <div class="stat-card failed"><div class="num">21</div><div class="lbl">Failed</div></div>
+  <div class="stat-card passed"><div class="num">237</div><div class="lbl">Passed</div></div>
+  <div class="stat-card failed"><div class="num">26</div><div class="lbl">Failed</div></div>
   <div class="stat-card blocked"><div class="num">0</div><div class="lbl">Blocked</div></div>
-  <div class="stat-card skipped"><div class="num">23</div><div class="lbl">Skipped</div></div>
-  <div class="stat-card pct"><div class="num">83.6%</div><div class="lbl">Pass Rate</div></div>
+  <div class="stat-card skipped"><div class="num">6</div><div class="lbl">Skipped</div></div>
+  <div class="stat-card pct"><div class="num">88.1%</div><div class="lbl">Pass Rate</div></div>
 </div>
 
 
 <div class="alert-box">
-  <div class="alert-title">❌ 21 Failing Tests — Bugs Found</div>
+  <div class="alert-title">❌ 26 Failing Tests — Bugs Found</div>
   <table style="width:100%;border-collapse:collapse;font-size:12px;">
     <thead><tr style="background:#fed7d7;">
       <th style="padding:8px;text-align:left;border-bottom:2px solid #fc8181;">TC ID</th>
@@ -188,6 +188,31 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
       <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_UNKNOWN</td>
       <td style="padding:7px 8px;color:#4a5568">16 · ECG Flow Black Box (Negative)</td>
       <td style="padding:7px 8px">TC_ECG_BB_013 Navigate to ECG list without auth → login page</td>
+      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
+    </tr><tr style="border-bottom:1px solid #fed7d7;">
+      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_UNKNOWN</td>
+      <td style="padding:7px 8px;color:#4a5568">14 · Auth Black Box (Positive)</td>
+      <td style="padding:7px 8px">TC_LGN_BB_003 Enter key submits login form</td>
+      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
+    </tr><tr style="border-bottom:1px solid #fed7d7;">
+      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_UNKNOWN</td>
+      <td style="padding:7px 8px;color:#4a5568">14 · Auth Black Box (Positive)</td>
+      <td style="padding:7px 8px">TC_LGN_BB_005 Correct credentials after wrong attempt — login succeeds</td>
+      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
+    </tr><tr style="border-bottom:1px solid #fed7d7;">
+      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_UNKNOWN</td>
+      <td style="padding:7px 8px;color:#4a5568">14 · Auth Black Box (Edge)</td>
+      <td style="padding:7px 8px">TC_LGN_BB_018 Very long email (300 chars) — graceful handling, no crash</td>
+      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
+    </tr><tr style="border-bottom:1px solid #fed7d7;">
+      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_UNKNOWN</td>
+      <td style="padding:7px 8px;color:#4a5568">14 · Auth Black Box (Edge)</td>
+      <td style="padding:7px 8px">TC_LGN_BB_019 Very long password (300 chars) — graceful handling</td>
+      <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
+    </tr><tr style="border-bottom:1px solid #fed7d7;">
+      <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_UNKNOWN</td>
+      <td style="padding:7px 8px;color:#4a5568">14 · Auth Black Box (Edge)</td>
+      <td style="padding:7px 8px">TC_LGN_BB_020 5 rapid failed logins — no crash, still functional</td>
       <td style="padding:7px 8px"><span class="sev-medium">Medium</span></td>
     </tr><tr style="border-bottom:1px solid #fed7d7;">
       <td style="padding:7px 8px;color:#3182ce;font-weight:600;white-space:nowrap">TC_UNKNOWN</td>
@@ -334,18 +359,18 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
         <span style="font-size:12px;font-weight:600">14 · Auth Black Box (Edge)</span>
-        <span style="font-size:11px;color:#718096">2/8 (25%)</span>
+        <span style="font-size:11px;color:#718096">5/8 (63%)</span>
       </div>
       <div style="background:#edf2f7;border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:#e53e3e;width:25%;height:100%;border-radius:4px"></div>
+        <div style="background:#e53e3e;width:63%;height:100%;border-radius:4px"></div>
       </div>
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
         <span style="font-size:12px;font-weight:600">14 · Auth Black Box (Negative)</span>
-        <span style="font-size:11px;color:#718096">1/8 (13%)</span>
+        <span style="font-size:11px;color:#718096">8/8 (100%)</span>
       </div>
       <div style="background:#edf2f7;border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:#e53e3e;width:13%;height:100%;border-radius:4px"></div>
+        <div style="background:#38a169;width:100%;height:100%;border-radius:4px"></div>
       </div>
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
@@ -398,10 +423,10 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
         <span style="font-size:12px;font-weight:600">17 · UX & Accessibility Black Box (Edge)</span>
-        <span style="font-size:11px;color:#718096">3/6 (50%)</span>
+        <span style="font-size:11px;color:#718096">5/6 (83%)</span>
       </div>
       <div style="background:#edf2f7;border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:#e53e3e;width:50%;height:100%;border-radius:4px"></div>
+        <div style="background:#d69e2e;width:83%;height:100%;border-radius:4px"></div>
       </div>
     </div><div style="margin-bottom:10px">
       <div style="display:flex;justify-content:space-between;margin-bottom:3px">
@@ -2587,65 +2612,107 @@ Received: [31mfalse[39m
       </tr><tr class="module-header">
       <td colspan="9">14 · Auth Black Box (Edge) &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          8 tests — ✅ 2 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 6 Skipped
+          8 tests — ✅ 5 Pass &nbsp; ❌ 3 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
-      </td></tr><tr class="status-Skipped">
+      </td></tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_016 SQL injection in email field — no crash or data leak</td>
         <td><span class="badge badge-Security">Security</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>4.8s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>13.8s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_017 XSS in password field — no script execution</td>
         <td><span class="badge badge-Security">Security</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.5s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>12.7s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Fail">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_018 Very long email (300 chars) — graceful handling, no crash</td>
         <td><span class="badge badge-Edge">Edge</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.4s</td>
-        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
-        <td></td>
+        <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
+        <td>13.5s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+Expected: [32m0[39m
+Received: [31m1[39m
+
+  236 |     await page.waitForTimeout(3000);
+  237 |     await page.screenshot({ path: 'reports/screenshots/LGN_BB_018_long_email.png' });
+&gt; 238 |     expect(errors.length).toBe(0);
+      |                           ^
+  239 |     expect(page.url()).toContain('login');
+  240 |   });
+  241 |
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/14_auth_blackbox.spec.js:238:27</pre>
+         </details></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Fail">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_019 Very long password (300 chars) — graceful handling</td>
         <td><span class="badge badge-Edge">Edge</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>4.9s</td>
-        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
-        <td></td>
+        <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
+        <td>9.6s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+
+Expected: [32m0[39m
+Received: [31m1[39m
+
+  251 |     await page.waitForTimeout(3000);
+  252 |     await page.screenshot({ path: 'reports/screenshots/LGN_BB_019_long_pass.png' });
+&gt; 253 |     expect(errors.length).toBe(0);
+      |                           ^
+  254 |   });
+  255 |
+  256 |   test('TC_LGN_BB_020 5 rapid failed logins — no crash, still functional', async ({ page }) =&gt; {
+    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/14_auth_bl</pre>
+         </details></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Fail">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_020 5 rapid failed logins — no crash, still functional</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>4.9s</td>
-        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
-        <td></td>
+        <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
+        <td>35.1s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">TimeoutError: locator.fill: Timeout 25000ms exceeded.
+Call log:
+[2m  - waiting for locator('input[aria-label="Enter your email"], input[placeholder="Enter your email"]').first()[22m
+
+
+  261 |     if (await emailInput.count() === 0) { test.skip(); return; }
+  262 |     for (let i = 0; i &lt; 5; i++) {
+&gt; 263 |       await emailInput.fill(USERNAME);
+      |                        ^
+  264 |       await page.locator(PASS_SEL).first().fill(`WrongPass${i}!`);
+  265 |       await page.locator(LOGIN_BTN).first().click({ timeout: 5000 }).catch(() =&gt; {});
+  266 |       await page.waitForTimeout(1500);
+   </pre>
+         </details></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_021 Protected route without auth → redirected to login</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>✅ Pass</strong></td>
-        <td>3.7s</td>
+        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
+        <td>4.0s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -2654,83 +2721,83 @@ Received: [31mfalse[39m
         <td class="scenario-text">TC_LGN_BB_022 Profile route without auth → redirected to login</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>4.2s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>4.1s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_023 Null byte in email — no server error</td>
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.5s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>8.6s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="module-header">
       <td colspan="9">14 · Auth Black Box (Negative) &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          8 tests — ✅ 1 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 7 Skipped
+          8 tests — ✅ 8 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
-      </td></tr><tr class="status-Skipped">
+      </td></tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_008 Wrong password — stays on login, error shown</td>
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.0s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>11.9s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_009 Non-existent email — error shown, no server crash</td>
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.5s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>10.4s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_010 Empty email field — cannot proceed</td>
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.5s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>8.7s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_011 Empty password field — cannot proceed</td>
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.4s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>8.6s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_012 Spaces-only password — cannot proceed</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.5s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>9.3s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_013 Invalid email format (no @) — error or cannot proceed</td>
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>4.9s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>8.7s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -2740,24 +2807,24 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>8.8s</td>
+        <td>12.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_015 Error message does not reveal if email exists (generic msg)</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.8s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>10.3s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="module-header">
       <td colspan="9">14 · Auth Black Box (Positive) &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          7 tests — ✅ 5 Pass &nbsp; ❌ 0 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 2 Skipped
+          7 tests — ✅ 5 Pass &nbsp; ❌ 2 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
       </td></tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
@@ -2765,7 +2832,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>17.0s</td>
+        <td>12.9s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -2775,19 +2842,32 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>18.2s</td>
+        <td>13.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Fail">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_003 Enter key submits login form</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>4.9s</td>
-        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
-        <td></td>
+        <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
+        <td>11.4s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+Expected substring: not [32m"login"[39m
+Received string:        [31m"https://cardiocheck-releasev140.up.railway.app/[7mlogin[27m"[39m
+
+  45 |     await page.screenshot({ path: 'reports/screenshots/LGN_BB_003_enter_key.png' });
+  46 |     // Should navigate away from login
+&gt; 47 |     expect(page.url()).not.toContain('login');
+     |                            ^
+  48 |   });
+  49 |
+  50 |   test('TC_LGN_BB_004 Login page accessible without auth (not redirected)', asy</pre>
+         </details></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
@@ -2795,27 +2875,40 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>2.7s</td>
+        <td>2.6s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Fail">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_005 Correct credentials after wrong attempt — login succeeds</td>
         <td><span class="badge badge-Negative">Negative</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.0s</td>
-        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
-        <td></td>
+        <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
+        <td>34.7s</td>
+        <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
+        <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
+          <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mnot[2m.[22mtoContain[2m([22m[32mexpected[39m[2m) // indexOf[22m
+
+Expected substring: not [32m"login"[39m
+Received string:        [31m"https://cardiocheck-releasev140.up.railway.app/[7mlogin[27m"[39m
+
+  71 |     await page.waitForTimeout(5000);
+  72 |     await page.screenshot({ path: 'reports/screenshots/LGN_BB_005_retry_success.png' });
+&gt; 73 |     expect(page.url()).not.toContain('login');
+     |                            ^
+  74 |   });
+  75 |
+  76 |   test('TC_LGN_BB_006 App version visible on login page', async ({ page }) =&gt;</pre>
+         </details></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_LGN_BB_006 App version visible on login page</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
-        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>5.8s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>5.1s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -2825,7 +2918,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-medium">Medium</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>5.0s</td>
+        <td>5.1s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3365,25 +3458,25 @@ Received: [31mfalse[39m
       </tr><tr class="module-header">
       <td colspan="9">17 · UX & Accessibility Black Box (Edge) &nbsp;
         <span style="font-weight:normal;font-size:11px;opacity:0.85">
-          6 tests — ✅ 3 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 2 Skipped
+          6 tests — ✅ 5 Pass &nbsp; ❌ 1 Fail &nbsp; ⚠️ 0 Blocked &nbsp; ⏭️ 0 Skipped
         </span>
-      </td></tr><tr class="status-Skipped">
+      </td></tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_UX_BB_015 Password field input is masked by default</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>4.3s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>9.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
+      </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_UX_BB_016 Login button is disabled / shows loading after click</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>4.9s</td>
+        <td><strong>✅ Pass</strong></td>
+        <td>8.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3393,7 +3486,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
-        <td>4.5s</td>
+        <td>4.6s</td>
         <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
         <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
           <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
@@ -3401,13 +3494,13 @@ Received: [31mfalse[39m
 Expected: [32mtrue[39m
 Received: [31mfalse[39m
 
-  239 |     await page.screenshot({ path: 'reports/screenshots/UX_BB_017_forgot_pass.png' });
-  240 |     const text = (await pageText(page)).toLowerCase();
-&gt; 241 |     expect(text.includes('forgot') || text.includes('reset') || text.includes('password?')).toBe(true);
+  233 |     await page.screenshot({ path: 'reports/screenshots/UX_BB_017_forgot_pass.png' });
+  234 |     const text = (await pageText(page)).toLowerCase();
+&gt; 235 |     expect(text.includes('forgot') || text.includes('reset') || text.includes('password?')).toBe(true);
       |                                                                                             ^
-  242 |   });
-  243 |
-  244 |   test('TC_UX_BB_018 No PHI v</pre>
+  236 |   });
+  237 |
+  238 |   test('TC_UX_BB_018 No PHI v</pre>
          </details></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
@@ -3416,7 +3509,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>33.2s</td>
+        <td>347.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3426,7 +3519,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>20.2s</td>
+        <td>45.6s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3436,7 +3529,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>46.8s</td>
+        <td>21.1s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3451,7 +3544,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>5.9s</td>
+        <td>6.3s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3461,7 +3554,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>18.1s</td>
+        <td>14.4s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3471,7 +3564,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>13.8s</td>
+        <td>42.2s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3481,7 +3574,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>39.9s</td>
+        <td>18.3s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3506,27 +3599,27 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>13.7s</td>
-        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
-        <td></td>
-        <td style="font-size:11px;color:#718096">—</td>
-      </tr><tr class="status-Skipped">
-        <td><span class="tc-id">TC_UNKNOWN</span></td>
-        <td class="scenario-text">TC_UX_BB_003 Error message on wrong login is plain English (not stack trace)</td>
-        <td><span class="badge badge-Negative">Negative</span></td>
-        <td><span class="sev-high">High</span></td>
-        <td><strong>⏭️ Skipped</strong></td>
-        <td>5.3s</td>
+        <td>43.0s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
         <td><span class="tc-id">TC_UNKNOWN</span></td>
+        <td class="scenario-text">TC_UX_BB_003 Error message on wrong login is plain English (not stack trace)</td>
+        <td><span class="badge badge-Negative">Negative</span></td>
+        <td><span class="sev-high">High</span></td>
+        <td><strong>✅ Pass</strong></td>
+        <td>12.0s</td>
+        <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
+        <td></td>
+        <td style="font-size:11px;color:#718096">—</td>
+      </tr><tr class="status-Skipped">
+        <td><span class="tc-id">TC_UNKNOWN</span></td>
         <td class="scenario-text">TC_UX_BB_004 Logout button has visible confirmation dialog</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
-        <td><strong>✅ Pass</strong></td>
-        <td>19.6s</td>
+        <td><strong>⏭️ Skipped</strong></td>
+        <td>43.0s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3536,7 +3629,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
-        <td>4.1s</td>
+        <td>6.7s</td>
         <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
         <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
           <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
@@ -3544,13 +3637,13 @@ Received: [31mfalse[39m
 Expected: [32mtrue[39m
 Received: [31mfalse[39m
 
-  73 |     await page.screenshot({ path: 'reports/screenshots/UX_BB_005_version.png' });
-  74 |     const text = (await pageText(page)).toLowerCase();
-&gt; 75 |     expect(text.includes('version') || text.includes('v1.') || text.includes('1.4')).toBe(true);
+  71 |     await page.screenshot({ path: 'reports/screenshots/UX_BB_005_version.png' });
+  72 |     const text = (await pageText(page)).toLowerCase();
+&gt; 73 |     expect(text.includes('version') || text.includes('v1.') || text.includes('1.4')).toBe(true);
      |                                                                                      ^
-  76 |   });
-  77 |
-  78 |   test('TC_UX_BB_006 Risk result has human-readable ri</pre>
+  74 |   });
+  75 |
+  76 |   test('TC_UX_BB_006 Risk result has human-readable ri</pre>
          </details></td>
         <td style="font-size:11px;color:#718096">—</td>
       </tr><tr class="status-Pass">
@@ -3559,7 +3652,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>17.8s</td>
+        <td>24.7s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3569,7 +3662,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>17.5s</td>
+        <td>18.3s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3579,7 +3672,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>✅ Pass</strong></td>
-        <td>20.0s</td>
+        <td>16.0s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3588,8 +3681,8 @@ Received: [31mfalse[39m
         <td class="scenario-text">TC_UX_BB_009 ECG feedback question is clearly worded</td>
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
-        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(1 retry)</span></td>
-        <td>35.8s</td>
+        <td><strong>✅ Pass</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
+        <td>40.5s</td>
         <td><a href="screenshots/test-finished-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-finished-1.png]</a></td>
         <td></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3599,7 +3692,7 @@ Received: [31mfalse[39m
         <td><span class="badge badge-Positive">Positive</span></td>
         <td><span class="sev-high">High</span></td>
         <td><strong>❌ Fail</strong><span style="font-size:10px;color:#d69e2e;margin-left:4px">(2 retry)</span></td>
-        <td>4.1s</td>
+        <td>4.2s</td>
         <td><a href="screenshots/test-failed-1.png" target="_blank" style="font-size:11px;color:#3182ce;margin-right:4px">[📸 test-failed-1.png]</a></td>
         <td><details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
           <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
@@ -3607,13 +3700,13 @@ Received: [31mfalse[39m
 Expected: [32mtrue[39m
 Received: [31mfalse[39m
 
-  153 |     const text = (await pageText(page)).toLowerCase();
-  154 |     // Should still have login elements visible
-&gt; 155 |     expect(text.includes('login') || text.includes('email') || text.includes('cardiocheck')).toBe(true);
+  151 |     const text = (await pageText(page)).toLowerCase();
+  152 |     // Should still have login elements visible
+&gt; 153 |     expect(text.includes('login') || text.includes('email') || text.includes('cardiocheck')).toBe(true);
       |                                                                                              ^
-  156 |   });
-  157 | });
-  158 |
+  154 |   });
+  155 | });
+  156 |
     at /home/reevakadroo/tricog-cardiocheck/tricog-cardiochec</pre>
          </details></td>
         <td style="font-size:11px;color:#718096">—</td>
@@ -3669,8 +3762,8 @@ Received: [31mfalse[39m
 </div>
 
 <footer>
-  Generated by Wrex QA Agent · Tricog CardioCheck v1.4.0 · Cycle 3 Full Coverage Run · 2026-05-07 07:08:22<br>
-  Total: 269 | Pass: 225 | Fail: 21 | Blocked: 0 | Skipped: 23 | Pass Rate: 83.6%
+  Generated by Wrex QA Agent · Tricog CardioCheck v1.4.0 · Cycle 3 Full Coverage Run · 2026-05-07 09:22:29<br>
+  Total: 269 | Pass: 237 | Fail: 26 | Blocked: 0 | Skipped: 6 | Pass Rate: 88.1%
 </footer>
 
 <script>
