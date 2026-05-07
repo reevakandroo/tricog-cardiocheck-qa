@@ -258,7 +258,8 @@ test.describe('TC_ECG_BB — Negative', () => {
 
   test('TC_ECG_BB_013 Navigate to ECG list without auth → login page', async ({ page }) => {
     await page.goto(`${APP_URL}/ecgs`, { waitUntil: 'domcontentloaded' });
-    await page.waitForTimeout(2500);
+    // Wait for Flutter's auth guard to redirect — fixed timing was too short
+    await page.waitForURL('**/login**', { timeout: 15000 }).catch(() => {});
     await page.screenshot({ path: 'reports/screenshots/ECG_BB_013_ecg_no_auth.png' });
     expect(page.url()).toContain('login');
   });

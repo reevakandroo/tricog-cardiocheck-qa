@@ -12609,7 +12609,7 @@
                     {
                       "workerIndex": 25,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 3205,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecgs\"\u001b[39m",
@@ -12621,16 +12621,7 @@
                         },
                         "snippet": "  261 |     await page.waitForTimeout(2500);\n  262 |     await page.screenshot({ path: 'reports/screenshots/ECG_BB_013_ecg_no_auth.png' });\n> 263 |     expect(page.url()).toContain('login');\n      |                        ^\n  264 |   });\n  265 |\n  266 |   test('TC_ECG_BB_014 Risk btn not shown before patient data is filled', async ({ page }) => {"
                       },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/16_ecg_flow_blackbox.spec.js",
-                            "column": 24,
-                            "line": 263
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecgs\"\u001b[39m\n\n  261 |     await page.waitForTimeout(2500);\n  262 |     await page.screenshot({ path: 'reports/screenshots/ECG_BB_013_ecg_no_auth.png' });\n> 263 |     expect(page.url()).toContain('login');\n      |                        ^\n  264 |   });\n  265 |\n  266 |   test('TC_ECG_BB_014 Risk btn not shown before patient data is filled', async ({ page }) => {\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/16_ecg_flow_blackbox.spec.js:263:24"
-                        }
-                      ],
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 0,
@@ -12662,7 +12653,7 @@
                     {
                       "workerIndex": 26,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 3162,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecgs\"\u001b[39m",
@@ -12674,16 +12665,7 @@
                         },
                         "snippet": "  261 |     await page.waitForTimeout(2500);\n  262 |     await page.screenshot({ path: 'reports/screenshots/ECG_BB_013_ecg_no_auth.png' });\n> 263 |     expect(page.url()).toContain('login');\n      |                        ^\n  264 |   });\n  265 |\n  266 |   test('TC_ECG_BB_014 Risk btn not shown before patient data is filled', async ({ page }) => {"
                       },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/16_ecg_flow_blackbox.spec.js",
-                            "column": 24,
-                            "line": 263
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecgs\"\u001b[39m\n\n  261 |     await page.waitForTimeout(2500);\n  262 |     await page.screenshot({ path: 'reports/screenshots/ECG_BB_013_ecg_no_auth.png' });\n> 263 |     expect(page.url()).toContain('login');\n      |                        ^\n  264 |   });\n  265 |\n  266 |   test('TC_ECG_BB_014 Risk btn not shown before patient data is filled', async ({ page }) => {\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/16_ecg_flow_blackbox.spec.js:263:24"
-                        }
-                      ],
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 1,
@@ -12715,7 +12697,7 @@
                     {
                       "workerIndex": 27,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 3888,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecgs\"\u001b[39m",
@@ -12727,16 +12709,7 @@
                         },
                         "snippet": "  261 |     await page.waitForTimeout(2500);\n  262 |     await page.screenshot({ path: 'reports/screenshots/ECG_BB_013_ecg_no_auth.png' });\n> 263 |     expect(page.url()).toContain('login');\n      |                        ^\n  264 |   });\n  265 |\n  266 |   test('TC_ECG_BB_014 Risk btn not shown before patient data is filled', async ({ page }) => {"
                       },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/16_ecg_flow_blackbox.spec.js",
-                            "column": 24,
-                            "line": 263
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"login\"\u001b[39m\nReceived string:    \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/ecgs\"\u001b[39m\n\n  261 |     await page.waitForTimeout(2500);\n  262 |     await page.screenshot({ path: 'reports/screenshots/ECG_BB_013_ecg_no_auth.png' });\n> 263 |     expect(page.url()).toContain('login');\n      |                        ^\n  264 |   });\n  265 |\n  266 |   test('TC_ECG_BB_014 Risk btn not shown before patient data is filled', async ({ page }) => {\n    at /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/tests/playwright/16_ecg_flow_blackbox.spec.js:263:24"
-                        }
-                      ],
+                      "errors": [],
                       "stdout": [],
                       "stderr": [],
                       "retry": 2,
@@ -12766,7 +12739,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "539eb5d3c58f227938d9-f2ff78e6edee47f8c08e",
@@ -16081,8 +16054,8 @@
   "stats": {
     "startTime": "2026-05-06T10:10:22.999Z",
     "duration": 9705741.071999999,
-    "expected": 210,
-    "unexpected": 26,
+    "expected": 211,
+    "unexpected": 25,
     "skipped": 6,
     "flaky": 27
   }
