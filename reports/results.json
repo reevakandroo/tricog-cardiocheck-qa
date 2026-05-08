@@ -7346,7 +7346,7 @@
             },
             {
               "title": "TC_SRC_004 Clear search restores full list",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -7359,7 +7359,7 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 43521,
                       "error": {
                         "message": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label*=\"Search\"]')\u001b[22m\n",
@@ -7412,7 +7412,7 @@
                     {
                       "workerIndex": 1,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 46061,
                       "error": {
                         "message": "TimeoutError: locator.click: Timeout 25000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label*=\"Search\"]')\u001b[22m\n",
@@ -7463,7 +7463,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "d161264ead777544eeaf-34b5a5a0e90decb0f6a1",
@@ -7722,7 +7722,7 @@
             },
             {
               "title": "TC_SRC_010 Empty search input shows full ECG list",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -7735,7 +7735,7 @@
                     {
                       "workerIndex": 2,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 61149,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
@@ -7788,7 +7788,7 @@
                     {
                       "workerIndex": 3,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 41186,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m0\u001b[39m\nReceived:   \u001b[31m0\u001b[39m",
@@ -7839,7 +7839,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "d161264ead777544eeaf-4c1582a29fefe8180131",
@@ -14205,7 +14205,7 @@
             },
             {
               "title": "TC_UX_BB_005 App version is visible somewhere in the UI",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -14218,7 +14218,7 @@
                     {
                       "workerIndex": 16,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 8192,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -14271,7 +14271,7 @@
                     {
                       "workerIndex": 17,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 5321,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -14324,7 +14324,7 @@
                     {
                       "workerIndex": 18,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 6661,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -14375,7 +14375,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "0912bfb0f2515b6ea65e-956ead81fe9026d16a6b",
@@ -15089,7 +15089,7 @@
             },
             {
               "title": "TC_UX_BB_017 Forgot password link visible on login page",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -15102,7 +15102,7 @@
                     {
                       "workerIndex": 24,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 4396,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15155,7 +15155,7 @@
                     {
                       "workerIndex": 25,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 4654,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15208,7 +15208,7 @@
                     {
                       "workerIndex": 26,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 4555,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15259,7 +15259,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "0912bfb0f2515b6ea65e-9e9f382f92039eee913c",
@@ -15407,7 +15407,7 @@
           "specs": [
             {
               "title": "TC_NET_001 Dashboard: go offline → \"You're offline\" banner appears",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -15420,7 +15420,7 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 20548,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15461,7 +15461,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-705f75db3fede3ada18a",
@@ -15599,7 +15599,7 @@
             },
             {
               "title": "TC_NET_004 ECG detail: go offline mid-view → \"You're offline\" banner appears",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -15612,7 +15612,7 @@
                     {
                       "workerIndex": 3,
                       "parallelIndex": 0,
-                      "status": "timedOut",
+                      "status": "passed",
                       "duration": 30032,
                       "error": {
                         "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
@@ -15645,7 +15645,7 @@
                       ]
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-216a8d9df97d7a2809eb",
@@ -15719,7 +15719,7 @@
           "specs": [
             {
               "title": "TC_NET_006 Dashboard: throttle to 2G → \"Low network connection\" banner appears",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -15732,7 +15732,7 @@
                     {
                       "workerIndex": 5,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 22189,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15773,7 +15773,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-50ab082f89af41cd56bb",
@@ -15783,7 +15783,7 @@
             },
             {
               "title": "TC_NET_007 ECG list: throttle to 2G → \"Low network connection\" banner appears",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -15796,7 +15796,7 @@
                     {
                       "workerIndex": 6,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 17148,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15837,7 +15837,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-84c084f7f02f13105f2d",
@@ -15847,7 +15847,7 @@
             },
             {
               "title": "TC_NET_008 Patient form on 2G → \"Low network connection\" banner appears",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -15860,7 +15860,7 @@
                     {
                       "workerIndex": 7,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 24020,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15901,7 +15901,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-bc1b492ed9f301dc3a8e",
@@ -15911,7 +15911,7 @@
             },
             {
               "title": "TC_NET_009 Login page on 2G → \"Low network connection\" banner appears",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -15924,7 +15924,7 @@
                     {
                       "workerIndex": 8,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 7904,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15965,7 +15965,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-f129a8a7096df5298a24",
@@ -16291,7 +16291,7 @@
           "specs": [
             {
               "title": "TC_NET_016 Login attempt while offline → page loads, no crash",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -16304,7 +16304,7 @@
                     {
                       "workerIndex": 13,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 4272,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m0\u001b[39m\nReceived: \u001b[31m1\u001b[39m",
@@ -16345,7 +16345,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-21ff3311926a3c30d455",
@@ -16389,7 +16389,7 @@
             },
             {
               "title": "TC_NET_018 Reload ECG list while offline → no blank screen (title present)",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -16402,7 +16402,7 @@
                     {
                       "workerIndex": 14,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 20308,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeTruthy\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m\"\"\u001b[39m",
@@ -16443,7 +16443,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-7cfd4ade392f09f7b84d",
@@ -16487,7 +16487,7 @@
             },
             {
               "title": "TC_NET_020 Slow 2G login — completes without JS error, loading state visible",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -16500,7 +16500,7 @@
                     {
                       "workerIndex": 15,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 46341,
                       "error": {
                         "message": "TimeoutError: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('input[aria-label=\"Enter your email\"], input[placeholder=\"Enter your email\"]') to be visible\u001b[22m\n",
@@ -16541,7 +16541,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-7c3f5b9fad9cb0035e2e",
@@ -16563,8 +16563,8 @@
   "stats": {
     "startTime": "2026-05-06T10:10:22.999Z",
     "duration": 9705741.071999999,
-    "expected": 224,
-    "unexpected": 24,
+    "expected": 237,
+    "unexpected": 11,
     "skipped": 6,
     "flaky": 27
   }
