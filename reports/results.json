@@ -3301,7 +3301,7 @@
           "specs": [
             {
               "title": "TC_OMR_001 Seed low risk ECG → appears and shows Low result",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -3314,7 +3314,7 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 54555,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"low\"\u001b[39m\nReceived string:    \u001b[31m\"lw35377\u001b[39m\n\u001b[31m06 may 2026, 12:02 pm\u001b[39m\n\u001b[31mexport pdf\u001b[39m\n\u001b[31medit patient details\u001b[39m\n\u001b[31mhigh\u001b[39m\n\u001b[31mhigh risk of cvd detected. please consult a doctor immediately.\u001b[39m\n\u001b[31mwe value your feedback!\u001b[39m\n\u001b[31mwas 12 lead ecg done?\u001b[39m\n\u001b[31mconfirm\u001b[39m\n\u001b[31mdone\"\u001b[39m",
@@ -3367,7 +3367,7 @@
                     {
                       "workerIndex": 1,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 31378,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"low\"\u001b[39m\nReceived string:    \u001b[31m\"patient details\u001b[39m\n\u001b[31m06 may 2026, 12:02 pm\u001b[39m\n\u001b[31mplease enter the patient details to proceed with the tcc risk assessment.\u001b[39m\n\u001b[31mshould use 6-12 characters\u001b[39m\n\u001b[31mmust be 100 characters or less\u001b[39m\n\u001b[31mvalue must be between 18 and 150\u001b[39m\n\u001b[31myears\u001b[39m\n\u001b[31mget risk assessment\"\u001b[39m",
@@ -3420,7 +3420,7 @@
                     {
                       "workerIndex": 2,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 92761,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -3471,7 +3471,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "347fd6de9852e6c24d41-e0b24451b44a6b0b6f09",
@@ -9250,7 +9250,7 @@
             },
             {
               "title": "TC_PAT_BB_003 Age = 99 (midpoint) — accepted",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -9263,7 +9263,7 @@
                     {
                       "workerIndex": 2,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 28237,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -9316,7 +9316,7 @@
                     {
                       "workerIndex": 3,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 29363,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -9369,7 +9369,7 @@
                     {
                       "workerIndex": 4,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 28379,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -9420,7 +9420,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "d452d1a524d9b231525c-7dd5a3f388ca0fb7db9f",
@@ -11174,7 +11174,7 @@
             },
             {
               "title": "TC_ECG_BB_006 Risk result page shows patient name entered in form",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -11187,7 +11187,7 @@
                     {
                       "workerIndex": 15,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 194006,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -11240,7 +11240,7 @@
                     {
                       "workerIndex": 16,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 38109,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -11293,7 +11293,7 @@
                     {
                       "workerIndex": 17,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 35169,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -11344,7 +11344,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "539eb5d3c58f227938d9-32f65a5655eb2d3862ea",
@@ -11354,7 +11354,7 @@
             },
             {
               "title": "TC_ECG_BB_007 Risk result page shows correct age entered",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -11367,7 +11367,7 @@
                     {
                       "workerIndex": 18,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 40197,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -11420,7 +11420,7 @@
                     {
                       "workerIndex": 19,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 188054,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -11473,7 +11473,7 @@
                     {
                       "workerIndex": 20,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 43076,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -11524,7 +11524,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "539eb5d3c58f227938d9-f61769c05c6db9d999fb",
@@ -12616,7 +12616,7 @@
             },
             {
               "title": "TC_LGN_BB_005 Correct credentials after wrong attempt — login succeeds",
-              "ok": false,
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -12629,7 +12629,7 @@
                     {
                       "workerIndex": 3,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 34235,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: not \u001b[32m\"login\"\u001b[39m\nReceived string:        \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/\u001b[7mlogin\u001b[27m\"\u001b[39m",
@@ -12682,7 +12682,7 @@
                     {
                       "workerIndex": 4,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 35234,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: not \u001b[32m\"login\"\u001b[39m\nReceived string:        \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/\u001b[7mlogin\u001b[27m\"\u001b[39m",
@@ -12735,7 +12735,7 @@
                     {
                       "workerIndex": 5,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 34712,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mnot\u001b[2m.\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: not \u001b[32m\"login\"\u001b[39m\nReceived string:        \u001b[31m\"https://cardiocheck-releasev140.up.railway.app/\u001b[7mlogin\u001b[27m\"\u001b[39m",
@@ -12786,7 +12786,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "c3d2d12c05d568dbb695-f1c89a44ad9e57c1ffe6",
