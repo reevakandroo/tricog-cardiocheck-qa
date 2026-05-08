@@ -70,7 +70,7 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
   <h1>Tricog CardioCheck v1.4.0 — QA Execution Report</h1>
   <div class="subtitle">Automated E2E Test Suite · Playwright · Cycle 3 — Full Coverage Run · 13 Modules · 281 Test Cases</div>
   <div class="meta-grid">
-    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-08 05:48:29</div></div>
+    <div class="meta-field"><label>Test Date</label><div class="val">2026-05-08 06:21:46</div></div>
     <div class="meta-field"><label>Tester</label><div class="val">Wrex QA Agent</div></div>
     <div class="meta-field"><label>App Version</label><div class="val">v1.4.0 (Railway)</div></div>
     <div class="meta-field"><label>Framework</label><div class="val">Playwright · Node.js</div></div>
@@ -411,19 +411,50 @@ footer { margin: 32px; font-size: 11px; color: #718096; text-align: center; }
 </div>
 
 <div class="alert-box" style="border-color:#d69e2e;background:#fffff0">
-  <div class="alert-title" style="color:#b7791f">⚠️ Critical App Bug: Session Expiry Mid-Workflow (Affects 6 Tests)</div>
-  <div style="font-size:12px;color:#4a5568;line-height:1.7;margin-top:8px">
-    <strong>Root Cause:</strong> The CardioCheck app session expires in approximately 3–5 minutes. Long test workflows
-    (ECG seed → patient form fill → risk assessment API call) regularly exceed this window, causing the app to silently
-    redirect to <code>/login</code> mid-flow. When the session is lost before the risk result is rendered,
-    the export icon never appears and these tests skip their precondition guard (<code>if exportBtn.count === 0 → test.skip</code>).<br><br>
+  <div class="alert-title" style="color:#b7791f">⚠️ Critical Infrastructure Warning: Server Sleep Causes Silent Mid-Workflow Failures (Affects 6 Tests)</div>
+
+  <!-- Plain English explanation -->
+  <div style="background:#fef9e7;border:1px solid #f6d860;border-radius:6px;padding:12px 16px;margin:10px 0 14px 0">
+    <div style="font-size:12px;font-weight:700;color:#92610a;margin-bottom:6px">🗣️ What This Means in Plain English</div>
+    <div style="font-size:12px;color:#4a5568;line-height:1.8">
+      Imagine a doctor opens a patient's ECG, carefully fills in the patient's name, age, and gender, then clicks
+      <strong>"Get Risk Assessment"</strong>. The app starts processing. After 60–90 seconds of waiting, the screen
+      suddenly goes white — and the login page appears. <strong>All the work is gone.</strong> The doctor has no idea
+      what happened or why.<br><br>
+      This is not the doctor doing anything wrong. The backend server (hosted on Railway) goes into a "sleep" mode
+      after periods of low traffic — similar to how a computer screen turns off when left idle. When a long-running
+      operation like risk assessment is in progress and the server sleeps mid-way, the app loses its connection,
+      catches the error silently, and redirects to the login page with no warning, no explanation, and no way to
+      recover the data that was just entered.<br><br>
+      <strong>Why the automated tests catch this but manual testing does not:</strong> When QA manually tests, the app
+      is actively being used — each click and navigation keeps the server awake. Automated tests have longer gaps
+      between steps (waiting for the ML result), which allows the server to sleep. The automated tests exposed a real
+      vulnerability: any real user who pauses mid-workflow — gets distracted, takes a phone call, or is simply waiting
+      for a slow result — is at the same risk.
+    </div>
+  </div>
+
+  <!-- Technical details -->
+  <div style="font-size:12px;color:#4a5568;line-height:1.7">
+    <strong>Corrected Root Cause:</strong> Railway free-tier server sleeps after periods of low HTTP activity.
+    Long automated workflows (ECG seed API → Flutter app load → patient form fill → risk assessment API call)
+    create idle gaps that trigger Railway sleep. When the server wakes, the Flutter app's active session/connection
+    is broken — it silently redirects to <code>/login</code>. Earlier this was misdiagnosed as session expiry;
+    manual testing confirmed the session itself does not expire. The proximate cause is backend unavailability,
+    not token TTL.<br><br>
     <strong>Affected Tests:</strong>
-    TC_RSK_002 (Moderate risk — <em>Fail</em>),
-    TC_RPT_002, TC_RPT_003, TC_RPT_008, TC_RPT_009, TC_RPT_011 (<em>Skipped</em>)<br><br>
-    <strong>Impact:</strong> Real-world users performing the same flow (open ECG → fill patient data → await risk result)
-    would be silently logged out mid-session, losing their work with no warning — a <strong>Critical UX and data safety issue</strong>.<br><br>
-    <strong>Recommended Fix:</strong> Increase session TTL to ≥ 30 minutes, implement silent token refresh on active use,
-    and add an explicit session-expiry warning dialog before auto-logout.
+    TC_RSK_001, TC_RSK_002, TC_RSK_003 (Risk results — reclassified as infrastructure artifact, not app bug) &nbsp;|&nbsp;
+    TC_RPT_002, TC_RPT_003, TC_RPT_008, TC_RPT_009, TC_RPT_011 (Report export — Skipped because export button
+    never appears when risk result doesn't render)<br><br>
+    <strong>Real-World Impact:</strong> In a production deployment on a stable server this specific sleep issue
+    disappears. However, the underlying architectural gap remains: the app has <strong>no session keep-alive</strong>
+    during background processing, no retry logic when the server drops mid-request, and no warning dialog before
+    auto-logout. A doctor in a busy clinic who gets interrupted mid-workflow will lose their data silently.<br><br>
+    <strong>Recommended Fix for Developers:</strong>
+    (1) Add a heartbeat/keep-alive API call every 60 seconds while a workflow is active.
+    (2) Implement silent token refresh on any user action.
+    (3) Add an explicit "Your session is about to expire" warning dialog with a "Stay logged in" button before auto-logout.
+    (4) On reconnection after a dropped session, restore the user to where they were rather than dumping them at login.
   </div>
 </div>
 
@@ -4084,7 +4115,7 @@ Received: [31mfalse[39m
 </div>
 
 <footer>
-  Generated by Wrex QA Agent · Tricog CardioCheck v1.4.0 · Cycle 3 Full Coverage Run · 2026-05-08 05:48:29<br>
+  Generated by Wrex QA Agent · Tricog CardioCheck v1.4.0 · Cycle 3 Full Coverage Run · 2026-05-08 06:21:46<br>
   Total: 281 | Pass: 251 | Fail: 23 | Blocked: 1 | Skipped: 6 | Pass Rate: 89.3%
 </footer>
 
