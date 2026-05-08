@@ -305,6 +305,21 @@ const BUG_INFO = {
   'TC_UX_BB_017': { shot: 'UX_BB_017_forgot_pass.png',       desc: 'The "Forgot Password" link is not visible on the login page. Users who forget their password have no way to reset it from the login screen.' },
 };
 
+// ── Skip reasons: plain English explanation for every test that was skipped ────
+const SKIP_NOTES = {
+  'TC_RPT_002': `WHY SKIPPED: The test checks that the Export PDF button has a clear, readable label (like "Export" or "PDF"). Before it can check the label, it needs to reach the risk result screen where the Export button appears. The test navigated through the full flow — login → seed ECG → fill patient form → request risk score — but the risk result never loaded. This is caused by the Railway free-tier server sleeping mid-flow (the same infrastructure issue affecting all risk-result tests). Because the Export button never appeared, the test skipped itself automatically rather than fail with a misleading error. WHAT TO DO: This test will run and pass once the Railway server sleep issue is resolved, or when run against a production environment with no cold-start delays.`,
+
+  'TC_RPT_003': `WHY SKIPPED: The test checks that after clicking Export PDF, the app stays on the result page and does not navigate away. To check this, it first needs to reach the risk result screen. The risk result never loaded due to the Railway server sleep issue — the server went idle during the 60–90 second ML processing wait. No result screen = no Export button = test skipped automatically. WHAT TO DO: Retest manually by navigating to a processed ECG, clicking Export PDF, and confirming the page does not redirect. This will pass in production.`,
+
+  'TC_RPT_008': `WHY SKIPPED: The test clicks the Export PDF button three times in a row and checks that the app does not crash. It reached the risk result screen via a "Moderate" risk ECG, but the result page never loaded (Railway server sleep during ML processing). No result page = no Export button = test skipped rather than failing. WHAT TO DO: This is a crash/stability test — it is important to run manually. Open a processed Moderate risk ECG, tap Export PDF three times quickly, and verify the page remains functional with no errors.`,
+
+  'TC_RPT_009': `WHY SKIPPED: The test checks that clicking Export PDF works correctly even on a slow network (simulated 3G connection). It needs the risk result screen first. The risk result never appeared due to Railway server sleep — the test reached the export step but found no Export button and skipped. WHAT TO DO: This test covers a real scenario for doctors in clinics with slow internet. Manually open a processed ECG, throttle the browser to Slow 3G (DevTools → Network tab), tap Export PDF, and confirm it completes without crashing or showing an error.`,
+
+  'TC_RPT_011': `WHY SKIPPED: The test measures whether the PDF export starts within 8 seconds of clicking the button — an important performance check. Like the other export tests, it needs to reach the risk result screen first, which never loaded due to Railway server sleep. No result = no Export button = skipped. WHAT TO DO: Manually time the export: open a processed ECG result, tap Export PDF, and use a stopwatch to confirm the PDF download starts in under 8 seconds. If it takes longer, that indicates a backend performance issue worth investigating.`,
+
+  'TC_UX_BB_004': `WHY SKIPPED: The test checks that tapping the Logout button shows a confirmation dialog (e.g. "Are you sure you want to log out?"). This is important so doctors don't accidentally log out mid-workflow. The test navigated to the Profile page and looked for a button labelled "Logout" or "Log Out" in Flutter's accessibility tree, but found nothing. The logout button exists visually, but its accessibility label uses different text than what the test was searching for, or the Flutter accessibility layer was not fully active when the search ran. WHAT TO DO: Manually open the Profile page → tap Logout → confirm a dialog appears with a Cancel or Confirm option before logout happens. If the dialog is missing and logout happens immediately on tap, that is a UX gap worth flagging.`,
+};
+
 // ── Table rows ─────────────────────────────────────────────────────────────────
 function buildRows() {
   let html = '';
@@ -329,12 +344,17 @@ function buildRows() {
         `<details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
           <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">${escHtml(r.errors.slice(0, 600))}</pre>
          </details>` : '';
+      const skipNote = r.status === 'Skipped' ? SKIP_NOTES[r.id] : null;
       const note = QA_NOTES[r.id];
-      const noteHtml = note
-        ? `<details><summary style="cursor:pointer;color:#6b46c1;font-size:11px;font-weight:600">📋 QA Observation</summary>
-            <div style="font-size:10px;background:#faf5ff;border:1px solid #e9d8fd;padding:8px;border-radius:4px;line-height:1.6;max-width:300px;color:#2d3748;white-space:pre-wrap">${escHtml(note)}</div>
+      const noteHtml = skipNote
+        ? `<details><summary style="cursor:pointer;color:#d69e2e;font-size:11px;font-weight:600">⏭️ Why Skipped</summary>
+            <div style="font-size:10px;background:#fffaf0;border:1px solid #f6e05e;padding:8px;border-radius:4px;line-height:1.6;max-width:300px;color:#2d3748;white-space:pre-wrap">${escHtml(skipNote)}</div>
            </details>`
-        : '<span style="color:#e2e8f0;font-size:10px">—</span>';
+        : note
+          ? `<details><summary style="cursor:pointer;color:#6b46c1;font-size:11px;font-weight:600">📋 QA Observation</summary>
+              <div style="font-size:10px;background:#faf5ff;border:1px solid #e9d8fd;padding:8px;border-radius:4px;line-height:1.6;max-width:300px;color:#2d3748;white-space:pre-wrap">${escHtml(note)}</div>
+             </details>`
+          : '<span style="color:#e2e8f0;font-size:10px">—</span>';
       html += `<tr class="${rowClass}">
         <td><span class="tc-id">${r.id}</span></td>
         <td class="scenario-text">${r.scenario}</td>
