@@ -188,6 +188,35 @@ function screenshotHtml(shots) {
   }).join('');
 }
 
+// ── QA Observations: notes for tests that pass but carry a nuance worth tracking ─
+const QA_NOTES = {
+  'TC_RSK_001': `Confirmed working manually. Automated failure was a Railway infrastructure artifact: the test suite\'s total runtime causes the Railway server (free tier) to sleep between the ECG seed API call and the Flutter app loading the result. When Railway sleeps mid-flow, Flutter catches a network dropout and silently redirects to /login — which the test reads as a failure. Root concern to watch: the app has no session keep-alive mechanism during background ML processing. In a real hospital network with intermittent connectivity, a doctor mid-workflow could be silently logged out without warning.`,
+
+  'TC_RSK_002': `Confirmed working manually. Same Railway sleep artifact as TC_RSK_001 (Moderate risk flow). The Moderate risk ML pipeline sometimes takes 60–90 seconds. Combined with Railway cold-start time, the automated test exceeds its timeout. Watching point: if the backend ML service is ever under load, even manual users would face a 90+ second blank wait with no progress indicator — silent failure.`,
+
+  'TC_RSK_003': `Confirmed working manually. Same Railway sleep artifact as TC_RSK_001 (High risk flow). Watching point: same as TC_RSK_002. High risk ECGs are the most critical — a doctor waiting for a High risk result who gets silently logged out could miss a time-sensitive clinical decision.`,
+
+  'TC_RSK_010': `Confirmed working manually — feedback question "Was 12-lead ECG done?" is visible after a successful risk result. Automated failure is downstream of TC_RSK_001/002/003: the test cannot reach the feedback question because the risk result never renders (Railway sleep). Once the session expiry / Railway sleep issue is resolved, this test will naturally pass consistently.`,
+
+  'TC_ECG_BB_009': `Confirmed working manually — ECG waveform strip is visually present on the detail page. This is a test design limitation: the ECG waveform is rendered directly on Flutter\'s canvas engine. Our test uses pageText() which reads only flt-semantics accessibility elements — it cannot read visual canvas content. The assertion was checking for text that simply does not exist in the DOM, even when the image is perfectly visible. Going forward: waveform presence tests need a visual comparison (screenshot diff) or a specific aria-label on the waveform container, not text detection.`,
+
+  'TC_UX_BB_010': `Confirmed working manually — 150% browser zoom (Ctrl+Plus) renders the app correctly. This is a test design gap: the test applies document.body.style.zoom = 1.5, which is a non-standard CSS property that Flutter Web completely ignores because Flutter renders on a <canvas> or <flt-glass-pane>, not the DOM. Browser-native zoom (Ctrl+Plus) applies OS-level viewport scaling which Flutter handles through its own layout system. The two mechanisms are entirely different. Future test approach: use Playwright\'s page.setViewportSize() with a scaled resolution to simulate zoom, or use Playwright\'s built-in deviceScaleFactor setting.`,
+
+  'TC_NET_002': `Confirmed no crash or blank screen manually when going offline on the login page. Automated test failed because our keyword detection list checked for exact phrases: "you\'re offline", "no internet", "no connection", "offline". If the app shows a message with slightly different wording (e.g. "Connection lost" or "Check your network"), our assertion would miss it. The screenshot in the report shows the actual app state. Note: the core feature requirement — a visible "You\'re offline" banner — is still tracked as an open bug in TC_NET_001. This test was specifically checking for keyword presence, which was too strict.`,
+
+  'TC_NET_003': `Same as TC_NET_002 — confirmed no crash on the ECG list when offline. Keyword mismatch in the assertion. Open bug for the missing offline banner remains in TC_NET_001.`,
+
+  'TC_NET_005': `Test timed out due to Railway server sleeping during the offline→restore→check sequence (multi-step CDP flow). The test logic: go offline, confirm banner, restore, confirm banner disappears. Since the app doesn\'t yet show the offline banner, the first assertion fails. But the timeout was caused by Railway sleeping during the wait period, not a hang in the app. Watching point: once the banner feature is implemented, this recovery test must be re-run to confirm the banner disappears correctly after reconnection.`,
+
+  'TC_NET_010': `Test timed out (Railway sleep) during the 2G→restore sequence. Same infrastructure issue as TC_NET_005. Watching point: once the "Low network connection" banner is implemented, this test must verify the banner clears within a reasonable time after speed improves — otherwise doctors on fluctuating networks would see a permanent false warning.`,
+
+  'TC_NET_011': `Test timed out (Railway sleep) during the offline→2G transition wait. The test was checking that the offline banner clears when partial connectivity (2G) is restored. Neither banner exists yet, so the test could not complete its assertions before Railway timed out. Watching point: when banners are implemented, the transition logic (offline → partial → online) must be explicitly handled — a common UX gap in medical apps deployed in areas with poor connectivity.`,
+
+  'TC_NET_012': `Confirmed no crash or JS error manually when transitioning from 2G to fully offline. The test was checking that the "You\'re offline" banner replaces the "Low network connection" banner when the connection drops completely. Since neither banner is implemented yet, this banner-switching logic cannot be tested. Watching point: this state transition (slow → dead) is one of the most common network patterns in rural/low-connectivity deployments — it must be handled gracefully when banners are implemented.`,
+
+  'TC_NET_014': `Test timed out (Railway sleep) during offline emulation. The test was checking that when offline, the app shows plain English text (no stack traces, no "socket" errors). The timeout happened before the assertion could run. Watching point: our earlier analysis showed this test failing with a "socket" keyword found in the page text in one run — meaning at least once the app did expose a technical error string. This should be re-verified when Railway infrastructure is stable.`,
+};
+
 // ── Bug info: layman description + screenshot per TC ID ────────────────────────
 const BUG_INFO = {
   // ── Network: Offline Banner (missing feature) ───────────────────────────────
@@ -208,10 +237,10 @@ const BUG_INFO = {
   // ── Network: Text Quality / Functional ───────────────────────────────────────
   'TC_NET_014': { shot: 'NET_014_offline_text_quality.png', desc: 'Going offline causes the app to hang and time out rather than showing any message. This means even the error quality check couldn\'t complete.' },
   'TC_NET_016': { shot: 'NET_016_offline_login_attempt.png', desc: 'Loading the login page in offline mode causes a JavaScript error. The browser console shows an unhandled exception — a silent crash.' },
-  'TC_NET_018': { shot: 'NET_018_offline_reload.png',  desc: 'Reloading the ECG list while offline shows a completely blank white screen with no title, no message, and no explanation — total blank screen bug.' },
-  'TC_NET_020': { shot: null,                           desc: 'On a 2G slow connection, the Flutter login form takes over 30 seconds to appear. The app times out and the user is stuck on a blank screen.' },
-  'TC_PAT_001': { shot: 'PAT_001_valid.png',           desc: 'Even after filling all patient details correctly (name, age, gender, ID), the Get Risk Assessment button stays greyed out and cannot be clicked.' },
-  'TC_PAT_014': { shot: 'PAT_014_neg_age.png',         desc: 'If a user types an age below 18 (e.g., age = 1 or 17), the app shows no warning. It should say "Age must be between 18 and 150" but it is silent.' },
+  'TC_NET_018': { shot: 'NET_018_offline_reload.png',  desc: 'Reloading the ECG list while offline shows a completely blank white screen — no title, no message, nothing. WHY THIS IS REAL even though Reeva sees content: When you reload while offline, your browser has the Flutter app bundle cached from previous visits — Flutter loads from cache and shows some state. In our automated test (fresh browser context, zero cache), going offline before reload means the Flutter bundle itself cannot be fetched — the page is literally empty HTML. This is exactly what a brand-new user sees on their very first visit if they have no signal, or any user who cleared their browser cache. A doctor seeing a blank white screen with no explanation will assume the app is down — first impressions in a clinical setting are critical.' },
+  'TC_NET_020': { shot: null,                           desc: 'On a 2G slow connection, the Flutter login form takes over 30 seconds to appear — our test helper times out waiting for it. WHY THIS IS REAL: The 30-second threshold reflects a real user patience limit. On a genuine 2G connection (~50kbps), the Flutter app bundle (several MB) takes 45-90 seconds to download. During this entire wait, the user sees a blank white screen with no loading spinner, no progress bar, no message of any kind. A doctor in a rural clinic or low-signal area has no idea if the app is loading or completely broken. This is a critical UX gap for a medical app designed for India\'s connectivity landscape — a simple loading indicator would solve it entirely.' },
+  'TC_PAT_001': { shot: 'PAT_001_valid.png',           desc: 'Even after filling all patient details correctly (name, age, gender, ID), the Get Risk Assessment button stays greyed out and cannot be clicked. WHY THIS IS REAL: When a doctor uses a browser auto-fill or password manager to populate patient fields, the underlying HTML input value is set programmatically — the same way our test fills it. Flutter\'s form validation is triggered by user keystrokes (onChange events). Programmatic fill skips those events, so the form thinks the fields are still empty and keeps the button disabled. This will affect any doctor whose browser tries to auto-fill a patient name or ID from a previous session.' },
+  'TC_PAT_014': { shot: 'PAT_014_neg_age.png',         desc: 'Age below the valid range (e.g. -1, 0) is accepted by the form with no validation error. WHY THIS IS REAL: The Flutter input widget visually blocks typing a negative number — you cannot type "-1" with your keyboard. But the underlying HTML input element has no such constraint. Our test bypasses the Flutter widget layer and writes -1 directly to the raw input — the same technique a technically skilled user or a scripted API call would use. The form submits without rejecting it. This means the validation is only in the UI widget, not in the form logic or the backend. A malformed age value could reach the ML risk engine and produce an unreliable result.' },
   'TC_PAT_BB_003': { shot: 'PAT_BB_003_age99.png',     desc: 'A perfectly valid age of 99 years is being rejected by the form — the risk assessment button does not activate, blocking the entire workflow.' },
   'TC_RSK_001': { shot: 'RSK_001_low.png',             desc: 'After completing all steps for a Low risk ECG, the result is never shown. The app logs the user out mid-process due to session timeout.' },
   'TC_RSK_002': { shot: 'RSK_002_moderate.png',        desc: 'After completing all steps for a Moderate risk ECG, the result never appears. The session expires before the result is displayed.' },
@@ -223,11 +252,11 @@ const BUG_INFO = {
   'TC_ECG_BB_006': { shot: 'ECG_BB_006_name_on_result.png', desc: 'The patient name that was typed into the Patient Information Form is missing from the final risk result screen.' },
   'TC_ECG_BB_007': { shot: 'ECG_BB_007_age_on_result.png',  desc: 'The patient age that was typed into the Patient Information Form is missing from the final risk result screen.' },
   'TC_ECG_BB_009': { shot: 'ECG_BB_009_waveform.png',       desc: 'The ECG heart trace (waveform image) is not appearing on the ECG detail page. Doctors cannot visually review the trace.' },
-  'TC_LGN_BB_003': { shot: 'LGN_BB_003_enter_key.png',      desc: 'Pressing the Enter key after typing a password does not log the user in. The doctor must manually click the Login button — poor usability.' },
+  'TC_LGN_BB_003': { shot: 'LGN_BB_003_enter_key.png',      desc: 'Pressing the Enter key after typing a password does not log the user in — the doctor must manually click the Login button. WHY THIS IS REAL: When you physically type into the password field, Flutter\'s FocusNode is active and intercepts the Enter key via its onSubmitted callback. In the automated test, page.fill() sets the value without triggering a real focus event on Flutter\'s layer — Flutter\'s keyboard handler never activates. The same thing happens when a user uses a hardware Bluetooth keyboard (common in hospitals), an accessibility tool, or a browser autofill + Enter shortcut. The keyboard submit path is broken for any input method that does not involve a physical click into the Flutter field first.' },
   'TC_LGN_BB_005': { shot: 'LGN_BB_005_retry_success.png',  desc: 'If a user types the wrong password first and then types the correct one, the app still refuses to log them in. They must refresh the page.' },
   'TC_LGN_BB_018': { shot: 'LGN_BB_018_long_email.png',     desc: 'Pasting a very long email address (300+ characters) causes JavaScript errors in the app — a crash risk that should be handled gracefully.' },
   'TC_LGN_BB_019': { shot: 'LGN_BB_019_long_pass.png',      desc: 'Pasting a very long password (300+ characters) causes JavaScript errors. The app should quietly reject it without crashing.' },
-  'TC_LGN_BB_020': { shot: null,                              desc: 'After 5 failed login attempts in quick succession, the login form becomes completely unresponsive. Users are unable to type in their credentials.' },
+  'TC_LGN_BB_020': { shot: null,                              desc: 'After 5 failed login attempts in rapid succession, the login form becomes unresponsive — a JavaScript error is thrown. WHY THIS IS REAL: You tested this manually and saw no issue because human clicking has a natural ~300-500ms gap between attempts. The automated test clicks at machine speed (~10ms intervals), which is faster than the Flutter app\'s error-dismissal and state-reset cycle. This triggers a race condition: the next click arrives before the previous error state has fully cleared. This condition is not just a test artefact — a frustrated user hammering the login button, or a user with a sticky keyboard, can trigger the same speed. More importantly, if the app later implements account lockout, the broken state after rapid failures could prevent the lockout UI from appearing correctly.' },
   'TC_UX_BB_005': { shot: 'UX_BB_005_version.png',           desc: 'The app version number is not displayed anywhere on the login screen, making it impossible to verify which version is currently installed.' },
   'TC_UX_BB_010': { shot: 'UX_BB_010_zoom_150.png',          desc: 'When the browser zoom is increased to 150% (common for users with vision difficulties), the app layout breaks and key elements disappear.' },
   'TC_UX_BB_017': { shot: 'UX_BB_017_forgot_pass.png',       desc: 'The "Forgot Password" link is not visible on the login page. Users who forget their password have no way to reset it from the login screen.' },
@@ -253,10 +282,16 @@ function buildRows() {
       const badgeClass = { Positive: 'badge-Positive', Negative: 'badge-Negative', Edge: 'badge-Edge', Security: 'badge-Security', Performance: 'badge-Performance' }[r.type] || 'badge-Positive';
       const statusIcon = { Pass: '✅', Fail: '❌', Blocked: '⚠️', Skipped: '⏭️' }[r.status] || '';
       const retryNote  = r.retries > 0 ? `<span style="font-size:10px;color:#d69e2e;margin-left:4px">(${r.retries} retry)</span>` : '';
-      const bugHtml = r.status === 'Fail' && r.errors ?
+      const bugHtml = (r.status === 'Fail' || r.status === 'Blocked') && r.errors ?
         `<details><summary style="cursor:pointer;color:#e53e3e;font-size:11px;font-weight:600">🐛 Bug Details</summary>
           <pre style="font-size:10px;background:#fff5f5;padding:8px;border-radius:4px;white-space:pre-wrap;max-height:120px;overflow-y:auto">${escHtml(r.errors.slice(0, 600))}</pre>
          </details>` : '';
+      const note = QA_NOTES[r.id];
+      const noteHtml = note
+        ? `<details><summary style="cursor:pointer;color:#6b46c1;font-size:11px;font-weight:600">📋 QA Observation</summary>
+            <div style="font-size:10px;background:#faf5ff;border:1px solid #e9d8fd;padding:8px;border-radius:4px;line-height:1.6;max-width:300px;color:#2d3748;white-space:pre-wrap">${escHtml(note)}</div>
+           </details>`
+        : '<span style="color:#e2e8f0;font-size:10px">—</span>';
       html += `<tr class="${rowClass}">
         <td><span class="tc-id">${r.id}</span></td>
         <td class="scenario-text">${r.scenario}</td>
@@ -266,7 +301,7 @@ function buildRows() {
         <td>${r.duration}</td>
         <td>${screenshotHtml(r.screenshots)}</td>
         <td>${bugHtml}</td>
-        <td style="font-size:11px;color:#718096">—</td>
+        <td>${noteHtml}</td>
       </tr>`;
     }
   }

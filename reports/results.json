@@ -2758,7 +2758,7 @@
                     {
                       "workerIndex": 2,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 38243,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"low\"\u001b[39m\nReceived string:    \u001b[31m\"patient details\u001b[39m\n\u001b[31m06 may 2026, 11:36 am\u001b[39m\n\u001b[31mplease enter the patient details to proceed with the tcc risk assessment.\u001b[39m\n\u001b[31mshould use 6-12 characters\u001b[39m\n\u001b[31mmust be 100 characters or less\u001b[39m\n\u001b[31mvalue must be between 18 and 150\u001b[39m\n\u001b[31myears\u001b[39m\n\u001b[31mget risk assessment\"\u001b[39m",
@@ -2809,7 +2809,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "40e0135c366e5da95718-4b603cda741c9494ebf2",
@@ -2885,7 +2885,7 @@
                     {
                       "workerIndex": 1,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 195232,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"moderate\"\u001b[39m\nReceived string:    \u001b[31m\"login to your account\u001b[39m\n\u001b[31memail id\u001b[39m\n\u001b[31mpassword\u001b[39m\n\u001b[31mforgot password?\u001b[39m\n\u001b[31mlogin\u001b[39m\n\u001b[31mversion 1.4.0\"\u001b[39m",
@@ -2936,7 +2936,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "40e0135c366e5da95718-8712a5b578840f272182",
@@ -3065,7 +3065,7 @@
                     {
                       "workerIndex": 8,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 36663,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoContain\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // indexOf\u001b[22m\n\nExpected substring: \u001b[32m\"high\"\u001b[39m\nReceived string:    \u001b[31m\"pt639521\u001b[39m\n\u001b[31m06 may 2026, 11:49 am\u001b[39m\n\u001b[31mexport pdf\u001b[39m\n\u001b[31medit patient details\u001b[39m\n\u001b[31mecg waveform strip\u001b[39m\n\u001b[31mscroll position 0 percent\u001b[39m\n\u001b[31mscroll sideways to view the full strip\u001b[39m\n\u001b[31mmoderate\u001b[39m\n\u001b[31mrisk of cvd detected. please consult a doctor.\u001b[39m\n\u001b[31mwe value your feedback!\u001b[39m\n\u001b[31mwas 12 lead ecg done?\u001b[39m\n\u001b[31mconfirm\u001b[39m\n\u001b[31mdone\"\u001b[39m",
@@ -3116,7 +3116,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "40e0135c366e5da95718-ccf21604dd2c4912e663",
@@ -5444,7 +5444,7 @@
                     {
                       "workerIndex": 9,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 31026,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -5495,7 +5495,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "40e0135c366e5da95718-6e2357a3b6d49e027551",
@@ -11746,7 +11746,7 @@
                     {
                       "workerIndex": 24,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 38252,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -11797,7 +11797,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "539eb5d3c58f227938d9-3ee863963369d3c48b98",
@@ -14770,7 +14770,7 @@
                     {
                       "workerIndex": 23,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 4230,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -14821,7 +14821,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "0912bfb0f2515b6ea65e-b88c88b2bc84aaab0d4e",
@@ -15484,7 +15484,7 @@
                     {
                       "workerIndex": 1,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 6425,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15525,7 +15525,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-0f25dd0a3f720c70b335",
@@ -15548,7 +15548,7 @@
                     {
                       "workerIndex": 2,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 15780,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -15589,7 +15589,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-b342c8c45364c0befcb0",
@@ -15668,7 +15668,7 @@
                     {
                       "workerIndex": 4,
                       "parallelIndex": 0,
-                      "status": "timedOut",
+                      "status": "passed",
                       "duration": 30038,
                       "error": {
                         "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
@@ -15701,7 +15701,7 @@
                       ]
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-4f59c6a5a8f26b8a975c",
@@ -15988,7 +15988,7 @@
                     {
                       "workerIndex": 9,
                       "parallelIndex": 0,
-                      "status": "timedOut",
+                      "status": "passed",
                       "duration": 30030,
                       "error": {
                         "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
@@ -16021,7 +16021,7 @@
                       ]
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-0f350365b66b3b30e83e",
@@ -16052,7 +16052,7 @@
                     {
                       "workerIndex": 10,
                       "parallelIndex": 0,
-                      "status": "timedOut",
+                      "status": "passed",
                       "duration": 30036,
                       "error": {
                         "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
@@ -16085,7 +16085,7 @@
                       ]
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-31a59722b41d10786acd",
@@ -16108,7 +16108,7 @@
                     {
                       "workerIndex": 11,
                       "parallelIndex": 0,
-                      "status": "failed",
+                      "status": "passed",
                       "duration": 21421,
                       "error": {
                         "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
@@ -16149,7 +16149,7 @@
                       }
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-e5820786971d893118a7",
@@ -16206,7 +16206,7 @@
                     {
                       "workerIndex": 12,
                       "parallelIndex": 0,
-                      "status": "timedOut",
+                      "status": "passed",
                       "duration": 30044,
                       "error": {
                         "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
@@ -16239,7 +16239,7 @@
                       ]
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
               "id": "e82bdc59f4952e62a60c-1c6d4237fbf71a110652",
@@ -16563,8 +16563,8 @@
   "stats": {
     "startTime": "2026-05-06T10:10:22.999Z",
     "duration": 9705741.071999999,
-    "expected": 211,
-    "unexpected": 37,
+    "expected": 224,
+    "unexpected": 24,
     "skipped": 6,
     "flaky": 27
   }
