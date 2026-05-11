@@ -14,6 +14,8 @@ const APP_URL    = 'https://cardiocheck-releasev140.up.railway.app';
 const LOGIN_URL  = `${APP_URL}/`;
 const USERNAME   = 'reeva.kandroo+8@tricog.com';
 const PASSWORD   = 'Tricog@1234';
+const USERNAME2  = 'reeva.kandroo+16@tricog.com';
+const PASSWORD2  = 'Tricog@1234';
 const MOCK_URL   = 'https://mock-omron-releasev140.up.railway.app/_mock/ingest/sample';
 const MOCK_TOKEN = 'mock-ingest-s3cr3t';
 const OMRON_ID   = '86f66e18-494a-4232-8f76-530276b38d3c';
@@ -309,7 +311,7 @@ async function hasValidationHint(page) {
 }
 
 module.exports = {
-  APP_URL, LOGIN_URL, USERNAME, PASSWORD, MOCK_URL, MOCK_TOKEN, OMRON_ID,
+  APP_URL, LOGIN_URL, USERNAME, PASSWORD, USERNAME2, PASSWORD2, MOCK_URL, MOCK_TOKEN, OMRON_ID,
   SEL_EMAIL, SEL_PASSWORD, SEL_LOGIN_BTN, SEL_ECG_ITEM, SEL_NEW_ECG,
   SEL_PATIENT_ID, SEL_PAT_NAME, SEL_AGE, SEL_GENDER_BTN, SEL_RISK_BTN, SEL_EXPORT_PDF,
   enableFlutterA11y, robustFill, clickButton, generateECG,
