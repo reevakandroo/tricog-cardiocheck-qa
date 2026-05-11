@@ -11,6 +11,7 @@
 
 ## Table of Contents
 
+0. [User Stories](#0-user-stories)
 1. [Scope](#1-scope)
 2. [Test Approach](#2-test-approach)
 3. [Test Types](#3-test-types)
@@ -23,6 +24,56 @@
 10. [Test Metrics](#10-test-metrics)
 11. [Automation Strategy](#11-automation-strategy)
 12. [Verification Matrix](#12-verification-matrix)
+
+---
+
+## 0. User Stories
+
+These are plain English descriptions of what a doctor (the primary user) needs from CardioCheck, written from their perspective. Each story explains who needs it, what they need, and why it matters to them.
+
+### Authentication & Access
+
+- **As a doctor, I want to log in with my email and password** so that only I can access my patients' ECG data and no one else can see it.
+- **As a doctor, I want the app to remember my session** so that I don't have to log in again every time I open it within a working session.
+- **As a doctor, I want to be automatically logged out when my session expires** so that a shared or unattended computer cannot be used to access patient data.
+- **As a doctor, I want to reset my password via email** so that I can regain access to the app if I forget my credentials.
+- **As a doctor, I want to review and accept the terms of use (EULA) before I can use the app** so that I understand my responsibilities when handling patient data.
+- **As a doctor, I want to be able to log out at any time** so that I can secure my account when I'm done or stepping away.
+
+### ECG Dashboard
+
+- **As a doctor, I want to see a list of all ECGs sent from the Omron device at my clinic** so that I know which patients are waiting for a risk assessment.
+- **As a doctor, I want new, unprocessed ECGs to be clearly marked** so that I can immediately identify which ones need my attention.
+- **As a doctor, I want to search for a specific ECG by patient name or ID** so that I can quickly find a patient's record without scrolling through the full list.
+- **As a doctor, I want ECGs to be sorted with the newest first** so that the most urgent cases appear at the top of my list.
+
+### Patient Information & Risk Assessment
+
+- **As a doctor, I want to enter a patient's ID, name, age, and gender for each ECG** so that the risk assessment is calculated correctly for that specific patient.
+- **As a doctor, I want the form to tell me clearly if I've entered invalid data** (e.g., age out of range, ID too short) so that I can correct it before submitting.
+- **As a doctor, I want to click a single "Get Risk Assessment" button** so that the app processes the ECG and gives me the risk result right away — no extra steps.
+- **As a doctor, I want the risk result to be clearly displayed as Low, Moderate, or High** so that I can make an informed clinical decision quickly.
+- **As a doctor, I want to see the patient's name and age on the result screen** so that I can confirm I'm looking at the right patient before acting on the result.
+
+### Clinical Feedback
+
+- **As a doctor, I want to submit my own clinical feedback on an ECG result** so that my professional judgement is recorded alongside the automated risk score.
+- **As a doctor, I want my submitted feedback to be saved and visible when I return to that ECG** so that there's a complete record of my assessment.
+
+### PDF Export
+
+- **As a doctor, I want to export a risk assessment result as a PDF** so that I can print it, attach it to the patient's physical file, or share it with a specialist.
+- **As a doctor, I want the exported PDF to include the patient's details and risk result** so that it is a complete, self-contained clinical document.
+
+### Profile & Multi-Center Support
+
+- **As a doctor, I want to view and update my profile details** so that my name and contact information in the system are always accurate.
+- **As a doctor working across multiple clinics, I want to switch between clinic centers** so that I only see the ECGs that belong to the clinic I'm currently working at.
+
+### Security & Privacy
+
+- **As a doctor, I want to know that patient data is never exposed in a browser URL** so that sensitive information is not accidentally shared or logged.
+- **As a doctor, I want the app to be inaccessible to anyone without a valid login** so that patient records are protected at all times, even if someone shares a direct link.
 
 ---
 
