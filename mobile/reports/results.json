@@ -1,0 +1,106 @@
+{
+  "config": {
+    "configFile": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/mobile/tests/playwright/playwright.config.js",
+    "rootDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/mobile/tests/playwright",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results",
+        "repeatEach": 1,
+        "retries": 2,
+        "metadata": {},
+        "id": "Pixel 5 Portrait",
+        "name": "Pixel 5 Portrait",
+        "testDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/mobile/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 180000
+      },
+      {
+        "outputDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results",
+        "repeatEach": 1,
+        "retries": 2,
+        "metadata": {},
+        "id": "Pixel 5 Landscape",
+        "name": "Pixel 5 Landscape",
+        "testDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/mobile/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/10_m_orientation*"
+        ],
+        "timeout": 180000
+      },
+      {
+        "outputDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/test-results",
+        "repeatEach": 1,
+        "retries": 2,
+        "metadata": {},
+        "id": "Galaxy S9+",
+        "name": "Galaxy S9+",
+        "testDir": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/mobile/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/01_m_auth*",
+          "**/02_m_dashboard*"
+        ],
+        "timeout": 180000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../../reports/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [],
+  "errors": [
+    {
+      "message": "SyntaxError: /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/mobile/tests/playwright/14_m_performance.spec.js: Unexpected token, expected \",\" (76:56)\n\n  74 |     await doLogin(page);\n  75 |     await page.waitForTimeout(3000);\n> 76 |     const mem1 = await page.evaluate(() => (performance as any).memory?.usedJSHeapSize || 0).catch(() => 0);\n     |                                                         ^\n  77 |     // Interact several times\n  78 |     for (let i = 0; i < 5; i++) {\n  79 |       await enableFlutterA11y(page, 500);",
+      "stack": "SyntaxError: /home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/mobile/tests/playwright/14_m_performance.spec.js: Unexpected token, expected \",\" (76:56)\n\n  74 |     await doLogin(page);\n  75 |     await page.waitForTimeout(3000);\n> 76 |     const mem1 = await page.evaluate(() => (performance as any).memory?.usedJSHeapSize || 0).catch(() => 0);\n     |                                                         ^\n  77 |     // Interact several times\n  78 |     for (let i = 0; i < 5; i++) {\n  79 |       await enableFlutterA11y(page, 500);",
+      "location": {
+        "file": "/home/reevakadroo/tricog-cardiocheck/tricog-cardiocheck-qa/mobile/tests/playwright/14_m_performance.spec.js",
+        "line": 76,
+        "column": 56
+      },
+      "snippet": "\u001b[90m   at \u001b[39m14_m_performance.spec.js:76\n\n  74 |     await doLogin(page);\n  75 |     await page.waitForTimeout(3000);\n> 76 |     const mem1 = await page.evaluate(() => (performance as any).memory?.usedJSHeapSize || 0).catch(() => 0);\n     |                                                        ^\n  77 |     // Interact several times\n  78 |     for (let i = 0; i < 5; i++) {\n  79 |       await enableFlutterA11y(page, 500);"
+    }
+  ],
+  "stats": {
+    "startTime": "2026-05-12T10:50:34.612Z",
+    "duration": 92.85199999999998,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
